@@ -1,0 +1,62 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+---
+
+<PublicLayout
+  title="Contact Us | The Sauna Guys"
+  description="Get in touch with The Sauna Guys. Visit our Tampa studio, call us, or send a message. We'd love to hear from you."
+>
+  <section class="section-dark py-24">
+    <div class="container text-center">
+      <h1 class="text-white">Contact Us</h1>
+    </div>
+  </section>
+  <div class="accent-line"></div>
+  <section class="section-light py-20">
+    <div class="container grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Contact Form (Netlify Forms) -->
+      <div>
+        <h2 class="mb-6">Send Us a Message</h2>
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-4">
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+          <div>
+            <label for="name" class="block text-sm font-bold mb-1">Name</label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal" />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-bold mb-1">Email</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal" />
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-bold mb-1">Phone (optional)</label>
+            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal" />
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-bold mb-1">Message</label>
+            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal"></textarea>
+          </div>
+          <button type="submit" class="px-8 py-3 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200">
+            Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Location Info + Map -->
+      <div>
+        <h2 class="mb-6">Visit Us</h2>
+        <address class="not-italic space-y-2 mb-8">
+          <p class="font-bold">The Sauna Guys - Tampa</p>
+          <p>3709 W Azeele St.</p>
+          <p>Tampa, FL 33609</p>
+          <p class="pt-2"><a href="tel:+18135514177" class="text-teal hover:underline">(813) 551-4177</a></p>
+          <p><a href="mailto:info@thesaunaguys.com" class="text-teal hover:underline">info@thesaunaguys.com</a></p>
+        </address>
+        <!-- Google Maps embed placeholder -->
+        <div class="bg-gray-200 rounded-xl h-64 flex items-center justify-center text-gray-500">
+          Map embed coming soon
+        </div>
+      </div>
+    </div>
+  </section>
+</PublicLayout>

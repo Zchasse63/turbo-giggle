@@ -1,0 +1,25 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+---
+
+<PublicLayout
+  title="Services & Pricing | The Sauna Guys"
+  description="Explore our sauna, cold plunge, and contrast therapy sessions. View pricing for memberships, class packs, and drop-in visits."
+>
+  <section class="section-dark py-24">
+    <div class="container text-center">
+      <h1 class="text-white mb-4">Services & Pricing</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        Choose the experience that's right for you.
+      </p>
+    </div>
+  </section>
+  <div class="accent-line"></div>
+  <section class="section-light py-20">
+    <div class="container">
+      <h2 class="text-center mb-12">Pricing</h2>
+      <!-- Pricing cards will be dynamically populated from Supabase pricing_plans -->
+      <p class="text-center text-gray-500">Pricing cards coming soon — powered by Supabase.</p>
+    </div>
+  </section>
+</PublicLayout>

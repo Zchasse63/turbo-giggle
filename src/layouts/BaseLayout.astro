@@ -1,0 +1,98 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = "Tampa's premier sauna and cold plunge wellness studio. Guided contrast therapy sessions for recovery, stress relief, and total body wellness.",
+  ogImage = '/images/og-default.jpg',
+  noIndex = false,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Sauna Guys" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Local Business Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "HealthAndBeautyBusiness",
+      "name": "The Sauna Guys",
+      "image": "https://thesaunaguys.com/images/logo.png",
+      "url": "https://thesaunaguys.com",
+      "telephone": "(813) 551-4177",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "3709 W Azeele St.",
+        "addressLocality": "Tampa",
+        "addressRegion": "FL",
+        "postalCode": "33609",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 27.9426,
+        "longitude": -82.4912
+      },
+      "description": description,
+      "priceRange": "$$",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "06:00",
+          "closes": "20:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/thesaunaguys/",
+        "https://www.facebook.com/thesaunaguystampa/"
+      ]
+    })} />
+
+    <!-- Preconnect to external services -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

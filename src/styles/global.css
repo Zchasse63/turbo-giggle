@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+/*
+ * ==============================================
+ * THE SAUNA GUYS — Design Tokens
+ * Source: DESIGN-GUIDE.md v2.2
+ * ==============================================
+ */
+
+@theme {
+  /* ── Brand Colors ── */
+  --color-teal: #2BBCCD;
+  --color-dark-teal: #23383D;
+  --color-gold: #E8A838;
+  --color-yellow: #FACB30;
+  --color-off-white: #FEFFFE;
+
+  /* ── Semantic aliases ── */
+  --color-primary: #2BBCCD;
+  --color-primary-dark: #23383D;
+  --color-accent: #E8A838;
+  --color-accent-line: #FACB30;
+
+  /* ── Dashboard Status Colors ── */
+  --color-status-active: #2BBCCD;
+  --color-status-at-risk: #e67e22;
+  --color-status-churned: #e74c3c;
+  --color-status-reactivated: #E8A838;
+
+  /* ── Tier Colors (chart) ── */
+  --color-tier-0: #2BBCCD;
+  --color-tier-1: #E8A838;
+  --color-tier-2: #E8A838;
+  --color-tier-3: #e67e22;
+  --color-tier-4: #e67e22;
+  --color-tier-5: #e67e22;
+  --color-tier-6: #e74c3c;
+  --color-tier-7: #e74c3c;
+  --color-tier-8: #e74c3c;
+  --color-tier-9: #e74c3c;
+
+  /* ── Typography ── */
+  --font-display: "Brice Bold Condensed", Impact, "Arial Black", sans-serif;
+  --font-heading: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --font-body: "Spinnaker", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+  /* ── Spacing / Layout ── */
+  --container-max: 1280px;
+  --section-padding-y: 5rem;
+  --section-padding-x: 1.5rem;
+
+  /* ── Borders / Radius ── */
+  --radius-pill: 60px;
+  --radius-card: 20px;
+  --radius-card-admin: 12px;
+
+  /* ── Shadows (Claymorphism for public pages) ── */
+  --shadow-clay: 8px 8px 16px rgba(0, 0, 0, 0.08), -4px -4px 12px rgba(255, 255, 255, 0.9), inset 1px 1px 2px rgba(255, 255, 255, 0.5);
+  --shadow-clay-hover: 12px 12px 24px rgba(0, 0, 0, 0.12), -6px -6px 18px rgba(255, 255, 255, 0.95), inset 1px 1px 2px rgba(255, 255, 255, 0.6);
+  --shadow-clay-pressed: inset 4px 4px 8px rgba(0, 0, 0, 0.06), inset -2px -2px 4px rgba(255, 255, 255, 0.7);
+
+  /* ── Transitions ── */
+  --transition-default: 200ms ease;
+  --transition-slow: 300ms ease;
+}
+
+/* ── Google Fonts: Spinnaker ── */
+@import url('https://fonts.googleapis.com/css2?family=Spinnaker&display=swap');
+
+/* ── @font-face for Brice Bold Condensed (self-hosted) ── */
+/* TODO: Download from Wix and add font files to /public/fonts/ */
+/*
+@font-face {
+  font-family: "Brice Bold Condensed";
+  src: url("/fonts/brice-bold-condensed.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+/* ── Base Styles ── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: #000;
+  background-color: #fff;
+  line-height: 1.6;
+}
+
+/* ── Typography Scale ── */
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 5vw, 4.375rem);
+  line-height: 1.0;
+  text-transform: uppercase;
+  color: var(--color-dark-teal);
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  line-height: 1.14;
+  text-transform: uppercase;
+  color: #000;
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: #000;
+}
+
+h6 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+/* ── Accent Divider ── */
+.accent-line {
+  height: 3px;
+  background-color: var(--color-yellow);
+  border: none;
+  width: 100%;
+}
+
+/* ── Section Patterns ── */
+.section-light {
+  background-color: #fff;
+  color: #000;
+}
+
+.section-dark {
+  background-color: var(--color-dark-teal);
+  color: #fff;
+}
+
+.section-dark h1,
+.section-dark h2 {
+  color: #fff;
+}
+
+/* ── Container ── */
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--section-padding-x);
+}

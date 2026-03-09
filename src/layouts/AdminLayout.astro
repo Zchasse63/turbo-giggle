@@ -1,0 +1,15 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<BaseLayout title={`${title} | TSG Admin`} noIndex={true}>
+  <div id="admin-root">
+    <slot />
+  </div>
+</BaseLayout>
