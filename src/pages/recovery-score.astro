@@ -1,0 +1,162 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import RecoveryCalculator from '../components/RecoveryCalculator.tsx';
+
+const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+---
+
+<PublicLayout
+  title="Recovery Score Calculator | The Sauna Guys"
+  description="Get your personalized contrast therapy recommendation based on your workout, sleep, and stress levels. Find out exactly what your body needs to recover."
+>
+  <!-- Hero -->
+  <HeroImage src="/images/cold-plunge.jpg" alt="Cold plunge recovery session" height="short">
+    <h1>Recovery Score Calculator</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      Find out exactly what your body needs. Answer four quick questions and get a personalized contrast therapy recommendation.
+    </p>
+  </HeroImage>
+
+  <div class="accent-line"></div>
+
+  <!-- Calculator Section -->
+  <Section variant="light">
+    <SectionHeading
+      title="Recovery Score Calculator"
+      subtitle="Find your personalized contrast therapy recommendation"
+    />
+    <RecoveryCalculator
+      client:load
+      bookingUrl={bookingUrl || '#'}
+    />
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- How It Works Section -->
+  <Section variant="dark">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title="How the Score Works" light />
+      <p class="text-lg text-white/80 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        Your Recovery Score is calculated from four factors, each weighted to reflect how much your body needs contrast therapy right now. The higher your score, the more your body will benefit from a guided session.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <Card variant="dark" class="p-6">
+          <h3 class="text-lg text-white mb-2">Workout Type and Intensity</h3>
+          <p class="text-white/70 text-sm leading-relaxed">
+            High-impact activities like CrossFit and strength training create more muscle damage and metabolic waste than low-impact work like yoga. The more demanding the workout, the more your body benefits from the vascular pump effect of contrast therapy.
+          </p>
+        </Card>
+        <Card variant="dark" class="p-6">
+          <h3 class="text-lg text-white mb-2">Sleep Quality</h3>
+          <p class="text-white/70 text-sm leading-relaxed">
+            Sleep is when your body does most of its repair work. Poor sleep means your natural recovery systems are compromised, making external recovery tools like contrast therapy even more valuable for clearing inflammation and restoring balance.
+          </p>
+        </Card>
+        <Card variant="dark" class="p-6">
+          <h3 class="text-lg text-white mb-2">Stress Level</h3>
+          <p class="text-white/70 text-sm leading-relaxed">
+            Chronic stress elevates cortisol and suppresses recovery. The combination of heat-induced endorphin release and cold-triggered norepinephrine helps regulate the nervous system and bring your body out of fight-or-flight mode.
+          </p>
+        </Card>
+        <Card variant="dark" class="p-6">
+          <h3 class="text-lg text-white mb-2">Combined Assessment</h3>
+          <p class="text-white/70 text-sm leading-relaxed">
+            These four factors combine into a single score from 0 to 100. The result maps to a specific contrast therapy protocol with recommended sauna duration, cold plunge time, and number of rounds tailored to your current recovery need.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Score Ranges Explained -->
+  <Section variant="light">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title="Understanding Your Score" />
+      <div class="space-y-4">
+        <Card variant="clay" class="p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <span class="inline-block w-16 text-center font-bold text-sm py-1 px-3 rounded-full bg-green-100 text-green-700 flex-shrink-0">0 - 30</span>
+            <div>
+              <h3 class="text-lg mb-1">Low Recovery Need</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                Your body is in good shape. A light session focused on relaxation and maintenance will keep you feeling your best. One to two rounds with shorter sauna and plunge times.
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card variant="clay" class="p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <span class="inline-block w-16 text-center font-bold text-sm py-1 px-3 rounded-full bg-teal/20 text-teal flex-shrink-0">31 - 60</span>
+            <div>
+              <h3 class="text-lg mb-1">Moderate Recovery Need</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                A standard contrast therapy session will help you recover effectively. Two to three full rounds with moderate sauna and cold plunge durations. Focus on steady breathing throughout.
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card variant="clay" class="p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <span class="inline-block w-16 text-center font-bold text-sm py-1 px-3 rounded-full bg-gold/20 text-dark-teal flex-shrink-0">61 - 80</span>
+            <div>
+              <h3 class="text-lg mb-1">High Recovery Need</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                Your body is calling for serious recovery work. An extended session with three to four rounds and longer cold plunge exposure will help flush metabolic waste and reduce inflammation.
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card variant="clay" class="p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <span class="inline-block w-16 text-center font-bold text-sm py-1 px-3 rounded-full bg-red-100 text-red-700 flex-shrink-0">81 - 100</span>
+            <div>
+              <h3 class="text-lg mb-1">Maximum Recovery Need</h3>
+              <p class="text-gray-600 text-sm leading-relaxed">
+                You need the full treatment. A guided session with maximum rounds, extended cold exposure, and dedicated post-session relaxation is recommended. Consider making contrast therapy a regular part of your routine.
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Bottom CTA -->
+  <Section variant="dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading
+        title="Ready to Recover?"
+        subtitle="Book a guided contrast therapy session and let our team help you get the most out of your recovery. Walk in stressed, walk out renewed."
+        light
+      />
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href={bookingUrl} variant="on-dark" target="_blank">
+          Book a Session
+        </Button>
+        <Button href="/contrast-therapy" variant="outline">
+          Learn About Contrast Therapy
+        </Button>
+      </div>
+
+      <!-- Related Links -->
+      <div class="mt-16 pt-8 border-t border-white/10">
+        <p class="text-sm text-white/50 uppercase tracking-wider mb-4">Related Tools and Guides</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/pricing-calculator" class="text-teal font-bold hover:underline">Membership Calculator &rarr;</a>
+          <a href="/contrast-therapy" class="text-teal font-bold hover:underline">Contrast Therapy Guide &rarr;</a>
+          <a href="/first-visit" class="text-teal font-bold hover:underline">First Visit Guide &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </Section>
+</PublicLayout>

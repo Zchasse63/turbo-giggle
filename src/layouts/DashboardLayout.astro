@@ -1,0 +1,201 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
+import type { UserRole } from '../lib/types';
+
+interface Props {
+  title: string;
+  activeNav?: string;
+}
+
+const { title, activeNav } = Astro.props;
+
+// User info from middleware locals
+const user = Astro.locals.user;
+const profile = Astro.locals.profile;
+const isAdmin = profile?.role === 'admin' || profile?.role === 'manager';
+const displayName = profile?.full_name || user?.email || 'Staff';
+
+// Navigation items
+const navItems = [
+  { href: '/dashboard', label: 'Clock In/Out', icon: 'clock', id: 'clock' },
+  { href: '/dashboard/hours', label: 'My Hours', icon: 'calendar', id: 'hours' },
+  { href: '/dashboard/profile', label: 'Profile', icon: 'user', id: 'profile' },
+];
+
+const adminItems = [
+  { href: '/dashboard/admin/team', label: 'Team', icon: 'users', id: 'team' },
+  { href: '/dashboard/admin/approvals', label: 'Approvals', icon: 'check', id: 'approvals' },
+];
+---
+
+<BaseLayout title={title} noIndex={true}>
+  <div class="min-h-screen bg-gray-50 flex" id="dashboard-root">
+    <!-- Sidebar (desktop) -->
+    <aside class="hidden md:flex md:flex-col w-64 bg-white border-r border-gray-200 fixed h-full z-30">
+      <!-- Logo -->
+      <div class="p-4 border-b border-gray-100">
+        <a href="/" class="flex items-center gap-3 cursor-pointer">
+          <img
+            src="/images/logo.png"
+            alt="The Sauna Guys"
+            width="40"
+            height="40"
+            class="rounded-full"
+          />
+          <div>
+            <p class="font-bold text-sm text-gray-900" style="font-family: var(--font-heading); text-transform: uppercase;">
+              The Sauna Guys
+            </p>
+            <p class="text-xs text-gray-400">Staff Dashboard</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Nav -->
+      <nav class="flex-1 p-4 space-y-1">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer',
+              activeNav === item.id
+                ? 'bg-teal/10 text-teal'
+                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+            ]}
+          >
+            <Icon name={item.icon} size={18} />
+            {item.label}
+          </a>
+        ))}
+
+        {isAdmin && (
+          <>
+            <div class="pt-4 pb-2">
+              <p class="text-xs font-bold uppercase tracking-wider text-gray-400 px-3">
+                Admin
+              </p>
+            </div>
+            {adminItems.map((item) => (
+              <a
+                href={item.href}
+                class:list={[
+                  'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer',
+                  activeNav === item.id
+                    ? 'bg-teal/10 text-teal'
+                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+                ]}
+              >
+                <Icon name={item.icon} size={18} />
+                {item.label}
+              </a>
+            ))}
+          </>
+        )}
+      </nav>
+
+      <!-- User info at bottom -->
+      <div class="p-4 border-t border-gray-100">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-teal/20 flex items-center justify-center text-teal font-bold text-sm">
+            {displayName.charAt(0).toUpperCase()}
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate">{displayName}</p>
+            <p class="text-xs text-gray-400 capitalize">{profile?.role || 'employee'}</p>
+          </div>
+        </div>
+        <form method="POST" action="/api/auth/logout" class="mt-3">
+          <button
+            type="submit"
+            class="w-full text-left text-xs text-gray-400 hover:text-red-500 transition-colors cursor-pointer px-3 py-1"
+          >
+            Sign Out
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <div class="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-30">
+      <div class="flex items-center justify-between px-4 py-3">
+        <div class="flex items-center gap-2">
+          <img
+            src="/images/logo.png"
+            alt="The Sauna Guys"
+            width="32"
+            height="32"
+            class="rounded-full"
+          />
+          <span class="font-bold text-sm" style="font-family: var(--font-heading); text-transform: uppercase;">
+            Dashboard
+          </span>
+        </div>
+        <button
+          id="mobile-menu-toggle"
+          class="p-2 text-gray-600 hover:text-gray-900 cursor-pointer"
+          aria-label="Toggle menu"
+        >
+          <Icon name="menu" size={24} />
+        </button>
+      </div>
+
+      <!-- Mobile nav (hidden by default) -->
+      <nav id="mobile-nav" class="hidden border-t border-gray-100 p-3 space-y-1 bg-white">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium cursor-pointer',
+              activeNav === item.id
+                ? 'bg-teal/10 text-teal'
+                : 'text-gray-600',
+            ]}
+          >
+            <Icon name={item.icon} size={18} />
+            {item.label}
+          </a>
+        ))}
+        {isAdmin && adminItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium cursor-pointer',
+              activeNav === item.id
+                ? 'bg-teal/10 text-teal'
+                : 'text-gray-600',
+            ]}
+          >
+            <Icon name={item.icon} size={18} />
+            {item.label}
+          </a>
+        ))}
+        <form method="POST" action="/api/auth/logout" class="pt-2 border-t border-gray-100 mt-2">
+          <button type="submit" class="text-xs text-gray-400 hover:text-red-500 cursor-pointer px-3 py-2">
+            Sign Out ({displayName})
+          </button>
+        </form>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <main class="flex-1 md:ml-64 pt-16 md:pt-0">
+      <div class="p-4 md:p-8 max-w-5xl">
+        <slot />
+      </div>
+    </main>
+  </div>
+
+  <!-- Mobile menu toggle script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      var toggle = document.getElementById('mobile-menu-toggle');
+      var nav = document.getElementById('mobile-nav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', function() {
+          nav.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,160 @@
+# The Sauna Guys — Full Context
+
+> Tampa's premier sauna and cold plunge wellness studio offering guided contrast therapy sessions for recovery, stress relief, and total body wellness.
+
+## Business Overview
+
+The Sauna Guys is a wellness studio in the Ybor City neighborhood of Tampa, Florida. We combine traditional Finnish sauna practices with modern cold plunge therapy in guided contrast therapy sessions. Our studio is designed for both newcomers and experienced wellness enthusiasts.
+
+### Mission
+To make the science-backed benefits of contrast therapy accessible, approachable, and community-driven in the Tampa Bay area.
+
+### What Makes Us Different
+- Guided sessions: Every visit includes coaching on breathing, timing, and technique
+- Contrast therapy focus: Not just sauna or just cold plunge, but the science-backed combination
+- Community-first approach: Group sessions that build connection
+- Evidence-based: Protocols informed by peer-reviewed research
+
+## Services & Offerings
+
+### Guided Contrast Therapy Session
+Our flagship offering. A 60-minute coached session guiding participants through multiple rounds of alternating between Finnish-style sauna (180-200F) and cold plunge tubs (38-42F). Sessions include breathwork coaching and are suitable for first-timers through experienced practitioners.
+
+### Private Studio Rental
+Book the entire studio for a private session. Ideal for date nights, friend groups, bachelor/bachelorette parties, corporate wellness events, and birthday celebrations.
+
+### Pricing Tiers
+- First Timer / Sampler: Introductory rate for new visitors
+- Drop-In: Single visit pricing
+- Monthly Memberships: Unlimited access on monthly billing
+- Class Packs: Bundles of 4, 8, or 12 sessions
+- Gift Cards: Available in $50, $100, $150, $200 denominations
+
+### Recovery Benefits
+Based on published research, regular contrast therapy practice may support:
+- Cardiovascular health and improved circulation
+- Reduced muscle soreness and faster recovery
+- Enhanced sleep quality
+- Stress reduction and mental clarity
+- Immune system support
+- Reduced inflammation
+- Mood elevation via endorphin and norepinephrine release
+
+## Facility Details
+
+### Sauna
+- Finnish-style dry sauna
+- Temperature range: 180-200 degrees Fahrenheit
+- Capacity for group sessions, cedar wood interior
+
+### Cold Plunge
+- Cold water immersion tubs at 38-42 degrees Fahrenheit
+- Filtered and sanitized water, multiple tub stations
+
+### Amenities
+- Changing rooms, towel service
+- Post-session relaxation area
+- Water and hydration station
+
+## First-Time Visitor Information
+
+### What to Bring
+- Swimsuit or athletic shorts
+- Water bottle
+- Change of clothes
+
+### What to Expect
+1. Arrive 10 minutes early for orientation
+2. Quick safety briefing and facility tour
+3. Guided warm-up in sauna (first round: shorter duration)
+4. Coached cold plunge immersion with breathwork
+5. Multiple rounds of hot-to-cold alternation
+6. Cool-down period with hydration
+7. Post-session relaxation
+
+## Content & Education
+
+### Blog Topics
+Evidence-based articles covering sauna science, cold plunge protocols, contrast therapy methodology, recovery tips for athletes, Tampa wellness community news, beginner guides, and health condition-specific considerations.
+
+### Pillar Guides
+1. Sauna Benefits: https://thesaunaguys.com/sauna-benefits
+2. Cold Plunge Guide: https://thesaunaguys.com/cold-plunge-guide
+3. Contrast Therapy: https://thesaunaguys.com/contrast-therapy
+
+## Location & Contact
+
+### Address
+1703 North 24th Street, Tampa, FL 33605 (Ybor City neighborhood)
+
+### Contact
+- Phone: (813) 551-4177
+- Email: hello@thesaunaguys.com
+
+### Operating Hours
+- Monday through Friday: 6:00 AM - 8:00 PM
+- Saturday and Sunday: 8:00 AM - 6:00 PM
+
+### Social Media
+- Instagram: https://www.instagram.com/thesaunaguys/
+- Facebook: https://www.facebook.com/thesaunaguystampa/
+
+## Technical Information
+
+- Website: https://thesaunaguys.com
+- Built with Astro (static site generation), hosted on Netlify
+- Booking via integrated GlowFox scheduling platform
+- Contact forms with Supabase lead capture
+- Structured data: LocalBusiness, BlogPosting, OpeningHoursSpecification
+
+## Neighborhood Guides
+
+We serve the greater Tampa Bay area. Our studio is easily accessible from:
+
+- South Tampa / Hyde Park: ~5 minute drive. Guide: https://thesaunaguys.com/near/south-tampa
+- Downtown Tampa / Water Street: ~8 minute drive. Guide: https://thesaunaguys.com/near/downtown-tampa
+- Seminole Heights: ~10 minute drive. Guide: https://thesaunaguys.com/near/seminole-heights
+- Ybor City: ~7 minute drive. Guide: https://thesaunaguys.com/near/ybor-city
+- Westchase / Carrollwood: ~15 minute drive. Guide: https://thesaunaguys.com/near/westchase
+- Brandon / Riverview: ~20 minute drive. Guide: https://thesaunaguys.com/near/brandon
+
+## Interactive Tools
+
+- Membership Calculator: https://thesaunaguys.com/pricing-calculator
+  Compare pricing across all membership options based on your planned visit frequency.
+
+- Recovery Score Calculator: https://thesaunaguys.com/recovery-score
+  Input your workout type, intensity, sleep quality, and stress level to get a personalized contrast therapy recommendation.
+
+## Partners
+
+We partner with Tampa's top fitness studios and wellness businesses to create a complete recovery ecosystem.
+
+- Cigar City CrossFit: Co-located in Ybor City, exclusive partner pricing for members
+- Partners Page: https://thesaunaguys.com/partners
+
+## Sitemap
+
+Main pages:
+- https://thesaunaguys.com/
+- https://thesaunaguys.com/services
+- https://thesaunaguys.com/about
+- https://thesaunaguys.com/first-visit
+- https://thesaunaguys.com/contact
+- https://thesaunaguys.com/faq
+- https://thesaunaguys.com/blog
+- https://thesaunaguys.com/gifts
+- https://thesaunaguys.com/book
+- https://thesaunaguys.com/pricing-calculator
+- https://thesaunaguys.com/recovery-score
+- https://thesaunaguys.com/partners
+
+Neighborhood guides:
+- https://thesaunaguys.com/near/south-tampa
+- https://thesaunaguys.com/near/downtown-tampa
+- https://thesaunaguys.com/near/seminole-heights
+- https://thesaunaguys.com/near/ybor-city
+- https://thesaunaguys.com/near/westchase
+- https://thesaunaguys.com/near/brandon
+
+XML Sitemap: https://thesaunaguys.com/sitemap-index.xml

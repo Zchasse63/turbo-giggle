@@ -1,0 +1,220 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { createSupabaseServerClient } from '../../../lib/supabase';
+
+const supabase = createSupabaseServerClient(Astro.cookies, Astro.request.headers);
+
+// Fetch import history
+const { data: imports } = await supabase
+  .from('csv_imports')
+  .select('*')
+  .order('week_number', { ascending: false })
+  .limit(20);
+
+// Fetch tier counts grouped by week_number and tier_number
+const { data: tierData } = await supabase
+  .from('member_snapshots')
+  .select('week_number, tier_number');
+
+// Aggregate tier counts per week
+type WeekTierMap = Record<number, Record<number, number>>;
+const weekTierCounts: WeekTierMap = {};
+
+if (tierData) {
+  for (const row of tierData) {
+    const wk = row.week_number;
+    const tier = row.tier_number ?? -1;
+    if (tier < 0 || tier > 9) continue;
+    if (!weekTierCounts[wk]) weekTierCounts[wk] = {};
+    weekTierCounts[wk][tier] = (weekTierCounts[wk][tier] || 0) + 1;
+  }
+}
+
+// Sort weeks descending to get latest two
+const sortedWeeks = Object.keys(weekTierCounts)
+  .map(Number)
+  .sort((a, b) => b - a);
+
+const thisWeek = sortedWeeks.length >= 1 ? sortedWeeks[0] : null;
+const lastWeek = sortedWeeks.length >= 2 ? sortedWeeks[1] : null;
+
+const thisWeekData = thisWeek !== null ? weekTierCounts[thisWeek] || {} : {};
+const lastWeekData = lastWeek !== null ? weekTierCounts[lastWeek] || {} : {};
+
+const hasSnapshotData = sortedWeeks.length > 0;
+const hasComparison = thisWeek !== null && lastWeek !== null;
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
+
+// Pre-compute comparison data to avoid JSX parser issues with < and > operators
+interface TierCompare {
+  tier: number;
+  current: number;
+  previous: number;
+  diff: number;
+  colorClass: string;
+  arrow: string;
+}
+
+const comparisonRows: TierCompare[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((tier) => {
+  const current = thisWeekData[tier] || 0;
+  const previous = lastWeekData[tier] || 0;
+  const diff = current - previous;
+  let colorClass = 'text-gray-400';
+  if (diff !== 0) {
+    if (tier <= 1) {
+      colorClass = diff > 0 ? 'text-green-600' : 'text-red-500';
+    } else {
+      colorClass = diff < 0 ? 'text-green-600' : 'text-red-500';
+    }
+  }
+  const arrow = diff > 0 ? '\u2191' : diff < 0 ? '\u2193' : '';
+  return { tier, current, previous, diff, colorClass, arrow };
+});
+
+const singleWeekRows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((tier) => ({
+  tier,
+  count: thisWeekData[tier] || 0,
+}));
+
+const lastWeekRows = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((tier) => ({
+  tier,
+  count: lastWeekData[tier] || 0,
+}));
+---
+
+<AdminLayout title="Tier Snapshots" activeNav="snapshots">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900" style="font-family: var(--font-heading);">
+      Tier Snapshots
+    </h1>
+    <p class="text-sm text-gray-500 mt-1">Week-over-week tier movement</p>
+  </div>
+
+  {!hasSnapshotData && (
+    <div class="bg-white rounded-xl p-12 text-center shadow-sm">
+      <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      </div>
+      <p class="text-gray-500 text-sm">No snapshot data yet. Import your first CSV to get started.</p>
+    </div>
+  )}
+
+  {hasComparison && (
+    <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-4" style="font-family: var(--font-heading);">
+        Week {thisWeek} vs Week {lastWeek}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- This Week -->
+        <div>
+          <h3 class="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">This Week (W{thisWeek})</h3>
+          <div class="space-y-2">
+            {comparisonRows.map((row) => (
+              <div class="flex items-center justify-between py-1.5 px-3 rounded-lg bg-gray-50">
+                <span class="text-sm font-medium text-gray-700">Tier {row.tier}</span>
+                <div class="flex items-center gap-3">
+                  <span class="text-sm font-mono font-semibold text-gray-900">{row.current}</span>
+                  {row.diff !== 0 && (
+                    <span class={`text-xs font-medium ${row.colorClass}`}>
+                      {row.arrow} {Math.abs(row.diff)}
+                    </span>
+                  )}
+                  {row.diff === 0 && (
+                    <span class="text-xs text-gray-400">&mdash;</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Last Week -->
+        <div>
+          <h3 class="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Last Week (W{lastWeek})</h3>
+          <div class="space-y-2">
+            {lastWeekRows.map((row) => (
+              <div class="flex items-center justify-between py-1.5 px-3 rounded-lg bg-gray-50">
+                <span class="text-sm font-medium text-gray-700">Tier {row.tier}</span>
+                <span class="text-sm font-mono font-semibold text-gray-900">{row.count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {hasSnapshotData && !hasComparison && (
+    <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
+      <h2 class="text-lg font-bold text-gray-900 mb-4" style="font-family: var(--font-heading);">
+        Week {thisWeek} — Current Tier Distribution
+      </h2>
+      <p class="text-sm text-gray-500 mb-4">Import another CSV to enable week-over-week comparison.</p>
+      <div class="space-y-2">
+        {singleWeekRows.map((row) => (
+          <div class="flex items-center justify-between py-1.5 px-3 rounded-lg bg-gray-50">
+            <span class="text-sm font-medium text-gray-700">Tier {row.tier}</span>
+            <span class="text-sm font-mono font-semibold text-gray-900">{row.count}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Import History Table -->
+  {imports && imports.length > 0 && (
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-gray-100">
+        <h2 class="text-lg font-bold text-gray-900" style="font-family: var(--font-heading);">
+          Import History
+        </h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 text-left">
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Week #</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Filename</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Total Rows</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">New</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Changes</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Upgrades</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Downgrades</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Reactivations</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Imported</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {imports.map((imp) => (
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-6 py-4 font-mono font-semibold text-gray-900">W{imp.week_number}</td>
+                <td class="px-6 py-4 text-gray-700 max-w-[200px] truncate">{imp.filename}</td>
+                <td class="px-6 py-4 text-right font-mono text-gray-700">{imp.total_rows.toLocaleString()}</td>
+                <td class="px-6 py-4 text-right font-mono text-gray-700">{imp.new_members}</td>
+                <td class="px-6 py-4 text-right font-mono text-gray-700">{imp.tier_changes}</td>
+                <td class="px-6 py-4 text-right font-mono text-green-600 font-medium">{imp.tier_upgrades}</td>
+                <td class="px-6 py-4 text-right font-mono text-red-500 font-medium">{imp.tier_downgrades}</td>
+                <td class="px-6 py-4 text-right font-mono text-amber-600 font-medium">{imp.reactivations}</td>
+                <td class="px-6 py-4 text-gray-500 text-xs whitespace-nowrap">{formatDate(imp.imported_at)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+</AdminLayout>

@@ -1,10 +1,25 @@
 ---
+import { getCollection } from 'astro:content';
 import PublicLayout from '../../layouts/PublicLayout.astro';
 import Section from '../../components/ui/Section.astro';
 import SectionHeading from '../../components/ui/SectionHeading.astro';
 import Card from '../../components/ui/Card.astro';
 import Icon from '../../components/ui/Icon.astro';
 import Button from '../../components/ui/Button.astro';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+
+const categoryLabels: Record<string, string> = {
+  'contrast-therapy': 'Contrast Therapy',
+  'recovery': 'Recovery',
+  'tampa-local': 'Tampa Local',
+  'first-timer': 'First Timer',
+  'community': 'Community',
+  'health-conditions': 'Health Conditions',
+};
 ---
 
 <PublicLayout
@@ -41,16 +56,67 @@ import Button from '../../components/ui/Button.astro';
       </a>
     </div>
 
-    <!-- Blog Posts Placeholder -->
+    <!-- Blog Posts Grid -->
     <SectionHeading title="Latest Articles" />
-    <div class="max-w-2xl mx-auto text-center">
-      <Card variant="clay" class="p-12">
-        <p class="text-gray-600 text-lg mb-6">
-          Blog posts coming soon — subscribe to be notified.
+
+    {posts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}`} class="group block">
+            <Card variant="clay" class="overflow-hidden h-full">
+              {post.data.heroImage && (
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.title}
+                  class="w-full aspect-video object-cover"
+                  loading="lazy"
+                />
+              )}
+              <div class="p-6">
+                <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">
+                  {categoryLabels[post.data.category] ?? post.data.category}
+                </span>
+                <h3 class="text-lg mb-2 group-hover:text-teal transition-colors" style="text-transform: none; font-size: 1.125rem;">
+                  {post.data.title}
+                </h3>
+                <p class="text-gray-600 text-sm line-clamp-3">{post.data.description}</p>
+                <time
+                  datetime={post.data.publishDate.toISOString()}
+                  class="text-xs text-gray-400 mt-3 block"
+                >
+                  {post.data.publishDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+              </div>
+            </Card>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="max-w-2xl mx-auto text-center">
+        <Card variant="clay" class="p-12">
+          <p class="text-gray-600 text-lg mb-6">
+            Blog posts coming soon — subscribe to be notified.
+          </p>
+        </Card>
+      </div>
+    )}
+
+    <!-- Email Subscribe Form -->
+    <div class="max-w-xl mx-auto text-center mt-16">
+      <Card variant="clay" class="p-10">
+        <h3 class="text-xl mb-2" style="text-transform: none; font-size: 1.25rem;">Stay in the Loop</h3>
+        <p class="text-gray-600 text-sm mb-6">
+          Get new articles on sauna science, recovery protocols, and Tampa wellness delivered to your inbox.
         </p>
-        <!-- Email Signup Placeholder -->
         <form name="blog-subscribe" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
           <input type="hidden" name="form-name" value="blog-subscribe" />
+          <input type="hidden" name="utm_source" />
+          <input type="hidden" name="utm_medium" />
+          <input type="hidden" name="utm_campaign" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
           <input
             type="email"
@@ -60,28 +126,10 @@ import Button from '../../components/ui/Button.astro';
             class="flex-grow px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal"
           />
           <Button type="submit" variant="primary">
-            Notify Me
+            Subscribe
           </Button>
         </form>
       </Card>
     </div>
-
-    <!-- Blog Post Grid (for future content collection) -->
-    <!--
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-      {posts.map((post) => (
-        <a href={`/blog/${post.slug}`} class="group block">
-          <Card variant="clay" class="overflow-hidden h-full">
-            <div class="aspect-video bg-gray-200"></div>
-            <div class="p-6">
-              <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">{post.data.category}</span>
-              <h3 class="text-lg mb-2 group-hover:text-teal transition-colors">{post.data.title}</h3>
-              <p class="text-gray-600 text-sm">{post.data.description}</p>
-            </div>
-          </Card>
-        </a>
-      ))}
-    </div>
-    -->
   </Section>
 </PublicLayout>

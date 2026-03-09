@@ -1,0 +1,112 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { createSupabaseServerClient } from '../../../lib/supabase';
+
+const supabase = createSupabaseServerClient(Astro.cookies, Astro.request.headers);
+
+// Fetch all imports ordered by most recent
+const { data: imports } = await supabase
+  .from('csv_imports')
+  .select('*')
+  .order('imported_at', { ascending: false });
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
+---
+
+<AdminLayout title="Import History" activeNav="imports">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900" style="font-family: var(--font-heading);">
+      Import History
+    </h1>
+    <p class="text-sm text-gray-500 mt-1">GlowFox CSV import log</p>
+  </div>
+
+  {imports && imports.length > 0 ? (
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-50 text-left">
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Week #</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Filename</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Total Rows</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">New Members</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Tier Changes</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Upgrades</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Downgrades</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Reactivations</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Imported By</th>
+              <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Imported At</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {imports.map((imp) => (
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-6 py-4">
+                  <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold font-mono bg-gray-100 text-gray-800">
+                    W{imp.week_number}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-gray-700">
+                  <span class="max-w-[200px] block truncate" title={imp.filename}>
+                    {imp.filename}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-right font-mono text-gray-700">
+                  {imp.total_rows.toLocaleString()}
+                </td>
+                <td class="px-6 py-4 text-right font-mono text-gray-700">
+                  {imp.new_members}
+                </td>
+                <td class="px-6 py-4 text-right font-mono text-gray-700">
+                  {imp.tier_changes}
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="font-mono font-medium text-green-600">
+                    {imp.tier_upgrades > 0 ? `+${imp.tier_upgrades}` : imp.tier_upgrades}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="font-mono font-medium text-red-500">
+                    {imp.tier_downgrades > 0 ? imp.tier_downgrades : imp.tier_downgrades}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-right">
+                  <span class="font-mono font-medium text-amber-600">
+                    {imp.reactivations}
+                  </span>
+                </td>
+                <td class="px-6 py-4 text-gray-500 text-xs whitespace-nowrap">
+                  {imp.imported_by || '\u2014'}
+                </td>
+                <td class="px-6 py-4 text-gray-500 text-xs whitespace-nowrap">
+                  {formatDate(imp.imported_at)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  ) : (
+    <div class="bg-white rounded-xl p-12 text-center shadow-sm">
+      <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+        </svg>
+      </div>
+      <p class="text-gray-500 text-sm">No imports yet. Use Claude Code to process your first GlowFox CSV export.</p>
+    </div>
+  )}
+</AdminLayout>

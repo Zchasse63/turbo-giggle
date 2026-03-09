@@ -1,0 +1,237 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import HeroImage from '../../components/ui/HeroImage.astro';
+import Section from '../../components/ui/Section.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Button from '../../components/ui/Button.astro';
+
+const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+---
+
+<PublicLayout
+  title="Cold Plunge Near Seminole Heights | The Sauna Guys Tampa"
+  description="Cold plunge and sauna therapy 10 minutes from Seminole Heights. Serving Old Seminole Heights and Central Avenue. Try 3 sessions for $60."
+>
+  <!-- Hero -->
+  <HeroImage src="/images/cold-plunge.jpg" alt="Cold plunge pool at The Sauna Guys near Seminole Heights" height="medium">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Cold Plunge & Sauna — 10 Minutes from Seminole Heights</h1>
+    <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
+      The Heights already has the best coffee, craft beer, and brunch in Tampa. Now add world-class cold plunge and sauna therapy to the neighborhood rotation — just a quick ride down Florida Avenue.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
+      <Button href="#location" variant="outline">Get Directions</Button>
+    </div>
+  </HeroImage>
+
+  <div class="accent-line"></div>
+
+  <!-- Quick Facts -->
+  <Section variant="light" id="quick-facts">
+    <div class="max-w-3xl mx-auto">
+      <Card variant="clay" class="p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from Seminole Heights</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="flex items-start gap-3">
+            <Icon name="clock" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">10-Minute Drive</p>
+              <p class="text-gray-600 text-sm">Straight down Florida Ave or Nebraska Ave — both routes are fast and direct with minimal lights.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="map-pin" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">1703 N 24th Street</p>
+              <p class="text-gray-600 text-sm">Right off the main corridor between Old Seminole Heights and Ybor. You've probably driven past it.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="compass" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">Free On-Site Parking</p>
+              <p class="text-gray-600 text-sm">Plenty of space in our dedicated lot. No circling the block like on Central Ave on a Saturday.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="calendar" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">Weekend Warrior Hours</p>
+              <p class="text-gray-600 text-sm">Sat-Sun 8 AM - 6 PM. Hit a morning session, then grab brunch at your favorite Heights spot after.</p>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Why Choose Us -->
+  <Section variant="light" id="why-choose-us">
+    <SectionHeading title="Why Heights Locals Love the Plunge" subtitle="Seminole Heights does things differently. So do we." />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="snowflake" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Cold Plunge Pools</h3>
+        <p class="text-gray-600 text-sm">Multiple tubs at bracing temperatures. The cold builds resilience, fights inflammation, and delivers an endorphin hit that lasts for hours.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="heart-pulse" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Contrast Therapy</h3>
+        <p class="text-gray-600 text-sm">Alternate between the sauna and cold plunge to supercharge circulation, reduce muscle soreness, and amplify recovery from your favorite Heights gym.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="leaf" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Natural Wellness</h3>
+        <p class="text-gray-600 text-sm">No supplements, no gimmicks. Just heat, cold, and breath. An intentional approach to wellness that fits the Heights ethos perfectly.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="users" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Neighborhood Vibe</h3>
+        <p class="text-gray-600 text-sm">We're not a corporate spa. We're a local studio built by Tampa people for Tampa people. Come as you are — flip-flops welcome.</p>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Sessions Overview -->
+  <Section variant="dark" id="sessions">
+    <SectionHeading title="Sessions Designed for You" subtitle="Whether you want guidance or independence, we've got a session that works" light />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="compass" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">1-Hour Guided</h3>
+        <p class="text-white/70 text-sm mb-4">Our coaches walk you through sauna rounds, breathwork, and cold plunge technique. No experience needed — just bring a towel and an open mind.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="sun" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">1-Hour Open</h3>
+        <p class="text-white/70 text-sm mb-4">Know the drill? Grab a spot and run your own program. Full access to sauna, cold plunge, and outdoor cool-down area.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="users" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">Women's Group</h3>
+        <p class="text-white/70 text-sm mb-4">Guided contrast therapy in a supportive, women-only environment. A growing favorite among Heights and Tampa locals alike.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Pricing CTA -->
+  <Section variant="light" id="intro-offer">
+    <div class="max-w-xl mx-auto text-center">
+      <Card variant="gold" class="p-8 relative">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
+          Best for First-Timers
+        </span>
+        <div class="flex justify-center mb-3">
+          <Icon name="gift" size={36} class="text-dark-teal" />
+        </div>
+        <h2 class="text-2xl font-bold mb-2">The Sauna Sampler</h2>
+        <p class="text-5xl font-bold text-dark-teal mb-2">$60</p>
+        <p class="text-black/70 mb-1">3 sessions to try us out</p>
+        <p class="text-black/60 text-sm mb-6">Three visits to find your rhythm — guided, open, or mix it up. Heights residents are making it a regular thing.</p>
+        <Button href={membershipUrl} variant="secondary" target="_blank">Get the Sampler</Button>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Google Maps -->
+  <Section variant="light" id="location">
+    <SectionHeading title="Find Us from Seminole Heights" subtitle="Straight down Florida Ave or Nebraska Ave — you'll be here in 10 minutes flat" />
+    <div class="rounded-[var(--radius-card)] overflow-hidden shadow-lg">
+      <iframe
+        src="https://maps.google.com/maps?q=1703+N+24th+St,+Tampa,+FL+33605&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        width="100%"
+        height="400"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map showing The Sauna Guys location near Seminole Heights"
+      ></iframe>
+    </div>
+    <div class="mt-6 text-center">
+      <p class="text-gray-600 mb-2">
+        <Icon name="map-pin" size={18} class="inline text-teal" /> 1703 North 24th Street, Tampa, FL 33605
+      </p>
+      <p class="text-gray-600 mb-2">
+        <Icon name="phone" size={18} class="inline text-teal" /> <a href="tel:8135514177" class="text-teal hover:underline">(813) 551-4177</a>
+      </p>
+      <p class="text-gray-600">
+        <Icon name="mail" size={18} class="inline text-teal" /> <a href="mailto:hello@thesaunaguys.com" class="text-teal hover:underline">hello@thesaunaguys.com</a>
+      </p>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Nearby Neighborhoods -->
+  <Section variant="teal" id="nearby">
+    <SectionHeading title="Explore More Neighborhoods" subtitle="We serve communities across the greater Tampa area" />
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+      <a href="/near/south-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">South Tampa</p>
+        <p class="text-xs text-gray-600">5 min drive</p>
+      </a>
+      <a href="/near/downtown-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Downtown Tampa</p>
+        <p class="text-xs text-gray-600">8 min drive</p>
+      </a>
+      <a href="/near/ybor-city" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Ybor City</p>
+        <p class="text-xs text-gray-600">7 min drive</p>
+      </a>
+      <a href="/near/westchase" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Westchase</p>
+        <p class="text-xs text-gray-600">15 min drive</p>
+      </a>
+      <a href="/near/brandon" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Brandon</p>
+        <p class="text-xs text-gray-600">20 min drive</p>
+      </a>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Bottom CTA -->
+  <Section variant="dark" id="book-now">
+    <div class="text-center">
+      <SectionHeading
+        title="The Coldest Plunge in Tampa Awaits"
+        subtitle="Seminole Heights already has the best vibes. Now add the best cold plunge to your routine."
+        light
+      />
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
+        <Button href={membershipUrl} variant="outline" target="_blank">View Memberships</Button>
+      </div>
+    </div>
+  </Section>
+</PublicLayout>

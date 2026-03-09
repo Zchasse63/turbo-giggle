@@ -4,48 +4,65 @@
 
 ## About
 
-The Sauna Guys is a wellness studio located in Tampa, Florida, specializing in traditional Finnish sauna and cold plunge experiences. We offer guided contrast therapy sessions designed for recovery, stress relief, and total body wellness.
-
-## Location
-
-3709 W Azeele St, Tampa, FL 33609
-Phone: (813) 551-4177
-Email: hello@thesaunaguys.com
-
-## Hours
-
-Monday-Friday: 6:00 AM - 8:00 PM
-Saturday-Sunday: 8:00 AM - 6:00 PM
+The Sauna Guys is a wellness studio located at 1703 North 24th Street, Tampa, FL 33605. We specialize in guided contrast therapy — alternating between sauna heat and cold plunge immersion for recovery, stress relief, and total body wellness.
 
 ## Services
 
-- **Guided Sauna Sessions**: Traditional Finnish sauna at 190°F with guided timing protocols
-- **Cold Plunge**: Ice-cold water immersion at 42°F for recovery and mental clarity
-- **Contrast Therapy**: Alternating hot-cold cycles with guided protocols
-- **Private Bookings**: Private group sessions for events and teams ($375)
-- **Women's Sessions**: Dedicated women-only session times
-
-## Pricing
-
-- Drop-In: $39 per session
-- Sauna Sampler: $60 for 3 sessions (best for first-timers)
-- 5-Class Pack: $120
-- 10-Class Pack: $225
-- Monthly 4x: $120/month
-- Monthly 8x: $180/month
-- Monthly Unlimited: $225/month
+- Guided Contrast Therapy: 60-minute coached sessions alternating sauna (180-200F) and cold plunge (38-42F)
+- Private Rentals: Book the entire studio for private sessions
+- First-Time Sessions: Introductory guided sessions for beginners
+- Memberships: Monthly unlimited access plans
+- Class Packs: Multi-session bundles (4, 8, 12 sessions)
+- Gift Cards: Available in multiple denominations
 
 ## Key Pages
 
 - Homepage: https://thesaunaguys.com/
 - Services & Pricing: https://thesaunaguys.com/services
+- About Us: https://thesaunaguys.com/about
 - First Visit Guide: https://thesaunaguys.com/first-visit
-- Book a Session: https://thesaunaguys.com/book
-- Blog: https://thesaunaguys.com/blog
-- FAQ: https://thesaunaguys.com/faq
 - Contact: https://thesaunaguys.com/contact
+- FAQ: https://thesaunaguys.com/faq
+- Blog: https://thesaunaguys.com/blog
+- Gift Cards: https://thesaunaguys.com/gifts
 
-## Social
+## Pillar Content
 
-- Instagram: https://www.instagram.com/thesaunaguys/
-- Facebook: https://www.facebook.com/thesaunaguystampa/
+- Sauna Benefits Guide: https://thesaunaguys.com/sauna-benefits
+- Cold Plunge Guide: https://thesaunaguys.com/cold-plunge-guide
+- Contrast Therapy Guide: https://thesaunaguys.com/contrast-therapy
+
+## Neighborhood Guides
+
+- Sauna Near South Tampa: https://thesaunaguys.com/near/south-tampa
+- Sauna Near Downtown Tampa: https://thesaunaguys.com/near/downtown-tampa
+- Cold Plunge Near Seminole Heights: https://thesaunaguys.com/near/seminole-heights
+- Sauna Near Westchase & Carrollwood: https://thesaunaguys.com/near/westchase
+- Sauna Near Ybor City: https://thesaunaguys.com/near/ybor-city
+- Cold Plunge Near Brandon: https://thesaunaguys.com/near/brandon
+
+## Tools
+
+- Membership Calculator: https://thesaunaguys.com/pricing-calculator
+- Recovery Score Calculator: https://thesaunaguys.com/recovery-score
+
+## Partners
+
+- Our Partners: https://thesaunaguys.com/partners
+
+## Contact
+
+- Phone: (813) 551-4177
+- Email: hello@thesaunaguys.com
+- Address: 1703 North 24th Street, Tampa, FL 33605
+- Instagram: @thesaunaguys
+- Facebook: /thesaunaguystampa
+
+## Hours
+
+Weekdays: 6:00 AM - 8:00 PM
+Weekends: 8:00 AM - 6:00 PM
+
+## Full Documentation
+
+For comprehensive information see: https://thesaunaguys.com/llms-full.txt

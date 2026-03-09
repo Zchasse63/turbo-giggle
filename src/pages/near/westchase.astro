@@ -1,0 +1,237 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import HeroImage from '../../components/ui/HeroImage.astro';
+import Section from '../../components/ui/Section.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Button from '../../components/ui/Button.astro';
+
+const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+---
+
+<PublicLayout
+  title="Sauna Near Westchase & Carrollwood | The Sauna Guys Tampa"
+  description="Sauna and cold plunge 15 minutes from Westchase and Carrollwood. Tampa's top-rated contrast therapy studio. Try 3 sessions for just $60."
+>
+  <!-- Hero -->
+  <HeroImage src="/images/community.jpg" alt="Sauna community session at The Sauna Guys near Westchase" height="medium">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Sauna & Cold Plunge — Worth the 15-Minute Drive from Westchase</h1>
+    <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
+      Westchase and Carrollwood residents are discovering Tampa's best-kept wellness secret. A quick trip down Veterans Expressway brings you to a studio built for serious heat and serious cold.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
+      <Button href="#location" variant="outline">Get Directions</Button>
+    </div>
+  </HeroImage>
+
+  <div class="accent-line"></div>
+
+  <!-- Quick Facts -->
+  <Section variant="light" id="quick-facts">
+    <div class="max-w-3xl mx-auto">
+      <Card variant="clay" class="p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from Westchase & Carrollwood</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="flex items-start gap-3">
+            <Icon name="clock" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">15-Minute Drive</p>
+              <p class="text-gray-600 text-sm">Take Veterans Expressway south to I-275, then hop onto I-4 east. Simple highway route with no surface-street maze.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="map-pin" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">1703 N 24th Street</p>
+              <p class="text-gray-600 text-sm">Located near the intersection of Ybor and the Heights, just off the I-4 corridor.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="compass" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">Free On-Site Parking</p>
+              <p class="text-gray-600 text-sm">Drive straight into our dedicated lot. No searching, no paying — just park and walk in.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="calendar" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">Flexible Scheduling</p>
+              <p class="text-gray-600 text-sm">Mon-Fri 6 AM - 8 PM, weekends 8 AM - 6 PM. Plenty of time slots to fit the Westchase work-life juggle.</p>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Why Choose Us -->
+  <Section variant="light" id="why-choose-us">
+    <SectionHeading title="Why the Drive Is Worth It" subtitle="There's nothing like this in Westchase or Carrollwood. Here's what makes the trip a no-brainer." />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="thermometer-sun" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">190 F+ Dry Sauna</h3>
+        <p class="text-gray-600 text-sm">Not a lukewarm gym sauna. Our Finnish-style barrel sauna delivers authentic, deep-penetrating heat that leaves your muscles feeling brand new.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="snowflake" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Cold Plunge Tubs</h3>
+        <p class="text-gray-600 text-sm">Multiple cold plunge pools kept at temperatures that actually challenge you. This is contrast therapy done right — not a chilly pool dip.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="dumbbell" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Athletic Recovery</h3>
+        <p class="text-gray-600 text-sm">Perfect for the fitness-focused Westchase crowd. Pair your gym session or CrossFit WOD with heat and cold therapy for faster, deeper recovery.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="sparkles" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Boutique Experience</h3>
+        <p class="text-gray-600 text-sm">Small groups, clean facilities, and a personal touch you won't find at a chain. Towels, showers, and full 60-minute sessions included every visit.</p>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Sessions Overview -->
+  <Section variant="dark" id="sessions">
+    <SectionHeading title="Three Ways to Experience It" subtitle="Every session includes full access to our sauna, cold plunge, and shower facilities" light />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="compass" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">1-Hour Guided</h3>
+        <p class="text-white/70 text-sm mb-4">Perfect for your first visit. A coach leads you through timed sauna rounds, breathwork techniques, and cold plunge coaching step by step.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="sun" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">1-Hour Open</h3>
+        <p class="text-white/70 text-sm mb-4">You set the pace. Full facility access to run your own hot-cold cycles on your schedule. Great for returning members who know what they like.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="users" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">Women's Group</h3>
+        <p class="text-white/70 text-sm mb-4">A guided contrast therapy session in a women-only setting. A growing community of Westchase and Carrollwood women unwind here weekly.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Pricing CTA -->
+  <Section variant="light" id="intro-offer">
+    <div class="max-w-xl mx-auto text-center">
+      <Card variant="gold" class="p-8 relative">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
+          Best for First-Timers
+        </span>
+        <div class="flex justify-center mb-3">
+          <Icon name="gift" size={36} class="text-dark-teal" />
+        </div>
+        <h2 class="text-2xl font-bold mb-2">The Sauna Sampler</h2>
+        <p class="text-5xl font-bold text-dark-teal mb-2">$60</p>
+        <p class="text-black/70 mb-1">3 sessions to try us out</p>
+        <p class="text-black/60 text-sm mb-6">Three visits for one low price. Enough to try guided, open, and women's sessions and find the format that fits your lifestyle.</p>
+        <Button href={membershipUrl} variant="secondary" target="_blank">Get the Sampler</Button>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Google Maps -->
+  <Section variant="light" id="location">
+    <SectionHeading title="Find Us from Westchase" subtitle="Veterans Expressway to I-275 to I-4 — a smooth 15-minute highway ride" />
+    <div class="rounded-[var(--radius-card)] overflow-hidden shadow-lg">
+      <iframe
+        src="https://maps.google.com/maps?q=1703+N+24th+St,+Tampa,+FL+33605&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        width="100%"
+        height="400"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map showing The Sauna Guys location near Westchase and Carrollwood"
+      ></iframe>
+    </div>
+    <div class="mt-6 text-center">
+      <p class="text-gray-600 mb-2">
+        <Icon name="map-pin" size={18} class="inline text-teal" /> 1703 North 24th Street, Tampa, FL 33605
+      </p>
+      <p class="text-gray-600 mb-2">
+        <Icon name="phone" size={18} class="inline text-teal" /> <a href="tel:8135514177" class="text-teal hover:underline">(813) 551-4177</a>
+      </p>
+      <p class="text-gray-600">
+        <Icon name="mail" size={18} class="inline text-teal" /> <a href="mailto:hello@thesaunaguys.com" class="text-teal hover:underline">hello@thesaunaguys.com</a>
+      </p>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Nearby Neighborhoods -->
+  <Section variant="teal" id="nearby">
+    <SectionHeading title="Explore More Neighborhoods" subtitle="Serving communities across the entire Tampa Bay area" />
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+      <a href="/near/south-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">South Tampa</p>
+        <p class="text-xs text-gray-600">5 min drive</p>
+      </a>
+      <a href="/near/downtown-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Downtown Tampa</p>
+        <p class="text-xs text-gray-600">8 min drive</p>
+      </a>
+      <a href="/near/ybor-city" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Ybor City</p>
+        <p class="text-xs text-gray-600">7 min drive</p>
+      </a>
+      <a href="/near/seminole-heights" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Seminole Heights</p>
+        <p class="text-xs text-gray-600">10 min drive</p>
+      </a>
+      <a href="/near/brandon" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Brandon</p>
+        <p class="text-xs text-gray-600">20 min drive</p>
+      </a>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Bottom CTA -->
+  <Section variant="dark" id="book-now">
+    <div class="text-center">
+      <SectionHeading
+        title="Make the Drive. Feel the Difference."
+        subtitle="Fifteen minutes from Westchase. A world away from ordinary. Book your first session and see why Tampa locals keep coming back."
+        light
+      />
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
+        <Button href={membershipUrl} variant="outline" target="_blank">View Memberships</Button>
+      </div>
+    </div>
+  </Section>
+</PublicLayout>

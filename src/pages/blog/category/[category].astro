@@ -1,0 +1,122 @@
+---
+import { getCollection } from 'astro:content';
+import PublicLayout from '../../../layouts/PublicLayout.astro';
+import Section from '../../../components/ui/Section.astro';
+import SectionHeading from '../../../components/ui/SectionHeading.astro';
+import Card from '../../../components/ui/Card.astro';
+import Button from '../../../components/ui/Button.astro';
+
+const categoryMeta: Record<string, { label: string; description: string }> = {
+  'contrast-therapy': {
+    label: 'Contrast Therapy',
+    description: 'Deep dives into the science and practice of alternating hot and cold exposure for recovery, performance, and overall wellness.',
+  },
+  'recovery': {
+    label: 'Recovery',
+    description: 'Evidence-based protocols and practical tips for using sauna, cold plunge, and contrast therapy to speed up muscle recovery and reduce soreness.',
+  },
+  'tampa-local': {
+    label: 'Tampa Local',
+    description: 'Community stories, local athlete spotlights, and wellness news from the Tampa Bay area.',
+  },
+  'first-timer': {
+    label: 'First Timer',
+    description: 'Everything you need to know before your first sauna or cold plunge session -- from what to expect to how to prepare.',
+  },
+  'community': {
+    label: 'Community',
+    description: 'Studio updates, member stories, events, and news from The Sauna Guys community.',
+  },
+  'health-conditions': {
+    label: 'Health Conditions',
+    description: 'How sauna and cold plunge therapy can support specific health conditions -- always consult your doctor before starting a new wellness routine.',
+  },
+};
+
+export async function getStaticPaths() {
+  const categories = [
+    'contrast-therapy',
+    'recovery',
+    'tampa-local',
+    'first-timer',
+    'community',
+    'health-conditions',
+  ];
+  return categories.map((cat) => ({
+    params: { category: cat },
+  }));
+}
+
+const { category } = Astro.params;
+const meta = categoryMeta[category!] ?? { label: category, description: '' };
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts
+  .filter((post) => post.data.category === category)
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+---
+
+<PublicLayout
+  title={`${meta.label} Articles | The Sauna Guys Blog`}
+  description={meta.description}
+>
+  <Section variant="light">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2">
+        <li><a href="/blog" class="hover:text-teal transition-colors">Blog</a></li>
+        <li class="text-gray-400">/</li>
+        <li class="text-gray-700">{meta.label}</li>
+      </ol>
+    </nav>
+
+    <SectionHeading title={meta.label} subtitle={meta.description} />
+
+    {posts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}`} class="group block">
+            <Card variant="clay" class="overflow-hidden h-full">
+              {post.data.heroImage && (
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.title}
+                  class="w-full aspect-video object-cover"
+                  loading="lazy"
+                />
+              )}
+              <div class="p-6">
+                <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">
+                  {meta.label}
+                </span>
+                <h3 class="text-lg mb-2 group-hover:text-teal transition-colors" style="text-transform: none; font-size: 1.125rem;">
+                  {post.data.title}
+                </h3>
+                <p class="text-gray-600 text-sm line-clamp-3">{post.data.description}</p>
+                <time
+                  datetime={post.data.publishDate.toISOString()}
+                  class="text-xs text-gray-400 mt-3 block"
+                >
+                  {post.data.publishDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+              </div>
+            </Card>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="max-w-xl mx-auto text-center">
+        <Card variant="clay" class="p-12">
+          <p class="text-gray-600 text-lg mb-6">
+            No articles in this category yet -- check back soon!
+          </p>
+          <Button href="/blog" variant="outline">Back to Blog</Button>
+        </Card>
+      </div>
+    )}
+  </Section>
+</PublicLayout>

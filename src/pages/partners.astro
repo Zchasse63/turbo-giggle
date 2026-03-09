@@ -1,0 +1,225 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
+
+const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+---
+
+<PublicLayout
+  title="Our Partners | The Sauna Guys"
+  description="The Sauna Guys partners with Tampa's top fitness studios and wellness businesses. Exclusive discounts and cross-referral programs for our community."
+>
+  <!-- Hero -->
+  <HeroImage
+    src="/images/community.jpg"
+    alt="The Sauna Guys community in Tampa"
+    height="md"
+  >
+    <h1>Our Partners</h1>
+    <p class="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
+      Recovery is a team sport. We partner with Tampa's best fitness and wellness businesses to keep you performing at your peak.
+    </p>
+  </HeroImage>
+
+  <!-- Why Partnerships Matter -->
+  <Section variant="light">
+    <SectionHeading
+      title="Better Together"
+      subtitle="Training hard and recovering smart go hand in hand. Our partnerships connect you to a complete wellness ecosystem in Tampa."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <Card variant="clay" class="p-8 text-center">
+        <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <Icon name="users" size={28} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2" style="text-transform: none; font-size: 1.125rem;">Shared Community</h3>
+        <p class="text-gray-600 text-sm">
+          Our partners' members become part of the contrast therapy community, and vice versa. Fitness and recovery are two sides of the same coin.
+        </p>
+      </Card>
+
+      <Card variant="clay" class="p-8 text-center">
+        <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <Icon name="gift" size={28} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2" style="text-transform: none; font-size: 1.125rem;">Exclusive Discounts</h3>
+        <p class="text-gray-600 text-sm">
+          Partner members get special rates on contrast therapy sessions. Show your partner gym membership for a discount on your first visit.
+        </p>
+      </Card>
+
+      <Card variant="clay" class="p-8 text-center">
+        <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <Icon name="compass" size={28} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2" style="text-transform: none; font-size: 1.125rem;">Local First</h3>
+        <p class="text-gray-600 text-sm">
+          We believe in supporting Tampa's independent fitness and wellness businesses. Every partnership is built on mutual respect and shared values.
+        </p>
+      </Card>
+    </div>
+  </Section>
+
+  <!-- Featured Partner: Cigar City CrossFit -->
+  <Section variant="dark">
+    <SectionHeading
+      title="Featured Partner"
+      subtitle="Our flagship recovery partnership"
+    />
+
+    <div class="max-w-4xl mx-auto">
+      <Card variant="gold" class="p-8 md:p-12">
+        <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-center">
+          <!-- Partner Logo Placeholder -->
+          <div class="flex justify-center">
+            <div class="w-40 h-40 bg-white/90 rounded-2xl flex items-center justify-center shadow-sm">
+              <div class="text-center px-4">
+                <Icon name="dumbbell" size={48} class="text-dark-teal mx-auto mb-2" />
+                <p class="text-dark-teal font-bold text-sm uppercase tracking-wider leading-tight">Cigar City CrossFit</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Partner Details -->
+          <div>
+            <h3 class="text-2xl mb-3" style="text-transform: none; font-size: 1.5rem; color: var(--color-dark-teal);">
+              Cigar City CrossFit
+            </h3>
+            <p class="text-dark-teal/80 mb-4">
+              Tampa's premier CrossFit box and our closest neighbor. Located steps away from our studio in Ybor City, Cigar City CrossFit members train hard and recover smart with contrast therapy sessions at The Sauna Guys.
+            </p>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-start gap-3">
+                <Icon name="map-pin" size={18} class="text-dark-teal/70 mt-0.5 shrink-0" />
+                <p class="text-dark-teal/80 text-sm">Co-located in Ybor City -- walk from your WOD straight to the sauna</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <Icon name="zap" size={18} class="text-dark-teal/70 mt-0.5 shrink-0" />
+                <p class="text-dark-teal/80 text-sm">CrossFit athletes see some of the biggest gains from post-workout contrast therapy</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <Icon name="gift" size={18} class="text-dark-teal/70 mt-0.5 shrink-0" />
+                <p class="text-dark-teal/80 text-sm">Cigar City members receive exclusive partner pricing on all sessions</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+              <Button href={bookingUrl} variant="primary" target="_blank">
+                Book a Recovery Session
+              </Button>
+              <Button href="https://www.cigarcitycrossfit.com" variant="outline" target="_blank">
+                Visit Cigar City CrossFit
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </Section>
+
+  <!-- How Partnership Recovery Works -->
+  <Section variant="light">
+    <SectionHeading
+      title="The Partner Recovery Flow"
+      subtitle="How our partnerships work in practice"
+    />
+
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-6">
+        <div class="flex items-start gap-6">
+          <div class="w-12 h-12 bg-teal text-white rounded-full flex items-center justify-center shrink-0 font-bold text-lg">
+            1
+          </div>
+          <div>
+            <h3 class="text-lg mb-1" style="text-transform: none; font-size: 1.125rem;">Train at a Partner Gym</h3>
+            <p class="text-gray-600">
+              Hit your workout at Cigar City CrossFit or any of our partner studios. Push your limits knowing recovery is just steps away.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-6">
+          <div class="w-12 h-12 bg-teal text-white rounded-full flex items-center justify-center shrink-0 font-bold text-lg">
+            2
+          </div>
+          <div>
+            <h3 class="text-lg mb-1" style="text-transform: none; font-size: 1.125rem;">Walk Over to The Sauna Guys</h3>
+            <p class="text-gray-600">
+              Our studio is right in Ybor City. No need to drive across town -- just walk from your workout straight to your recovery session.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-6">
+          <div class="w-12 h-12 bg-teal text-white rounded-full flex items-center justify-center shrink-0 font-bold text-lg">
+            3
+          </div>
+          <div>
+            <h3 class="text-lg mb-1" style="text-transform: none; font-size: 1.125rem;">Guided Contrast Therapy</h3>
+            <p class="text-gray-600">
+              Our coaches guide you through alternating sauna and cold plunge rounds, tailored to your workout intensity. Multiple rounds of hot-to-cold accelerate recovery.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-6">
+          <div class="w-12 h-12 bg-teal text-white rounded-full flex items-center justify-center shrink-0 font-bold text-lg">
+            4
+          </div>
+          <div>
+            <h3 class="text-lg mb-1" style="text-transform: none; font-size: 1.125rem;">Come Back Stronger Tomorrow</h3>
+            <p class="text-gray-600">
+              Reduced muscle soreness, better sleep, lower inflammation. Contrast therapy helps you recover faster so you can train harder next time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Become a Partner CTA -->
+  <Section variant="teal">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-white mb-4">Interested in Partnering?</h2>
+      <p class="text-white/80 text-lg mb-8 max-w-xl mx-auto">
+        We are always looking to connect with Tampa fitness studios, wellness practitioners, and health-focused businesses. Let us build something together.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button href="/contact" variant="on-dark">
+          Get in Touch
+        </Button>
+        <Button href="/services" variant="on-dark">
+          View Our Services
+        </Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Recovery Science Callout -->
+  <Section variant="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <Card variant="clay" class="p-10 md:p-14">
+        <Icon name="flask-conical" size={40} class="text-teal mx-auto mb-4" />
+        <h2 class="mb-4" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">The Science Behind Partner Recovery</h2>
+        <p class="text-gray-600 text-lg mb-6">
+          Research shows that combining intense exercise with post-workout contrast therapy can reduce delayed onset muscle soreness, decrease inflammation markers, and improve perceived recovery. Our guided sessions are designed to maximize these benefits for athletes of all levels.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <Button href="/contrast-therapy" variant="secondary">
+            Read the Science
+          </Button>
+          <Button href="/blog/contrast-therapy-for-runners" variant="outline">
+            Recovery for Runners
+          </Button>
+        </div>
+      </Card>
+    </div>
+  </Section>
+</PublicLayout>

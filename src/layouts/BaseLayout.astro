@@ -94,5 +94,21 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <slot />
+
+    <!-- UTM param tracking: populate hidden form fields from URL params -->
+    <script is:inline>
+      (function() {
+        var params = new URLSearchParams(window.location.search);
+        var utmFields = ['utm_source', 'utm_medium', 'utm_campaign'];
+        utmFields.forEach(function(field) {
+          var val = params.get(field);
+          if (val) {
+            document.querySelectorAll('input[name="' + field + '"]').forEach(function(el) {
+              el.value = val;
+            });
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

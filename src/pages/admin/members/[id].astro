@@ -1,0 +1,79 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { createSupabaseServerClient } from '../../../lib/supabase';
+import MemberProfile from '../../../components/admin/MemberProfile';
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect('/admin/members');
+}
+
+const supabase = createSupabaseServerClient(Astro.cookies, Astro.request.headers);
+
+// Fetch member by ID
+const { data: member, error: memberError } = await supabase
+  .from('members')
+  .select('*')
+  .eq('id', id)
+  .single();
+
+if (memberError || !member) {
+  return new Response('Member not found', { status: 404 });
+}
+
+// Fetch member snapshots ordered by week
+const { data: snapshots } = await supabase
+  .from('member_snapshots')
+  .select('*')
+  .eq('member_id', id)
+  .order('week_number', { ascending: true });
+
+// Fetch campaign memberships joined with campaigns
+const { data: campaignMembers } = await supabase
+  .from('campaign_members')
+  .select(`
+    *,
+    campaigns (
+      id,
+      name,
+      description,
+      target_tiers,
+      channel,
+      draft_count,
+      sent_count,
+      start_date,
+      end_date,
+      created_at
+    )
+  `)
+  .eq('member_id', id);
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+---
+
+<AdminLayout title={`${member.first_name || ''} ${member.last_name || ''} — Member Detail`.trim()} activeNav="members">
+  <div class="mb-6">
+    <a
+      href="/admin/members"
+      class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-teal transition-colors"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to Members
+    </a>
+  </div>
+
+  <MemberProfile
+    client:only="react"
+    member={member}
+    snapshots={snapshots || []}
+    campaigns={campaignMembers || []}
+    supabaseUrl={supabaseUrl}
+    supabaseKey={supabaseKey}
+  />
+</AdminLayout>

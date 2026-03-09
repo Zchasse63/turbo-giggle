@@ -1,9 +1,11 @@
 [build]
   command = "npm run build"
   publish = "dist"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
+  NODE_BUNDLER = "esbuild"
 
 # Redirect www to non-www
 [[redirects]]
@@ -35,6 +37,248 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/llms-full.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Cache-Control = "public, max-age=86400"
+
+# ============================================
+# 301 Redirects — Wix Migration
+# Redirect old Wix URLs to new Astro paths
+# ============================================
+
+# Common Wix page slugs → new paths
+[[redirects]]
+  from = "/book-online"
+  to = "/book"
+  status = 301
+
+[[redirects]]
+  from = "/book-online/*"
+  to = "/book"
+  status = 301
+
+[[redirects]]
+  from = "/about-us"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/about-1"
+  to = "/about"
+  status = 301
+
+[[redirects]]
+  from = "/contact-us"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/contact-1"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/our-services"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/services-1"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/pricing"
+  to = "/services#pricing"
+  status = 301
+
+[[redirects]]
+  from = "/plans-pricing"
+  to = "/services#pricing"
+  status = 301
+
+[[redirects]]
+  from = "/membership"
+  to = "/services#pricing"
+  status = 301
+
+[[redirects]]
+  from = "/memberships"
+  to = "/services#pricing"
+  status = 301
+
+[[redirects]]
+  from = "/gift-cards"
+  to = "/gifts"
+  status = 301
+
+[[redirects]]
+  from = "/gift-card"
+  to = "/gifts"
+  status = 301
+
+[[redirects]]
+  from = "/giftcards"
+  to = "/gifts"
+  status = 301
+
+[[redirects]]
+  from = "/faqs"
+  to = "/faq"
+  status = 301
+
+[[redirects]]
+  from = "/frequently-asked-questions"
+  to = "/faq"
+  status = 301
+
+[[redirects]]
+  from = "/first-time"
+  to = "/first-visit"
+  status = 301
+
+[[redirects]]
+  from = "/new-visitors"
+  to = "/first-visit"
+  status = 301
+
+[[redirects]]
+  from = "/first-timers"
+  to = "/first-visit"
+  status = 301
+
+[[redirects]]
+  from = "/what-to-expect"
+  to = "/first-visit"
+  status = 301
+
+[[redirects]]
+  from = "/private-events"
+  to = "/services#private-bookings"
+  status = 301
+
+[[redirects]]
+  from = "/private-bookings"
+  to = "/services#private-bookings"
+  status = 301
+
+[[redirects]]
+  from = "/group-bookings"
+  to = "/services#private-bookings"
+  status = 301
+
+[[redirects]]
+  from = "/cold-plunge"
+  to = "/cold-plunge-guide"
+  status = 301
+
+[[redirects]]
+  from = "/sauna"
+  to = "/sauna-benefits"
+  status = 301
+
+[[redirects]]
+  from = "/sauna-benefits-1"
+  to = "/sauna-benefits"
+  status = 301
+
+[[redirects]]
+  from = "/contrast-therapy-1"
+  to = "/contrast-therapy"
+  status = 301
+
+# Wix blog path patterns
+[[redirects]]
+  from = "/post/*"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blog-1"
+  to = "/blog"
+  status = 301
+
+[[redirects]]
+  from = "/blog-1/*"
+  to = "/blog"
+  status = 301
+
+# Wix system paths (catch-all)
+[[redirects]]
+  from = "/_api/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/_partials/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wix-*"
+  to = "/"
+  status = 301
+
+# Wix old editor/preview paths
+[[redirects]]
+  from = "/copy-of-*"
+  to = "/"
+  status = 301
+
+# Common typos and variations
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/index"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/schedule"
+  to = "/book"
+  status = 301
+
+[[redirects]]
+  from = "/class-schedule"
+  to = "/book"
+  status = 301
+
+[[redirects]]
+  from = "/classes"
+  to = "/book"
+  status = 301
+
+[[redirects]]
+  from = "/location"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/locations"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/find-us"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/directions"
+  to = "/contact"
+  status = 301
 
 # Netlify Forms processing
 [build.processing]

@@ -1,0 +1,202 @@
+---
+import { getCollection, render } from 'astro:content';
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import Section from '../../components/ui/Section.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// Reading time estimate (~200 words per minute)
+const wordCount = entry.body?.split(/\s+/).length ?? 0;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+// Category display labels
+const categoryLabels: Record<string, string> = {
+  'contrast-therapy': 'Contrast Therapy',
+  'recovery': 'Recovery',
+  'tampa-local': 'Tampa Local',
+  'first-timer': 'First Timer',
+  'community': 'Community',
+  'health-conditions': 'Health Conditions',
+};
+
+const categoryLabel = categoryLabels[entry.data.category] ?? entry.data.category;
+
+// Format dates
+const publishDate = entry.data.publishDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const isoDate = entry.data.publishDate.toISOString();
+const isoUpdated = entry.data.updatedDate?.toISOString();
+
+// Related posts (same category, exclude current, limit 3)
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const relatedPosts = allPosts
+  .filter((p) => p.data.category === entry.data.category && p.id !== entry.id)
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3);
+
+// BlogPosting JSON-LD
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: isoDate,
+  ...(isoUpdated && { dateModified: isoUpdated }),
+  author: {
+    '@type': 'Organization',
+    name: entry.data.author,
+    url: 'https://thesaunaguys.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sauna Guys',
+    url: 'https://thesaunaguys.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesaunaguys.com/images/logo.png',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://thesaunaguys.com/blog/${entry.id}`,
+  },
+  ...(entry.data.heroImage && {
+    image: entry.data.heroImage,
+  }),
+  wordCount: wordCount,
+  articleSection: categoryLabel,
+  keywords: entry.data.tags?.join(', '),
+};
+---
+
+<PublicLayout
+  title={`${entry.data.title} | The Sauna Guys Blog`}
+  description={entry.data.description}
+  ogImage={entry.data.heroImage}
+>
+  <!-- BlogPosting JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Article Header -->
+  <Section variant="light">
+    <div class="max-w-3xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2">
+          <li><a href="/blog" class="hover:text-teal transition-colors">Blog</a></li>
+          <li class="text-gray-400">/</li>
+          <li>
+            <a href={`/blog/category/${entry.data.category}`} class="hover:text-teal transition-colors">
+              {categoryLabel}
+            </a>
+          </li>
+          <li class="text-gray-400">/</li>
+          <li class="text-gray-700 truncate max-w-[200px]">{entry.data.title}</li>
+        </ol>
+      </nav>
+
+      <!-- Category Badge -->
+      <a
+        href={`/blog/category/${entry.data.category}`}
+        class="inline-block text-xs font-bold uppercase tracking-wider text-teal bg-teal/10 px-3 py-1 rounded-full mb-4 hover:bg-teal/20 transition-colors"
+      >
+        {categoryLabel}
+      </a>
+
+      <!-- Title -->
+      <h1 class="text-3xl md:text-4xl lg:text-5xl leading-tight mb-6" style="text-transform: none;">
+        {entry.data.title}
+      </h1>
+
+      <!-- Meta Row -->
+      <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8 pb-8 border-b border-gray-200">
+        <span>By {entry.data.author}</span>
+        <span class="text-gray-300">|</span>
+        <time datetime={isoDate}>{publishDate}</time>
+        <span class="text-gray-300">|</span>
+        <span>{readingTime} min read</span>
+      </div>
+
+      {entry.data.heroImage && (
+        <img
+          src={entry.data.heroImage}
+          alt={entry.data.title}
+          class="w-full rounded-2xl mb-10 aspect-video object-cover"
+          loading="eager"
+        />
+      )}
+    </div>
+  </Section>
+
+  <!-- Article Body -->
+  <Section variant="light" class="!pt-0">
+    <article class="max-w-3xl mx-auto prose prose-lg">
+      <Content />
+    </article>
+
+    <!-- Tags -->
+    {entry.data.tags && entry.data.tags.length > 0 && (
+      <div class="max-w-3xl mx-auto mt-10 pt-8 border-t border-gray-200">
+        <div class="flex flex-wrap gap-2">
+          {entry.data.tags.map((tag: string) => (
+            <span class="text-xs font-medium uppercase tracking-wider text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
+  </Section>
+
+  <!-- Related Posts -->
+  {relatedPosts.length > 0 && (
+    <Section variant="light">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-center mb-10">Related Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {relatedPosts.map((post) => (
+            <a href={`/blog/${post.id}`} class="group block">
+              <Card variant="clay" class="p-6 h-full">
+                <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">
+                  {categoryLabels[post.data.category] ?? post.data.category}
+                </span>
+                <h3 class="text-lg mb-2 group-hover:text-teal transition-colors" style="text-transform: none; font-size: 1.125rem;">
+                  {post.data.title}
+                </h3>
+                <p class="text-gray-600 text-sm line-clamp-3">{post.data.description}</p>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </div>
+    </Section>
+  )}
+
+  <!-- CTA Section -->
+  <Section variant="light">
+    <div class="max-w-2xl mx-auto text-center">
+      <Card variant="clay" class="p-10 md:p-14">
+        <h2 class="mb-4" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">Ready to Try It?</h2>
+        <p class="text-gray-600 text-lg mb-8">
+          Experience the benefits of contrast therapy firsthand. Book your first session at The Sauna Guys in Tampa.
+        </p>
+        <Button href="/book" variant="primary">Book Your Session</Button>
+      </Card>
+    </div>
+  </Section>
+</PublicLayout>

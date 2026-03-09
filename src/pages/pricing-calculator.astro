@@ -1,0 +1,33 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import MembershipCalculator from '../components/MembershipCalculator.tsx';
+
+const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+const classesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+---
+
+<PublicLayout
+  title="Find Your Perfect Membership | The Sauna Guys Tampa"
+  description="Use our membership calculator to find the best sauna and cold plunge plan for your budget. Compare drop-in, class packs, and unlimited memberships."
+>
+  <HeroImage src="/images/community.jpg" alt="Sauna community" height="short">
+    <h1>Find Your Perfect Plan</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      Tell us how often you want to come, and we'll show you the best value.
+    </p>
+  </HeroImage>
+
+  <div class="accent-line"></div>
+
+  <Section variant="light">
+    <SectionHeading title="Membership Calculator" subtitle="Slide to see your cost per session across all options" />
+    <MembershipCalculator
+      client:load
+      membershipUrl={membershipUrl || '#'}
+      classesUrl={classesUrl || '#'}
+    />
+  </Section>
+</PublicLayout>

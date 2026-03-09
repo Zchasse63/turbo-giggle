@@ -301,6 +301,9 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
       <SectionHeading title="Join the Community" subtitle="Get wellness tips, exclusive offers, and studio updates delivered to your inbox." light />
       <form name="email-capture" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="flex flex-col sm:flex-row gap-3">
         <input type="hidden" name="form-name" value="email-capture" />
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
         <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
         <input
           type="email"

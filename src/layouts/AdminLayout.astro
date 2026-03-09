@@ -1,15 +1,149 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
 
 interface Props {
   title: string;
+  activeNav?: string;
 }
 
-const { title } = Astro.props;
+const { title, activeNav } = Astro.props;
+
+const user = Astro.locals.user;
+const profile = Astro.locals.profile;
+const displayName = profile?.full_name || user?.email || 'Admin';
+
+const navItems = [
+  { href: '/admin', label: 'Overview', icon: 'layout-dashboard', id: 'overview' },
+  { href: '/admin/members', label: 'Members', icon: 'users', id: 'members' },
+  { href: '/admin/snapshots', label: 'Snapshots', icon: 'bar-chart', id: 'snapshots' },
+  { href: '/admin/campaigns', label: 'Campaigns', icon: 'send', id: 'campaigns' },
+  { href: '/admin/imports', label: 'Imports', icon: 'upload', id: 'imports' },
+];
+
+const quickLinks = [
+  { href: '/dashboard', label: 'Staff Dashboard', icon: 'clock' },
+  { href: '/', label: 'Public Site', icon: 'external-link' },
+];
 ---
 
-<BaseLayout title={`${title} | TSG Admin`} noIndex={true}>
-  <div id="admin-root">
-    <slot />
+<BaseLayout title={title} noIndex={true}>
+  <div class="min-h-screen bg-[#f5f5f7] flex" id="admin-root">
+    <!-- Sidebar (desktop) -->
+    <aside class="hidden lg:flex lg:flex-col w-64 bg-white border-r border-gray-200 fixed h-full z-30">
+      <div class="p-4 border-b border-gray-100">
+        <a href="/admin" class="flex items-center gap-3 cursor-pointer">
+          <img src="/images/logo.png" alt="The Sauna Guys" width="40" height="40" class="rounded-full" />
+          <div>
+            <p class="font-bold text-sm text-gray-900" style="font-family: var(--font-heading); text-transform: uppercase;">The Sauna Guys</p>
+            <p class="text-xs text-teal font-medium">Admin Dashboard</p>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex-1 p-4 space-y-1">
+        <p class="text-xs font-bold uppercase tracking-wider text-gray-400 px-3 mb-2">Management</p>
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer',
+              activeNav === item.id
+                ? 'bg-teal/10 text-teal'
+                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+            ]}
+          >
+            <Icon name={item.icon} size={18} />
+            {item.label}
+          </a>
+        ))}
+
+        <div class="pt-6 pb-2">
+          <p class="text-xs font-bold uppercase tracking-wider text-gray-400 px-3">Quick Links</p>
+        </div>
+        {quickLinks.map((item) => (
+          <a
+            href={item.href}
+            class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition-colors cursor-pointer"
+          >
+            <Icon name={item.icon} size={16} />
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="p-4 border-t border-gray-100">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-teal to-dark-teal flex items-center justify-center text-white font-bold text-sm">
+            {displayName.charAt(0).toUpperCase()}
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate">{displayName}</p>
+            <p class="text-xs text-gray-400 capitalize">{profile?.role || 'admin'}</p>
+          </div>
+        </div>
+        <form method="POST" action="/api/auth/logout" class="mt-3">
+          <button type="submit" class="w-full flex items-center gap-2 text-xs text-gray-400 hover:text-red-500 transition-colors cursor-pointer px-3 py-1">
+            <Icon name="log-out" size={14} />
+            Sign Out
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <div class="lg:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-30">
+      <div class="flex items-center justify-between px-4 py-3">
+        <div class="flex items-center gap-2">
+          <img src="/images/logo.png" alt="The Sauna Guys" width="32" height="32" class="rounded-full" />
+          <span class="font-bold text-sm text-teal" style="font-family: var(--font-heading); text-transform: uppercase;">Admin</span>
+        </div>
+        <button id="admin-mobile-toggle" class="p-2 text-gray-600 hover:text-gray-900 cursor-pointer" aria-label="Toggle menu">
+          <Icon name="menu" size={24} />
+        </button>
+      </div>
+      <nav id="admin-mobile-nav" class="hidden border-t border-gray-100 p-3 space-y-1 bg-white">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium cursor-pointer',
+              activeNav === item.id ? 'bg-teal/10 text-teal' : 'text-gray-600',
+            ]}
+          >
+            <Icon name={item.icon} size={18} />
+            {item.label}
+          </a>
+        ))}
+        <div class="pt-2 border-t border-gray-100 mt-2 space-y-1">
+          {quickLinks.map((item) => (
+            <a href={item.href} class="flex items-center gap-3 px-3 py-2 text-sm text-gray-500 cursor-pointer">
+              <Icon name={item.icon} size={16} />
+              {item.label}
+            </a>
+          ))}
+        </div>
+        <form method="POST" action="/api/auth/logout" class="pt-2 border-t border-gray-100 mt-2">
+          <button type="submit" class="text-xs text-gray-400 hover:text-red-500 cursor-pointer px-3 py-2">Sign Out ({displayName})</button>
+        </form>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <main class="flex-1 lg:ml-64 pt-16 lg:pt-0">
+      <div class="p-4 md:p-8 max-w-7xl mx-auto">
+        <slot />
+      </div>
+    </main>
   </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      var toggle = document.getElementById('admin-mobile-toggle');
+      var nav = document.getElementById('admin-mobile-nav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', function() { nav.classList.toggle('hidden'); });
+      }
+    });
+  </script>
 </BaseLayout>

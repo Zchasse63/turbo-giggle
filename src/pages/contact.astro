@@ -30,6 +30,9 @@ import Button from '../components/ui/Button.astro';
         <SectionHeading title="Send Us a Message" align="left" />
         <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-4">
           <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="utm_source" />
+          <input type="hidden" name="utm_medium" />
+          <input type="hidden" name="utm_campaign" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
           <div>
             <label for="name" class="block text-sm font-bold mb-1">Name *</label>

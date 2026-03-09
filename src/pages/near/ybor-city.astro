@@ -1,0 +1,237 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+import HeroImage from '../../components/ui/HeroImage.astro';
+import Section from '../../components/ui/Section.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Button from '../../components/ui/Button.astro';
+
+const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+---
+
+<PublicLayout
+  title="Sauna Near Ybor City | The Sauna Guys Tampa"
+  description="Sauna and cold plunge just 7 minutes from Ybor City's historic district. Near Centro Ybor and 7th Avenue. Book your contrast therapy session today."
+>
+  <!-- Hero -->
+  <HeroImage src="/images/woman-sauna.jpg" alt="Sauna session at The Sauna Guys near Ybor City" height="medium">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Tampa's Premier Sauna — Just 7 Minutes from Ybor City</h1>
+    <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
+      Ybor City has been a hub of culture and community for over a century. Now add a new tradition to the neighborhood — world-class sauna and cold plunge therapy, practically around the corner on North 24th Street.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
+      <Button href="#location" variant="outline">Get Directions</Button>
+    </div>
+  </HeroImage>
+
+  <div class="accent-line"></div>
+
+  <!-- Quick Facts -->
+  <Section variant="light" id="quick-facts">
+    <div class="max-w-3xl mx-auto">
+      <Card variant="clay" class="p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from Ybor City</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="flex items-start gap-3">
+            <Icon name="clock" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">7-Minute Drive</p>
+              <p class="text-gray-600 text-sm">Head north on 22nd Street from 7th Avenue and you're practically here. One of the closest neighborhoods we serve.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="map-pin" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">1703 N 24th Street</p>
+              <p class="text-gray-600 text-sm">Just north of the Ybor district, in the corridor between the historic neighborhood and the Heights.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="compass" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">Free On-Site Parking</p>
+              <p class="text-gray-600 text-sm">Skip the Ybor meters and garage fees. Our lot is free, and you won't have to walk three blocks in the heat.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icon name="calendar" size={24} class="text-teal shrink-0 mt-1" />
+            <div>
+              <p class="font-semibold">Open 7 Days a Week</p>
+              <p class="text-gray-600 text-sm">Mon-Fri 6 AM - 8 PM, Sat-Sun 8 AM - 6 PM. Hit a session before dinner on 7th Ave or as a weekend recovery ritual.</p>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Why Choose Us -->
+  <Section variant="light" id="why-choose-us">
+    <SectionHeading title="Why Ybor Locals Choose Us" subtitle="Heat, cold, and community — a new kind of Ybor tradition" />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="thermometer-sun" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Authentic Dry Sauna</h3>
+        <p class="text-gray-600 text-sm">Our barrel sauna hits 190 F+ — the kind of deep, traditional heat that Ybor's cigar workers would have appreciated after a long day at the factory.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="waves" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Contrast Therapy</h3>
+        <p class="text-gray-600 text-sm">Alternate between intense heat and cold plunge pools to boost circulation, reduce inflammation, and tap into deep physical recovery.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="flask-conical" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Science-Backed</h3>
+        <p class="text-gray-600 text-sm">Heat and cold exposure are backed by real research — from cardiovascular benefits to immune support to mood regulation. This is wellness with substance.</p>
+      </Card>
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="shield-check" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Clean & Welcoming</h3>
+        <p class="text-gray-600 text-sm">Sanitized facilities, fresh towels, and full showers every session. A polished experience that still keeps the laid-back Tampa vibe.</p>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Sessions Overview -->
+  <Section variant="dark" id="sessions">
+    <SectionHeading title="Choose Your Session" subtitle="Guided, self-paced, or women-only — every session is a full 60 minutes" light />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="compass" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">1-Hour Guided</h3>
+        <p class="text-white/70 text-sm mb-4">A coach leads you through structured sauna rounds, cold plunge entries, and breathwork. The best way to start if you're new to contrast therapy.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="sun" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">1-Hour Open</h3>
+        <p class="text-white/70 text-sm mb-4">You've been here before and you know what works. Full access to the sauna and plunge pools to run your own program at your own speed.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+      <Card variant="dark" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="users" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-xl mb-2 text-white">Women's Group</h3>
+        <p class="text-white/70 text-sm mb-4">Guided contrast therapy in a women-only environment. Supportive, empowering, and growing fast with regulars from all over Tampa.</p>
+        <Button href="/services" variant="on-dark">Learn More</Button>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Pricing CTA -->
+  <Section variant="light" id="intro-offer">
+    <div class="max-w-xl mx-auto text-center">
+      <Card variant="gold" class="p-8 relative">
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
+          Best for First-Timers
+        </span>
+        <div class="flex justify-center mb-3">
+          <Icon name="gift" size={36} class="text-dark-teal" />
+        </div>
+        <h2 class="text-2xl font-bold mb-2">The Sauna Sampler</h2>
+        <p class="text-5xl font-bold text-dark-teal mb-2">$60</p>
+        <p class="text-black/70 mb-1">3 sessions to try us out</p>
+        <p class="text-black/60 text-sm mb-6">Three visits, no commitment. Plenty of time to go from curious to converted. Ybor locals — you're practically neighbors.</p>
+        <Button href={membershipUrl} variant="secondary" target="_blank">Get the Sampler</Button>
+      </Card>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Google Maps -->
+  <Section variant="light" id="location">
+    <SectionHeading title="Find Us from Ybor City" subtitle="Head north on 22nd Street — we're just a few blocks past the district" />
+    <div class="rounded-[var(--radius-card)] overflow-hidden shadow-lg">
+      <iframe
+        src="https://maps.google.com/maps?q=1703+N+24th+St,+Tampa,+FL+33605&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        width="100%"
+        height="400"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map showing The Sauna Guys location near Ybor City"
+      ></iframe>
+    </div>
+    <div class="mt-6 text-center">
+      <p class="text-gray-600 mb-2">
+        <Icon name="map-pin" size={18} class="inline text-teal" /> 1703 North 24th Street, Tampa, FL 33605
+      </p>
+      <p class="text-gray-600 mb-2">
+        <Icon name="phone" size={18} class="inline text-teal" /> <a href="tel:8135514177" class="text-teal hover:underline">(813) 551-4177</a>
+      </p>
+      <p class="text-gray-600">
+        <Icon name="mail" size={18} class="inline text-teal" /> <a href="mailto:hello@thesaunaguys.com" class="text-teal hover:underline">hello@thesaunaguys.com</a>
+      </p>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Nearby Neighborhoods -->
+  <Section variant="teal" id="nearby">
+    <SectionHeading title="Explore More Neighborhoods" subtitle="We serve communities all across the Tampa Bay area" />
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+      <a href="/near/south-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">South Tampa</p>
+        <p class="text-xs text-gray-600">5 min drive</p>
+      </a>
+      <a href="/near/downtown-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Downtown Tampa</p>
+        <p class="text-xs text-gray-600">8 min drive</p>
+      </a>
+      <a href="/near/seminole-heights" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Seminole Heights</p>
+        <p class="text-xs text-gray-600">10 min drive</p>
+      </a>
+      <a href="/near/westchase" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Westchase</p>
+        <p class="text-xs text-gray-600">15 min drive</p>
+      </a>
+      <a href="/near/brandon" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
+        <p class="font-semibold text-sm">Brandon</p>
+        <p class="text-xs text-gray-600">20 min drive</p>
+      </a>
+    </div>
+  </Section>
+
+  <div class="accent-line"></div>
+
+  <!-- Bottom CTA -->
+  <Section variant="dark" id="book-now">
+    <div class="text-center">
+      <SectionHeading
+        title="Your Neighborhood. Your New Ritual."
+        subtitle="You're seven minutes from the best sauna experience in Tampa. Come see what the buzz is about."
+        light
+      />
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
+        <Button href={membershipUrl} variant="outline" target="_blank">View Memberships</Button>
+      </div>
+    </div>
+  </Section>
+</PublicLayout>

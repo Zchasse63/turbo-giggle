@@ -1,0 +1,110 @@
+---
+export const prerender = false;
+
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import ClockWidget from '../../components/dashboard/ClockWidget';
+import { createSupabaseServerClient } from '../../lib/supabase';
+
+const user = Astro.locals.user;
+const profile = Astro.locals.profile;
+const supabase = createSupabaseServerClient(Astro.cookies, Astro.request.headers);
+
+// Get today's clock status
+const today = new Date().toISOString().split('T')[0];
+const { data: todayLog } = await supabase
+  .from('hour_logs')
+  .select('*')
+  .eq('employee_id', user.id)
+  .eq('shift_date', today)
+  .order('created_at', { ascending: false })
+  .limit(1)
+  .maybeSingle();
+
+const isClockedIn = todayLog?.clock_in && !todayLog?.clock_out;
+
+// Get this week's hours
+const weekStart = new Date();
+weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+const { data: weekLogs } = await supabase
+  .from('hour_logs')
+  .select('hours_worked')
+  .eq('employee_id', user.id)
+  .gte('shift_date', weekStart.toISOString().split('T')[0])
+  .not('hours_worked', 'is', null);
+
+const weeklyHours = (weekLogs || []).reduce(
+  (sum: number, log: any) => sum + (log.hours_worked || 0),
+  0
+);
+
+// Get pending approvals count
+const { count: pendingCount } = await supabase
+  .from('hour_logs')
+  .select('id', { count: 'exact', head: true })
+  .eq('employee_id', user.id)
+  .eq('approval_status', 'pending');
+---
+
+<DashboardLayout title="Dashboard | The Sauna Guys" activeNav="clock">
+  <!-- Welcome Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">
+      Welcome, {profile?.full_name?.split(' ')[0] || 'there'}
+    </h1>
+    <p class="text-gray-500 text-sm mt-1">
+      {new Date().toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })}
+    </p>
+  </div>
+
+  <!-- Clock Widget (React Island) -->
+  <div class="mb-8">
+    <ClockWidget
+      client:only="react"
+      userId={user.id}
+      initialLog={todayLog || null}
+      supabaseUrl={import.meta.env.PUBLIC_SUPABASE_URL}
+      supabaseKey={import.meta.env.PUBLIC_SUPABASE_ANON_KEY}
+    />
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div class="bg-white rounded-xl p-5 border border-gray-200">
+      <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Status</p>
+      <p class:list={[
+        'text-lg font-bold',
+        isClockedIn ? 'text-green-600' : 'text-gray-400'
+      ]}>
+        {isClockedIn ? 'Clocked In' : 'Clocked Out'}
+      </p>
+      {isClockedIn && todayLog?.clock_in && (
+        <p class="text-xs text-gray-400 mt-1">
+          Since {new Date(todayLog.clock_in).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+          })}
+        </p>
+      )}
+    </div>
+
+    <div class="bg-white rounded-xl p-5 border border-gray-200">
+      <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">This Week</p>
+      <p class="text-lg font-bold text-gray-900">
+        {weeklyHours.toFixed(1)} hrs
+      </p>
+    </div>
+
+    <div class="bg-white rounded-xl p-5 border border-gray-200">
+      <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Pending</p>
+      <p class="text-lg font-bold text-gray-900">
+        {pendingCount || 0} entries
+      </p>
+      <p class="text-xs text-gray-400 mt-1">Awaiting approval</p>
+    </div>
+  </div>
+</DashboardLayout>

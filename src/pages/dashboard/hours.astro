@@ -1,0 +1,131 @@
+---
+export const prerender = false;
+
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import { createSupabaseServerClient } from '../../lib/supabase';
+import type { HourLog, ApprovalStatus } from '../../lib/types';
+
+const user = Astro.locals.user;
+const supabase = createSupabaseServerClient(Astro.cookies, Astro.request.headers);
+
+// Get current pay period (last 14 days)
+const periodEnd = new Date();
+const periodStart = new Date();
+periodStart.setDate(periodStart.getDate() - 13);
+
+const { data: logs, error } = await supabase
+  .from('hour_logs')
+  .select('*')
+  .eq('employee_id', user.id)
+  .gte('shift_date', periodStart.toISOString().split('T')[0])
+  .lte('shift_date', periodEnd.toISOString().split('T')[0])
+  .order('shift_date', { ascending: false });
+
+const hourLogs: HourLog[] = logs || [];
+const totalHours = hourLogs.reduce((sum, log) => sum + (log.hours_worked || 0), 0);
+const approvedHours = hourLogs
+  .filter((l) => l.approval_status === 'approved')
+  .reduce((sum, log) => sum + (log.hours_worked || 0), 0);
+const pendingHours = hourLogs
+  .filter((l) => l.approval_status === 'pending')
+  .reduce((sum, log) => sum + (log.hours_worked || 0), 0);
+
+function statusBadge(status: ApprovalStatus): string {
+  switch (status) {
+    case 'approved':
+      return 'bg-green-100 text-green-700';
+    case 'rejected':
+      return 'bg-red-100 text-red-700';
+    default:
+      return 'bg-yellow-100 text-yellow-700';
+  }
+}
+
+function formatTime(isoString: string | null): string {
+  if (!isoString) return '—';
+  return new Date(isoString).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
+
+function formatDate(dateStr: string): string {
+  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<DashboardLayout title="My Hours | The Sauna Guys" activeNav="hours">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">My Hours</h1>
+    <p class="text-gray-500 text-sm mt-1">
+      {periodStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} &ndash;
+      {periodEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+    </p>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <div class="bg-white rounded-xl p-5 border border-gray-200">
+      <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Total Hours</p>
+      <p class="text-2xl font-bold text-gray-900">{totalHours.toFixed(1)}</p>
+    </div>
+    <div class="bg-white rounded-xl p-5 border border-gray-200">
+      <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Approved</p>
+      <p class="text-2xl font-bold text-green-600">{approvedHours.toFixed(1)}</p>
+    </div>
+    <div class="bg-white rounded-xl p-5 border border-gray-200">
+      <p class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Pending</p>
+      <p class="text-2xl font-bold text-yellow-600">{pendingHours.toFixed(1)}</p>
+    </div>
+  </div>
+
+  <!-- Hour Logs Table -->
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+    {hourLogs.length > 0 ? (
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 bg-gray-50">
+              <th class="text-left px-4 py-3 font-bold text-xs uppercase tracking-wider text-gray-500">Date</th>
+              <th class="text-left px-4 py-3 font-bold text-xs uppercase tracking-wider text-gray-500">Clock In</th>
+              <th class="text-left px-4 py-3 font-bold text-xs uppercase tracking-wider text-gray-500">Clock Out</th>
+              <th class="text-left px-4 py-3 font-bold text-xs uppercase tracking-wider text-gray-500">Hours</th>
+              <th class="text-left px-4 py-3 font-bold text-xs uppercase tracking-wider text-gray-500">Break</th>
+              <th class="text-left px-4 py-3 font-bold text-xs uppercase tracking-wider text-gray-500">Status</th>
+              <th class="text-left px-4 py-3 font-bold text-xs uppercase tracking-wider text-gray-500">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {hourLogs.map((log) => (
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-3 font-medium text-gray-900">{formatDate(log.shift_date)}</td>
+                <td class="px-4 py-3 text-gray-600">{formatTime(log.clock_in)}</td>
+                <td class="px-4 py-3 text-gray-600">{formatTime(log.clock_out)}</td>
+                <td class="px-4 py-3 font-medium text-gray-900">
+                  {log.hours_worked ? log.hours_worked.toFixed(1) : '—'}
+                </td>
+                <td class="px-4 py-3 text-gray-600">{log.break_minutes > 0 ? `${log.break_minutes}m` : '—'}</td>
+                <td class="px-4 py-3">
+                  <span class={`inline-block px-2 py-0.5 rounded-full text-xs font-medium capitalize ${statusBadge(log.approval_status)}`}>
+                    {log.approval_status}
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-gray-500 text-xs max-w-[150px] truncate">
+                  {log.notes || '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ) : (
+      <div class="p-12 text-center">
+        <p class="text-gray-400">No hour logs for this period.</p>
+      </div>
+    )}
+  </div>
+</DashboardLayout>
