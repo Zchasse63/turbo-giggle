@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 ---
 
 <PublicLayout
@@ -7,124 +13,106 @@ import PublicLayout from '../layouts/PublicLayout.astro';
   description="Meet the team behind Tampa's favorite sauna and cold plunge studio. Our story, mission, and commitment to wellness."
 >
   <!-- Hero -->
-  <section class="section-dark py-24">
-    <div class="container text-center">
-      <h1 class="text-white">About The Sauna Guys</h1>
-    </div>
-  </section>
+  <HeroImage src="/images/community.jpg" alt="The Sauna Guys community" height="short">
+    <h1>About The Sauna Guys</h1>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- Our Story -->
-  <section class="section-light py-20">
-    <div class="container max-w-3xl mx-auto">
-      <h2 class="text-center mb-8">Our Story</h2>
-      <div class="prose prose-lg mx-auto text-gray-600 space-y-6">
-        <p>
-          What started as a passion for Finnish sauna culture and cold water immersion turned into Tampa's go-to spot for contrast therapy. The Sauna Guys was born from a simple idea: everyone deserves access to the recovery and wellness benefits that hot-cold therapy provides.
-        </p>
-        <p>
-          Located in the heart of South Tampa, we've built a welcoming space where anyone — from elite athletes to stressed-out professionals to curious first-timers — can experience the transformative power of heat and cold.
-        </p>
-        <p>
-          Our guided sessions take the guesswork out of contrast therapy. Whether it's your first time or your hundredth, our team is here to make sure you get the most out of every visit.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Mission -->
-  <section class="section-dark py-20">
-    <div class="container text-center max-w-3xl mx-auto">
-      <h2 class="text-white mb-8">Our Mission</h2>
-      <p class="text-white/80 text-xl leading-relaxed">
-        To make the science-backed benefits of sauna and cold plunge accessible, enjoyable, and part of Tampa's wellness routine. We believe recovery isn't a luxury — it's a necessity.
+  <Section variant="light">
+    <SectionHeading title="Our Story" />
+    <div class="prose prose-lg mx-auto text-gray-600 space-y-6 max-w-3xl">
+      <p>
+        What started as a passion for Finnish sauna culture and cold water immersion turned into Tampa's go-to spot for contrast therapy. The Sauna Guys was born from a simple idea: everyone deserves access to the recovery and wellness benefits that hot-cold therapy provides.
+      </p>
+      <p>
+        Located in the heart of South Tampa, we've built a welcoming space where anyone — from elite athletes to stressed-out professionals to curious first-timers — can experience the transformative power of heat and cold.
+      </p>
+      <p>
+        Our guided sessions take the guesswork out of contrast therapy. Whether it's your first time or your hundredth, our team is here to make sure you get the most out of every visit.
       </p>
     </div>
-  </section>
+  </Section>
+
+  <!-- Mission -->
+  <Section variant="dark">
+    <SectionHeading title="Our Mission" light />
+    <p class="text-white/80 text-xl leading-relaxed text-center max-w-3xl mx-auto">
+      To make the science-backed benefits of sauna and cold plunge accessible, enjoyable, and part of Tampa's wellness routine. We believe recovery isn't a luxury — it's a necessity.
+    </p>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Values -->
-  <section class="section-light py-20">
-    <div class="container">
-      <h2 class="text-center mb-12">What We Stand For</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-teal text-2xl">🔬</span>
-          </div>
-          <h3 class="text-xl mb-3">Science-Backed</h3>
-          <p class="text-gray-600">Every protocol and recommendation is grounded in peer-reviewed research. No fads, no gimmicks.</p>
+  <Section variant="light">
+    <SectionHeading title="What We Stand For" />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icon name="flask-conical" size={28} class="text-teal" />
         </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-teal text-2xl">🤝</span>
-          </div>
-          <h3 class="text-xl mb-3">Community First</h3>
-          <p class="text-gray-600">We're building more than a studio — we're building a community of people who prioritize their wellbeing.</p>
+        <h3 class="text-xl mb-3">Science-Backed</h3>
+        <p class="text-gray-600">Every protocol and recommendation is grounded in peer-reviewed research. No fads, no gimmicks.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icon name="users" size={28} class="text-teal" />
         </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-teal text-2xl">🌊</span>
-          </div>
-          <h3 class="text-xl mb-3">Accessible Wellness</h3>
-          <p class="text-gray-600">Recovery shouldn't be exclusive. We offer flexible pricing so everyone can benefit from contrast therapy.</p>
+        <h3 class="text-xl mb-3">Community First</h3>
+        <p class="text-gray-600">We're building more than a studio — we're building a community of people who prioritize their wellbeing.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icon name="waves" size={28} class="text-teal" />
         </div>
+        <h3 class="text-xl mb-3">Accessible Wellness</h3>
+        <p class="text-gray-600">Recovery shouldn't be exclusive. We offer flexible pricing so everyone can benefit from contrast therapy.</p>
       </div>
     </div>
-  </section>
+  </Section>
 
-  <!-- Team Placeholder -->
-  <section class="section-dark py-20">
-    <div class="container text-center">
-      <h2 class="text-white mb-8">Meet the Team</h2>
-      <p class="text-white/70 max-w-2xl mx-auto mb-12">
-        Our class leaders are certified in sauna protocols, cold exposure, and breathwork techniques.
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <!-- Team member cards will be populated with actual team data -->
-        <div class="text-center">
-          <div class="w-32 h-32 bg-gold rounded-full mx-auto mb-4 flex items-center justify-center">
-            <span class="text-4xl">🧖</span>
-          </div>
-          <h3 class="text-white text-xl mb-1">Team Member</h3>
-          <p class="text-teal text-sm uppercase tracking-wider">Class Leader</p>
+  <!-- Team -->
+  <Section variant="dark">
+    <SectionHeading title="Meet the Team" subtitle="Our class leaders are certified in sauna protocols, cold exposure, and breathwork techniques." light />
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+      <!-- Team member cards will be populated with actual team data -->
+      <Card variant="gold" class="text-center p-6">
+        <div class="w-32 h-32 bg-dark-teal/20 rounded-full mx-auto mb-4 flex items-center justify-center headshot-ring">
+          <Icon name="users" size={48} class="text-dark-teal" />
         </div>
-        <div class="text-center">
-          <div class="w-32 h-32 bg-gold rounded-full mx-auto mb-4 flex items-center justify-center">
-            <span class="text-4xl">🧖</span>
-          </div>
-          <h3 class="text-white text-xl mb-1">Team Member</h3>
-          <p class="text-teal text-sm uppercase tracking-wider">Class Leader</p>
+        <h3 class="text-xl mb-1">Team Member</h3>
+        <p class="text-dark-teal/80 text-sm uppercase tracking-wider">Class Leader</p>
+      </Card>
+      <Card variant="gold" class="text-center p-6">
+        <div class="w-32 h-32 bg-dark-teal/20 rounded-full mx-auto mb-4 flex items-center justify-center headshot-ring">
+          <Icon name="users" size={48} class="text-dark-teal" />
         </div>
-        <div class="text-center">
-          <div class="w-32 h-32 bg-gold rounded-full mx-auto mb-4 flex items-center justify-center">
-            <span class="text-4xl">🧖</span>
-          </div>
-          <h3 class="text-white text-xl mb-1">Team Member</h3>
-          <p class="text-teal text-sm uppercase tracking-wider">Class Leader</p>
+        <h3 class="text-xl mb-1">Team Member</h3>
+        <p class="text-dark-teal/80 text-sm uppercase tracking-wider">Class Leader</p>
+      </Card>
+      <Card variant="gold" class="text-center p-6">
+        <div class="w-32 h-32 bg-dark-teal/20 rounded-full mx-auto mb-4 flex items-center justify-center headshot-ring">
+          <Icon name="users" size={48} class="text-dark-teal" />
         </div>
-      </div>
+        <h3 class="text-xl mb-1">Team Member</h3>
+        <p class="text-dark-teal/80 text-sm uppercase tracking-wider">Class Leader</p>
+      </Card>
     </div>
-  </section>
+  </Section>
 
   <!-- CTA -->
   <div class="accent-line"></div>
-  <section class="bg-teal py-16">
-    <div class="container text-center">
+  <Section variant="teal">
+    <div class="text-center">
       <h2 class="text-black mb-4">Ready to Experience It?</h2>
       <p class="text-black/70 text-lg max-w-xl mx-auto mb-8">
         Try the Sauna Sampler — 3 guided sessions for $60. No commitment, just great recovery.
       </p>
-      <a
-        href={import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center px-10 py-4 bg-dark-teal text-white font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/90 transition-all duration-200"
-      >
+      <Button href={import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL} variant="primary" target="_blank">
         Try 3 Sessions for $60
-      </a>
+      </Button>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

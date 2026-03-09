@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 
 const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 
@@ -77,21 +83,19 @@ const breadcrumbJsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 
   <!-- Hero -->
-  <section class="section-dark py-24 md:py-32">
-    <div class="container text-center">
-      <h1 class="text-white mb-6">The Complete Guide to Sauna Benefits</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto">
-        What does the research actually say about sauna bathing? Here is a comprehensive look at the science-backed benefits of regular heat exposure.
-      </p>
-    </div>
-  </section>
+  <HeroImage src="/images/woman-sauna.jpg" alt="Woman enjoying sauna session" height="short">
+    <h1>The Complete Guide to Sauna Benefits</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      What does the research actually say about sauna bathing? Here is a comprehensive look at the science-backed benefits of regular heat exposure.
+    </p>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- Table of Contents -->
-  <section class="section-light py-12">
-    <div class="container max-w-3xl mx-auto">
-      <nav class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+  <Section variant="light" class="py-12">
+    <div class="max-w-3xl mx-auto">
+      <Card variant="clay" class="p-6">
         <p class="font-bold text-sm uppercase tracking-wider text-dark-teal mb-3">In This Guide</p>
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {benefits.map((benefit) => (
@@ -100,55 +104,44 @@ const breadcrumbJsonLd = {
             </li>
           ))}
         </ul>
-      </nav>
+      </Card>
     </div>
-  </section>
+  </Section>
 
   <!-- Benefit Sections -->
   {benefits.map((benefit, index) => (
     <>
-      <section id={benefit.id} class={`${index % 2 === 0 ? 'section-light' : 'section-dark'} py-20`}>
-        <div class="container max-w-4xl mx-auto">
-          <h2 class="mb-8">{benefit.title}</h2>
+      <Section variant={index % 2 === 0 ? 'light' : 'dark'} id={benefit.id}>
+        <div class="max-w-4xl mx-auto">
+          <SectionHeading title={benefit.title} align="left" light={index % 2 !== 0} />
           <p class={`text-lg leading-relaxed mb-8 ${index % 2 === 0 ? 'text-gray-700' : 'text-white/80'}`}>
             {benefit.content}
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {benefit.highlights.map((highlight) => (
-              <div class={`flex items-start gap-3 ${index % 2 === 0 ? 'bg-gold/10' : 'bg-white/10'} rounded-[20px] px-5 py-4`}>
-                <span class="text-teal text-xl flex-shrink-0 mt-0.5">&#10003;</span>
+              <Card variant={index % 2 === 0 ? 'clay' : 'dark'} class="px-5 py-4 flex items-start gap-3">
+                <Icon name="circle-check" size={20} class="text-teal flex-shrink-0 mt-0.5" />
                 <span class={index % 2 === 0 ? 'text-gray-700' : 'text-white'}>{highlight}</span>
-              </div>
+              </Card>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
       <div class="accent-line"></div>
     </>
   ))}
 
   <!-- CTA -->
-  <section class="section-light py-20">
-    <div class="container max-w-3xl mx-auto text-center">
-      <h2 class="mb-4">Experience the Benefits Yourself</h2>
-      <p class="text-gray-600 text-lg mb-8">
-        Reading about sauna benefits is one thing. Feeling them is another. Book a session and see what consistent heat exposure can do for your body and mind.
-      </p>
+  <Section variant="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading title="Experience the Benefits Yourself" subtitle="Reading about sauna benefits is one thing. Feeling them is another. Book a session and see what consistent heat exposure can do for your body and mind." />
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href={glowfoxClassesUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-        >
+        <Button href={glowfoxClassesUrl} variant="primary" target="_blank">
           Book a Session
-        </a>
-        <a
-          href="/first-visit"
-          class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark-teal text-dark-teal font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/5 transition-all duration-200"
-        >
+        </Button>
+        <Button href="/first-visit" variant="outline">
           First Visit Guide
-        </a>
+        </Button>
       </div>
 
       <!-- Related Guides -->
@@ -160,5 +153,5 @@ const breadcrumbJsonLd = {
         </div>
       </div>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

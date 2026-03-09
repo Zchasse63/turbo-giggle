@@ -4,7 +4,8 @@
 /*
  * ==============================================
  * THE SAUNA GUYS — Design Tokens
- * Source: DESIGN-GUIDE.md v2.2
+ * Source: DESIGN-GUIDE.md v2.2 + UI UX Pro Max
+ * Style: Hybrid Claymorphism + Soft UI Evolution
  * ==============================================
  */
 
@@ -45,37 +46,56 @@
   --font-heading: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --font-body: "Spinnaker", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
 
-  /* ── Spacing / Layout ── */
+  /* ── Spacing Scale (base-8) ── */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 5rem;
+  --space-3xl: 7.5rem;
+
+  /* ── Layout ── */
   --container-max: 1280px;
   --section-padding-y: 5rem;
   --section-padding-x: 1.5rem;
 
-  /* ── Borders / Radius ── */
-  --radius-pill: 60px;
+  /* ── Border Radius ── */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
   --radius-card: 20px;
   --radius-card-admin: 12px;
+  --radius-pill: 60px;
+  --radius-input: 12px;
 
-  /* ── Shadows (Claymorphism for public pages) ── */
+  /* ── Shadows — Hybrid Soft UI Evolution + Claymorphism ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-cta: 0 4px 12px rgba(43, 188, 205, 0.2);
   --shadow-clay: 8px 8px 16px rgba(0, 0, 0, 0.08), -4px -4px 12px rgba(255, 255, 255, 0.9), inset 1px 1px 2px rgba(255, 255, 255, 0.5);
   --shadow-clay-hover: 12px 12px 24px rgba(0, 0, 0, 0.12), -6px -6px 18px rgba(255, 255, 255, 0.95), inset 1px 1px 2px rgba(255, 255, 255, 0.6);
   --shadow-clay-pressed: inset 4px 4px 8px rgba(0, 0, 0, 0.06), inset -2px -2px 4px rgba(255, 255, 255, 0.7);
 
   /* ── Transitions ── */
-  --transition-default: 200ms ease;
+  --transition-default: 200ms ease-out;
+  --transition-hover: 300ms ease-out;
   --transition-slow: 300ms ease;
 }
 
 /* ── @font-face for Brice Bold Condensed (self-hosted) ── */
-/* TODO: Download from Wix and add font files to /public/fonts/ */
-/*
 @font-face {
   font-family: "Brice Bold Condensed";
-  src: url("/fonts/brice-bold-condensed.woff2") format("woff2");
+  src: url("/fonts/brice-bold-condensed.woff2") format("woff2"),
+       url("/fonts/brice-bold-condensed.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
-*/
 
 /* ── Base Styles ── */
 html {
@@ -126,7 +146,7 @@ h6 {
   line-height: 1.3;
 }
 
-/* ── Accent Divider ── */
+/* ── Accent Line ── */
 .accent-line {
   height: 3px;
   background-color: var(--color-yellow);
@@ -138,11 +158,13 @@ h6 {
 .section-light {
   background-color: #fff;
   color: #000;
+  padding: var(--space-2xl) 0;
 }
 
 .section-dark {
   background-color: var(--color-dark-teal);
   color: #fff;
+  padding: var(--space-2xl) 0;
 }
 
 .section-dark h1,
@@ -150,9 +172,253 @@ h6 {
   color: #fff;
 }
 
+.section-dark a:not([class*="btn-"]) {
+  color: var(--color-teal);
+}
+
+.section-teal {
+  background-color: var(--color-teal);
+  color: #000;
+  padding: var(--space-sm) 0;
+}
+
 /* ── Container ── */
 .container {
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--section-padding-x);
+}
+
+/* ==============================================
+ * COMPONENT CLASSES
+ * Source: DESIGN-GUIDE.md Section 4 + Section 13.2
+ * ============================================== */
+
+/* ── CTA Buttons ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-teal);
+  color: #000;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-default);
+  box-shadow: var(--shadow-cta);
+}
+
+.btn-primary:hover {
+  background-color: #24A5B5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(43, 188, 205, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-teal);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-default);
+}
+
+.btn-secondary:hover {
+  background-color: #24A5B5;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--color-teal);
+  border: 2px solid var(--color-teal);
+  border-radius: var(--radius-pill);
+  padding: 12px 30px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-default);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-teal);
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.btn-on-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-teal);
+  color: #000;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-default);
+  box-shadow: var(--shadow-cta);
+}
+
+.btn-on-dark:hover {
+  background-color: #24A5B5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(43, 188, 205, 0.3);
+}
+
+/* ── Cards ── */
+.card-clay {
+  background-color: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-hover);
+}
+
+.card-clay:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.card-gold {
+  background-color: var(--color-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  color: #000;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-hover);
+}
+
+.card-gold:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.card-dark {
+  background-color: var(--color-dark-teal);
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  color: #fff;
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-hover);
+}
+
+.card-dark:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+/* ── Headshot Ring ── */
+.headshot-ring {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 5px solid var(--color-gold);
+  object-fit: cover;
+}
+
+/* ── Accent Divider (standalone) ── */
+.accent-divider {
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-yellow);
+  border: none;
+  margin: 0;
+}
+
+/* ==============================================
+ * UTILITY CLASSES
+ * ============================================== */
+
+/* ── Hover Lift ── */
+.hover-lift {
+  transition: all var(--transition-hover);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* ── Focus Ring (accessibility) ── */
+:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Skip to Content Link ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-teal);
+  color: #000;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top var(--transition-default);
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+/* ==============================================
+ * ACCESSIBILITY — Reduced Motion
+ * ============================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

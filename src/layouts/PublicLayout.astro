@@ -13,8 +13,9 @@ const { title, description, ogImage } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} ogImage={ogImage}>
+  <a href="#main-content" class="skip-link">Skip to content</a>
   <Header />
-  <main>
+  <main id="main-content">
     <slot />
   </main>
   <Footer />

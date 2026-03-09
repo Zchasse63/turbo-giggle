@@ -1,0 +1,106 @@
+---
+/**
+ * Icon.astro — Renders Lucide SVG icons by name.
+ * Replaces all emoji usage across the site.
+ *
+ * Usage: <Icon name="dumbbell" size={32} class="text-teal" />
+ *
+ * Available names: dumbbell, brain, moon, heart-pulse, thermometer-sun,
+ * snowflake, calendar, map-pin, phone, mail, clock, check, circle-check,
+ * arrow-right, star, chevron-down, chevron-up, users, compass, gift,
+ * flask-conical, waves, shield-check, sparkles, droplets, sun, menu, x,
+ * quote, instagram, facebook, timer, zap, leaf, eye
+ */
+import {
+  Dumbbell,
+  Brain,
+  Moon,
+  HeartPulse,
+  ThermometerSun,
+  Snowflake,
+  Calendar,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Check,
+  CircleCheck,
+  ArrowRight,
+  Star,
+  ChevronDown,
+  ChevronUp,
+  Users,
+  Compass,
+  Gift,
+  FlaskConical,
+  Waves,
+  ShieldCheck,
+  Sparkles,
+  Droplets,
+  Sun,
+  Menu,
+  X,
+  Quote,
+  Instagram,
+  Facebook,
+  Timer,
+  Zap,
+  Leaf,
+  Eye,
+} from '@lucide/astro';
+
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+  strokeWidth?: number;
+}
+
+const { name, size = 24, class: className = '', strokeWidth = 2 } = Astro.props;
+
+const iconMap: Record<string, any> = {
+  'dumbbell': Dumbbell,
+  'brain': Brain,
+  'moon': Moon,
+  'heart-pulse': HeartPulse,
+  'thermometer-sun': ThermometerSun,
+  'snowflake': Snowflake,
+  'calendar': Calendar,
+  'map-pin': MapPin,
+  'phone': Phone,
+  'mail': Mail,
+  'clock': Clock,
+  'check': Check,
+  'circle-check': CircleCheck,
+  'arrow-right': ArrowRight,
+  'star': Star,
+  'chevron-down': ChevronDown,
+  'chevron-up': ChevronUp,
+  'users': Users,
+  'compass': Compass,
+  'gift': Gift,
+  'flask-conical': FlaskConical,
+  'waves': Waves,
+  'shield-check': ShieldCheck,
+  'sparkles': Sparkles,
+  'droplets': Droplets,
+  'sun': Sun,
+  'menu': Menu,
+  'x': X,
+  'quote': Quote,
+  'instagram': Instagram,
+  'facebook': Facebook,
+  'timer': Timer,
+  'zap': Zap,
+  'leaf': Leaf,
+  'eye': Eye,
+};
+
+const IconComponent = iconMap[name];
+---
+
+{IconComponent ? (
+  <IconComponent size={size} strokeWidth={strokeWidth} class={className} aria-hidden="true" />
+) : (
+  <span class={className} aria-hidden="true" title={`Missing icon: ${name}`}>?</span>
+)}

@@ -1,0 +1,40 @@
+---
+/**
+ * SectionHeading.astro — H2 section heading + optional subtitle.
+ * Provides consistent heading styling across all sections.
+ *
+ * Usage:
+ *   <SectionHeading title="Our Services" />
+ *   <SectionHeading title="Benefits" subtitle="Science-backed wellness" light />
+ *   <SectionHeading title="Contact Us" align="left" />
+ */
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  light?: boolean;
+  align?: 'center' | 'left';
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  light = false,
+  align = 'center',
+  class: className = '',
+} = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center' : 'text-left';
+const headingColor = light ? 'text-white' : '';
+const subtitleColor = light ? 'text-white/80' : 'text-gray-600';
+---
+
+<div class={`mb-12 ${alignClass} ${className}`.trim()}>
+  <h2 class={headingColor}>{title}</h2>
+  {subtitle && (
+    <p class={`mt-4 text-lg max-w-2xl ${align === 'center' ? 'mx-auto' : ''} ${subtitleColor}`}>
+      {subtitle}
+    </p>
+  )}
+</div>

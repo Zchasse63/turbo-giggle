@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 
 const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
@@ -10,57 +16,45 @@ const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
   description="Book your sauna and cold plunge session in Tampa. Drop-ins, class packs, and memberships available."
 >
   <!-- Hero -->
-  <section class="section-dark py-24">
-    <div class="container text-center">
-      <h1 class="text-white mb-4">Book Your Session</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto">
-        Choose a session time, grab a class pack, or sign up for a membership. It only takes a minute.
-      </p>
-    </div>
-  </section>
+  <HeroImage src="/images/community.jpg" alt="Community session" height="short">
+    <h1>Book Your Session</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      Choose a session time, grab a class pack, or sign up for a membership. It only takes a minute.
+    </p>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- Booking Options -->
-  <section class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
+  <Section variant="light">
+    <div class="max-w-4xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         <!-- Book a Session -->
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center">
+        <Card variant="gold" class="p-8 text-center">
           <h2 class="text-2xl mb-4">Book a Session</h2>
-          <p class="text-gray-600 mb-6">
+          <p class="text-dark-teal/80 mb-6">
             Browse available times and reserve your spot. Drop-ins and class packs accepted.
           </p>
-          <a
-            href={glowfoxClassesUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-          >
+          <Button href={glowfoxClassesUrl} variant="primary" target="_blank">
             View Schedule
-          </a>
-        </div>
+          </Button>
+        </Card>
 
         <!-- Memberships -->
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center">
+        <Card variant="clay" class="p-8 text-center">
           <h2 class="text-2xl mb-4">Memberships</h2>
           <p class="text-gray-600 mb-6">
             Unlimited access, priority booking, and member-only perks. Save on every session.
           </p>
-          <a
-            href={glowfoxMembershipsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-          >
+          <Button href={glowfoxMembershipsUrl} variant="primary" target="_blank">
             View Memberships
-          </a>
-        </div>
+          </Button>
+        </Card>
       </div>
 
       <!-- GlowFox Embed Placeholder -->
       <div class="mb-16">
-        <h2 class="text-center mb-8">Schedule</h2>
+        <SectionHeading title="Schedule" />
         <div id="glowfox-embed" class="min-h-[600px] rounded-[20px] border-2 border-gray-200 overflow-hidden">
           <!-- GlowFox iframe will be embedded here -->
           <div class="flex flex-col items-center justify-center h-[600px] bg-gray-50 text-center px-8">
@@ -70,35 +64,30 @@ const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
             <p class="text-gray-400 mb-6">
               If the calendar does not load, you can book directly on our scheduling platform.
             </p>
-            <a
-              href={glowfoxClassesUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-            >
+            <Button href={glowfoxClassesUrl} variant="primary" target="_blank">
               Book on GlowFox
-            </a>
+            </Button>
           </div>
         </div>
       </div>
 
       <!-- Quick Info -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-        <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+        <Card variant="clay" class="p-6">
           <div class="text-3xl font-bold text-dark-teal mb-2">$39</div>
           <p class="font-bold">Drop-In</p>
           <p class="text-gray-500 text-sm">Single session</p>
-        </div>
-        <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+        </Card>
+        <Card variant="gold" class="p-6">
           <div class="text-3xl font-bold text-dark-teal mb-2">$60</div>
           <p class="font-bold">Sauna Sampler</p>
-          <p class="text-gray-500 text-sm">3 sessions</p>
-        </div>
-        <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+          <p class="text-dark-teal/70 text-sm">3 sessions</p>
+        </Card>
+        <Card variant="clay" class="p-6">
           <div class="text-3xl font-bold text-dark-teal mb-2">$120+</div>
           <p class="font-bold">Membership</p>
           <p class="text-gray-500 text-sm">Monthly unlimited</p>
-        </div>
+        </Card>
       </div>
 
       <!-- First-timer callout -->
@@ -108,5 +97,5 @@ const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         </p>
       </div>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

@@ -1,0 +1,88 @@
+---
+/**
+ * HeroImage.astro — Full-width hero section with background image + overlay.
+ * Provides consistent hero pattern across all pages.
+ *
+ * Usage:
+ *   <HeroImage src="/images/woman-sauna.jpg" alt="Sauna interior">
+ *     <h1>Welcome to The Sauna Guys</h1>
+ *     <p>Tampa's premier sauna & cold plunge studio</p>
+ *     <Button href="/book" variant="on-dark">Book Class</Button>
+ *   </HeroImage>
+ *
+ *   <HeroImage src="/images/exterior.jpg" alt="Studio exterior" overlay={0.5} height="short">
+ *     <h1>Services</h1>
+ *   </HeroImage>
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  overlay?: number;
+  height?: 'full' | 'tall' | 'medium' | 'short';
+  class?: string;
+  align?: 'center' | 'left';
+}
+
+const {
+  src,
+  alt,
+  overlay = 0.55,
+  height = 'tall',
+  class: className = '',
+  align = 'center',
+} = Astro.props;
+
+const heightClasses: Record<string, string> = {
+  full: 'min-h-screen',
+  tall: 'min-h-[70vh]',
+  medium: 'min-h-[50vh]',
+  short: 'min-h-[40vh]',
+};
+
+const alignClasses: Record<string, string> = {
+  center: 'text-center items-center justify-center',
+  left: 'text-left items-start justify-center',
+};
+
+const heightClass = heightClasses[height] || heightClasses.tall;
+const alignClass = alignClasses[align] || alignClasses.center;
+---
+
+<section class={`relative overflow-hidden ${heightClass} ${className}`.trim()}>
+  <!-- Background Image -->
+  <img
+    src={src}
+    alt={alt}
+    loading="eager"
+    decoding="async"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+
+  <!-- Dark Overlay -->
+  <div
+    class="absolute inset-0"
+    style={`background-color: rgba(35, 56, 61, ${overlay});`}
+  ></div>
+
+  <!-- Content -->
+  <div class={`relative z-10 container flex flex-col ${alignClass} px-6 py-16 md:py-24`}>
+    <div class={`max-w-3xl ${align === 'center' ? 'mx-auto' : ''} text-white`}>
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  section :global(h1) {
+    color: #fff;
+  }
+
+  section :global(h2) {
+    color: #fff;
+  }
+
+  section :global(p) {
+    color: rgba(255, 255, 255, 0.9);
+  }
+</style>

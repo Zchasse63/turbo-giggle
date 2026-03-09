@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 
 const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 
@@ -37,12 +43,12 @@ const steps = [
 ];
 
 const bringList = [
-  'Swimsuit (required)',
-  'Towel (or rent one from us)',
-  'Water bottle',
-  'Flip-flops or sandals',
-  'Change of clothes for after',
-  'An open mind',
+  { item: 'Swimsuit (required)', icon: 'compass' },
+  { item: 'Towel (or rent one from us)', icon: 'droplets' },
+  { item: 'Water bottle', icon: 'droplets' },
+  { item: 'Flip-flops or sandals', icon: 'compass' },
+  { item: 'Change of clothes for after', icon: 'compass' },
+  { item: 'An open mind', icon: 'sparkles' },
 ];
 
 // HowTo JSON-LD schema
@@ -52,9 +58,9 @@ const howToJsonLd = {
   name: 'How to Prepare for Your First Sauna and Cold Plunge Session',
   description: 'A step-by-step guide for your first visit to The Sauna Guys in Tampa. Covers booking, what to bring, and how to do your first contrast therapy session.',
   totalTime: 'PT90M',
-  supply: bringList.map((item) => ({
+  supply: bringList.map((b) => ({
     '@type': 'HowToSupply',
-    name: item,
+    name: b.item,
   })),
   step: steps.map((step, i) => ({
     '@type': 'HowToStep',
@@ -73,89 +79,76 @@ const howToJsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(howToJsonLd)} />
 
   <!-- Hero -->
-  <section class="section-dark py-24 md:py-32">
-    <div class="container text-center">
-      <h1 class="text-white mb-6">Your First Visit</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto mb-8">
-        Everything you need to know before you walk through our doors. No experience necessary — just an open mind.
-      </p>
-      <a
-        href={glowfoxClassesUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-      >
-        Book Your First Session
-      </a>
-    </div>
-  </section>
+  <HeroImage src="/images/exterior.jpg" alt="Studio exterior" height="short">
+    <h1>Your First Visit</h1>
+    <p class="text-lg max-w-2xl mx-auto mb-8">
+      Everything you need to know before you walk through our doors. No experience necessary — just an open mind.
+    </p>
+    <Button href={glowfoxClassesUrl} variant="on-dark" target="_blank">
+      Book Your First Session
+    </Button>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- Step-by-Step Walkthrough -->
-  <section class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-center mb-12">Your Session, Step by Step</h2>
-      <div class="space-y-8">
-        {steps.map((step) => (
-          <div class="flex gap-6 items-start">
-            <div class="flex-shrink-0 w-16 h-16 rounded-full bg-teal flex items-center justify-center">
-              <span class="text-black font-bold text-xl">{step.number}</span>
-            </div>
-            <div>
-              <h3 class="text-xl mb-2">{step.title}</h3>
-              <p class="text-gray-600 leading-relaxed">{step.description}</p>
-            </div>
+  <Section variant="light">
+    <SectionHeading title="Your Session, Step by Step" />
+    <div class="max-w-4xl mx-auto space-y-8">
+      {steps.map((step) => (
+        <div class="flex gap-6 items-start">
+          <div class="flex-shrink-0 w-16 h-16 rounded-full bg-teal flex items-center justify-center">
+            <span class="text-black font-bold text-xl">{step.number}</span>
           </div>
-        ))}
-      </div>
+          <div>
+            <h3 class="text-xl mb-2">{step.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{step.description}</p>
+          </div>
+        </div>
+      ))}
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- What to Bring -->
-  <section class="section-dark py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-center text-white mb-10">What to Bring</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-        {bringList.map((item) => (
-          <div class="flex items-center gap-3 bg-white/10 rounded-[20px] px-6 py-4">
-            <span class="text-teal text-2xl flex-shrink-0">&#10003;</span>
-            <span class="text-white text-lg">{item}</span>
-          </div>
-        ))}
-      </div>
+  <Section variant="dark">
+    <SectionHeading title="What to Bring" light />
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+      {bringList.map((b) => (
+        <div class="flex items-center gap-3 bg-white/10 rounded-[20px] px-6 py-4">
+          <Icon name="circle-check" size={22} class="text-teal flex-shrink-0" />
+          <span class="text-white text-lg">{b.item}</span>
+        </div>
+      ))}
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Temperature Expectations -->
-  <section class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-center mb-12">What to Expect</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center">
-          <div class="text-5xl font-bold text-dark-teal mb-2">190&deg;F</div>
-          <h3 class="text-xl mb-3">Sauna</h3>
-          <p class="text-gray-600">Our Finnish sauna is kept between 180 and 195 degrees. Start with 10 to 15 minute rounds and build up as you get comfortable.</p>
-        </div>
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center">
-          <div class="text-5xl font-bold text-teal mb-2">42&deg;F</div>
-          <h3 class="text-xl mb-3">Cold Plunge</h3>
-          <p class="text-gray-600">Our plunge stays between 39 and 45 degrees. Start with just 30 seconds — the benefits begin immediately.</p>
-        </div>
-      </div>
+  <Section variant="light">
+    <SectionHeading title="What to Expect" />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <Card variant="clay" class="p-8 text-center">
+        <div class="text-5xl font-bold text-dark-teal mb-2">190&deg;F</div>
+        <h3 class="text-xl mb-3">Sauna</h3>
+        <p class="text-gray-600">Our Finnish sauna is kept between 180 and 195 degrees. Start with 10 to 15 minute rounds and build up as you get comfortable.</p>
+      </Card>
+      <Card variant="clay" class="p-8 text-center">
+        <div class="text-5xl font-bold text-teal mb-2">42&deg;F</div>
+        <h3 class="text-xl mb-3">Cold Plunge</h3>
+        <p class="text-gray-600">Our plunge stays between 39 and 45 degrees. Start with just 30 seconds — the benefits begin immediately.</p>
+      </Card>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Objection Handling -->
-  <section class="section-dark py-20">
-    <div class="container max-w-3xl mx-auto text-center">
-      <h2 class="text-white mb-6">What If I Can't Handle the Cold?</h2>
+  <Section variant="dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading title="What If I Can't Handle the Cold?" light />
       <p class="text-white/80 text-lg leading-relaxed mb-6">
         You can. Seriously. Almost every first-timer says this, and almost every one of them surprises themselves. The cold plunge is not about endurance or toughness — it is about controlled breathing and being present.
       </p>
@@ -166,35 +159,27 @@ const howToJsonLd = {
         Our staff is trained to guide you through breathing techniques and will be with you every step of the way. You control the pace. Zero judgment, zero pressure.
       </p>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- CTA -->
-  <section class="section-light py-20">
-    <div class="container max-w-3xl mx-auto text-center">
-      <h2 class="mb-4">Ready to Try It?</h2>
-      <p class="text-gray-600 text-lg mb-2">
-        Our Sauna Sampler is the best way to start.
-      </p>
-      <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] inline-block mb-8">
+  <Section variant="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading title="Ready to Try It?" subtitle="Our Sauna Sampler is the best way to start." />
+      <Card variant="clay" class="p-8 inline-block mb-8">
         <div class="text-4xl font-bold text-dark-teal mb-1">$60</div>
         <p class="text-lg font-bold">3 Sessions</p>
         <p class="text-gray-600 text-sm">That is just $20 per session</p>
-      </div>
+      </Card>
       <div class="block">
-        <a
-          href={glowfoxClassesUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-10 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200 text-lg"
-        >
+        <Button href={glowfoxClassesUrl} variant="primary" target="_blank">
           Book Sauna Sampler
-        </a>
+        </Button>
       </div>
       <p class="mt-4 text-gray-500 text-sm">
         Questions? <a href="/faq" class="text-teal hover:underline">Check our FAQ</a> or <a href="/contact" class="text-teal hover:underline">contact us</a>.
       </p>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

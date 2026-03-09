@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 
 const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 
@@ -87,21 +93,19 @@ const audiences = [
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 
   <!-- Hero -->
-  <section class="section-dark py-24 md:py-32">
-    <div class="container text-center">
-      <h1 class="text-white mb-6">Contrast Therapy Guide</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto">
-        The strategic alternation between sauna heat and cold plunge — and why it is the most powerful recovery tool you are not using yet.
-      </p>
-    </div>
-  </section>
+  <HeroImage src="/images/community.jpg" alt="Contrast therapy session" height="short">
+    <h1>Contrast Therapy Guide</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      The strategic alternation between sauna heat and cold plunge — and why it is the most powerful recovery tool you are not using yet.
+    </p>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- Table of Contents -->
-  <section class="section-light py-12">
-    <div class="container max-w-3xl mx-auto">
-      <nav class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+  <Section variant="light" class="py-12">
+    <div class="max-w-3xl mx-auto">
+      <Card variant="clay" class="p-6">
         <p class="font-bold text-sm uppercase tracking-wider text-dark-teal mb-3">In This Guide</p>
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <li><a href="#what-is-it" class="text-teal hover:underline">What Is Contrast Therapy?</a></li>
@@ -110,14 +114,14 @@ const audiences = [
           <li><a href="#our-protocol" class="text-teal hover:underline">Our Protocol</a></li>
           <li><a href="#who-its-for" class="text-teal hover:underline">Who It's For</a></li>
         </ul>
-      </nav>
+      </Card>
     </div>
-  </section>
+  </Section>
 
   <!-- What Is It -->
-  <section id="what-is-it" class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="mb-8">What Is Contrast Therapy?</h2>
+  <Section variant="light" id="what-is-it">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title="What Is Contrast Therapy?" align="left" />
       <p class="text-lg text-gray-700 leading-relaxed mb-6">
         Contrast therapy is the deliberate practice of alternating between extreme heat and extreme cold. At The Sauna Guys, that means cycling between our Finnish sauna at 190 degrees Fahrenheit and our cold plunge at 42 degrees Fahrenheit, with rest periods in between.
       </p>
@@ -128,14 +132,14 @@ const audiences = [
         A typical contrast therapy session at our studio lasts 60 to 90 minutes and includes 2 to 4 full hot-cold cycles. Our staff guides you through the protocol, helping with breathing techniques and timing to maximize the benefits.
       </p>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- The Science -->
-  <section id="the-science" class="section-dark py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-white mb-8">The Science Behind Contrast Therapy</h2>
+  <Section variant="dark" id="the-science">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title="The Science Behind Contrast Therapy" align="left" light />
       <p class="text-lg text-white/80 leading-relaxed mb-6">
         Contrast therapy works through a mechanism called the vascular pump effect. When you sit in the sauna, your blood vessels dilate (vasodilation) and blood flows to your skin and extremities. When you enter the cold plunge, your blood vessels rapidly constrict (vasoconstriction), driving blood back to your core and vital organs.
       </p>
@@ -146,75 +150,64 @@ const audiences = [
         At the neurochemical level, the heat triggers endorphin release and muscle relaxation, while the cold stimulates a surge of norepinephrine — a neurotransmitter linked to focus, mood, and anti-inflammatory activity. The combination produces a unique state that users often describe as calm alertness paired with deep physical relaxation.
       </p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="bg-white/10 rounded-[20px] px-5 py-4">
+        <Card variant="dark" class="px-5 py-4">
           <span class="text-teal font-bold block mb-1">Heat Phase</span>
           <span class="text-white/70 text-sm">Vasodilation, endorphin release, muscle relaxation, increased heart rate, deep sweating</span>
-        </div>
-        <div class="bg-white/10 rounded-[20px] px-5 py-4">
+        </Card>
+        <Card variant="dark" class="px-5 py-4">
           <span class="text-teal font-bold block mb-1">Cold Phase</span>
           <span class="text-white/70 text-sm">Vasoconstriction, norepinephrine surge, inflammation reduction, mental alertness</span>
-        </div>
-        <div class="bg-white/10 rounded-[20px] px-5 py-4">
+        </Card>
+        <Card variant="dark" class="px-5 py-4">
           <span class="text-teal font-bold block mb-1">Transition</span>
           <span class="text-white/70 text-sm">Vascular pump effect, lymphatic drainage, metabolic waste clearance</span>
-        </div>
-        <div class="bg-white/10 rounded-[20px] px-5 py-4">
+        </Card>
+        <Card variant="dark" class="px-5 py-4">
           <span class="text-teal font-bold block mb-1">Rest Phase</span>
           <span class="text-white/70 text-sm">Nervous system reset, parasympathetic activation, hormonal balancing</span>
-        </div>
+        </Card>
       </div>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Benefits -->
-  <section id="benefits" class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-center mb-12">Benefits of Contrast Therapy</h2>
+  <Section variant="light" id="benefits">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title="Benefits of Contrast Therapy" />
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {benefits.map((benefit) => (
-          <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+          <Card variant="clay" class="p-6">
             <h3 class="text-lg mb-3">{benefit.title}</h3>
             <p class="text-gray-600 text-sm leading-relaxed">{benefit.description}</p>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Mid-page CTA -->
-  <section class="section-dark py-16">
-    <div class="container max-w-3xl mx-auto text-center">
-      <h2 class="text-white mb-4">Ready to Feel the Difference?</h2>
-      <p class="text-white/80 text-lg mb-8">
-        Our guided contrast therapy sessions make the experience safe, structured, and transformative — even for complete beginners.
-      </p>
-      <a
-        href={glowfoxClassesUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-      >
+  <Section variant="dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading title="Ready to Feel the Difference?" subtitle="Our guided contrast therapy sessions make the experience safe, structured, and transformative — even for complete beginners." light />
+      <Button href={glowfoxClassesUrl} variant="on-dark" target="_blank">
         Book a Session
-      </a>
+      </Button>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Our Protocol -->
-  <section id="our-protocol" class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-center mb-4">Our Contrast Therapy Protocol</h2>
-      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-        This is the protocol we guide guests through during a full contrast therapy session. Total session time is approximately 75 to 90 minutes.
-      </p>
+  <Section variant="light" id="our-protocol">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title="Our Contrast Therapy Protocol" subtitle="This is the protocol we guide guests through during a full contrast therapy session. Total session time is approximately 75 to 90 minutes." />
       <div class="space-y-4">
         {protocolSteps.map((step, i) => (
-          <div class="bg-gold/10 rounded-[20px] p-5 shadow-[var(--shadow-clay)] flex flex-col sm:flex-row sm:items-center gap-4">
+          <Card variant="clay" class="p-5 flex flex-col sm:flex-row sm:items-center gap-4">
             <div class="flex items-center gap-3 sm:w-48 flex-shrink-0">
               <span class="w-8 h-8 rounded-full bg-teal flex items-center justify-center text-black font-bold text-sm flex-shrink-0">{i + 1}</span>
               <span class="font-bold">{step.phase}</span>
@@ -225,53 +218,42 @@ const audiences = [
               <span>{step.location}</span>
             </div>
             <p class="text-gray-600 text-sm flex-grow">{step.description}</p>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Who It's For -->
-  <section id="who-its-for" class="section-dark py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-white text-center mb-12">Who Is Contrast Therapy For?</h2>
+  <Section variant="dark" id="who-its-for">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title="Who Is Contrast Therapy For?" light />
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {audiences.map((item) => (
-          <div class="bg-white/10 rounded-[20px] p-6">
+          <Card variant="dark" class="p-6">
             <h3 class="text-lg text-white mb-2">{item.who}</h3>
             <p class="text-white/70 text-sm leading-relaxed">{item.why}</p>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Bottom CTA -->
-  <section class="section-light py-20">
-    <div class="container max-w-3xl mx-auto text-center">
-      <h2 class="mb-4">Start Your Contrast Therapy Practice</h2>
-      <p class="text-gray-600 text-lg mb-8">
-        Whether you are an athlete chasing faster recovery or someone who just wants to feel incredible, contrast therapy delivers. Book a guided session and experience the hot-cold difference.
-      </p>
+  <Section variant="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading title="Start Your Contrast Therapy Practice" subtitle="Whether you are an athlete chasing faster recovery or someone who just wants to feel incredible, contrast therapy delivers. Book a guided session and experience the hot-cold difference." />
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href={glowfoxClassesUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-        >
+        <Button href={glowfoxClassesUrl} variant="primary" target="_blank">
           Book a Session
-        </a>
-        <a
-          href="/first-visit"
-          class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark-teal text-dark-teal font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/5 transition-all duration-200"
-        >
+        </Button>
+        <Button href="/first-visit" variant="outline">
           First Visit Guide
-        </a>
+        </Button>
       </div>
 
       <!-- Related Guides -->
@@ -283,5 +265,5 @@ const audiences = [
         </div>
       </div>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

@@ -1,6 +1,12 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
 import { createClient } from '@supabase/supabase-js';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import Card from '../components/ui/Card.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
 
 const classesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const membershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
@@ -33,191 +39,278 @@ function formatPrice(cents: number): string {
   description="Explore our sauna, cold plunge, and contrast therapy sessions. View pricing for memberships, class packs, and drop-in visits in Tampa."
 >
   <!-- Hero -->
-  <section class="section-dark py-24">
-    <div class="container text-center">
-      <h1 class="text-white mb-4">Services & Pricing</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto">
-        Choose the experience that's right for you. From your first visit to unlimited access.
-      </p>
-    </div>
-  </section>
+  <HeroImage src="/images/exterior.jpg" alt="The Sauna Guys studio exterior" height="short">
+    <h1 class="mb-4">Our Services</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      Sauna, cold plunge, and contrast therapy sessions designed for every experience level. Choose the session that fits your goals.
+    </p>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
-  <!-- Class Types -->
-  <section class="section-light py-20">
-    <div class="container">
-      <h2 class="text-center mb-12">Our Sessions</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)]">
-          <h3 class="text-2xl mb-4">1-Hour Guided</h3>
-          <ul class="text-gray-600 space-y-2 mb-6">
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Instructor-led sauna rounds</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Guided cold plunge coaching</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Breathwork techniques</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Recovery cool-down</li>
-          </ul>
-          <p class="text-sm text-gray-500 mb-4"><strong>Best for:</strong> First-timers & anyone wanting structure</p>
-          <a href={classesUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all">
-            Book Guided
-          </a>
+  <!-- Session Types -->
+  <Section variant="light" id="sessions">
+    <SectionHeading title="Our Sessions" subtitle="From guided coaching to self-directed sessions, find your rhythm" />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Guided Session — Flagship -->
+      <Card variant="gold" class="p-8">
+        <div class="flex justify-center mb-4">
+          <Icon name="compass" size={40} class="text-dark-teal" />
         </div>
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)]">
-          <h3 class="text-2xl mb-4">1-Hour Open</h3>
-          <ul class="text-gray-600 space-y-2 mb-6">
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Full facility access</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Go at your own pace</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Choose your rounds & timing</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Self-directed experience</li>
-          </ul>
-          <p class="text-sm text-gray-500 mb-4"><strong>Best for:</strong> Experienced plungers & regulars</p>
-          <a href={classesUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all">
-            Book Open
-          </a>
+        <h3 class="text-2xl mb-3">1-Hour Guided</h3>
+        <p class="text-black/70 mb-4">Our flagship experience. Expert-led rounds with breathwork coaching and cold plunge guidance.</p>
+        <ul class="text-left space-y-2 mb-6">
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-dark-teal" /></span>
+            <span>Instructor-led sauna rounds</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-dark-teal" /></span>
+            <span>Guided cold plunge coaching</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-dark-teal" /></span>
+            <span>Breathwork techniques</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-dark-teal" /></span>
+            <span>Recovery cool-down</span>
+          </li>
+        </ul>
+        <p class="text-sm text-black/60 mb-6"><strong>Best for:</strong> First-timers and anyone wanting structure</p>
+        <Button href={classesUrl} variant="primary" target="_blank">Book Guided</Button>
+      </Card>
+
+      <!-- Open Session -->
+      <Card variant="clay" class="p-8">
+        <div class="flex justify-center mb-4">
+          <Icon name="sun" size={40} class="text-teal" />
         </div>
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)]">
-          <h3 class="text-2xl mb-4">Women's Group</h3>
-          <ul class="text-gray-600 space-y-2 mb-6">
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Women-only environment</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Guided experience</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Supportive community</li>
-            <li class="flex items-start gap-2"><span class="text-teal mt-1">✓</span> Same great facilities</li>
-          </ul>
-          <p class="text-sm text-gray-500 mb-4"><strong>Best for:</strong> Women wanting a private setting</p>
-          <a href={classesUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all">
-            Book Women's
-          </a>
+        <h3 class="text-2xl mb-3 text-center">1-Hour Open</h3>
+        <p class="text-gray-600 text-center mb-4">Full facility access at your own pace. Set your own rounds, timing, and intensity.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-teal" /></span>
+            <span>Full facility access</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-teal" /></span>
+            <span>Go at your own pace</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-teal" /></span>
+            <span>Choose your rounds and timing</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-teal" /></span>
+            <span>Self-directed experience</span>
+          </li>
+        </ul>
+        <p class="text-sm text-gray-500 mb-6 text-center"><strong>Best for:</strong> Experienced plungers and regulars</p>
+        <div class="text-center">
+          <Button href={classesUrl} variant="primary" target="_blank">Book Open</Button>
         </div>
-      </div>
+      </Card>
+
+      <!-- Women's Group -->
+      <Card variant="clay" class="p-8">
+        <div class="flex justify-center mb-4">
+          <Icon name="users" size={40} class="text-teal" />
+        </div>
+        <h3 class="text-2xl mb-3 text-center">Women's Group</h3>
+        <p class="text-gray-600 text-center mb-4">A guided session in a women-only environment. Welcoming, supportive, and empowering.</p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-teal" /></span>
+            <span>Women-only environment</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-teal" /></span>
+            <span>Guided experience</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-teal" /></span>
+            <span>Supportive community</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 shrink-0"><Icon name="check" size={18} class="text-teal" /></span>
+            <span>Same great facilities</span>
+          </li>
+        </ul>
+        <p class="text-sm text-gray-500 mb-6 text-center"><strong>Best for:</strong> Women wanting a private setting</p>
+        <div class="text-center">
+          <Button href={classesUrl} variant="primary" target="_blank">Book Women's</Button>
+        </div>
+      </Card>
+
     </div>
-  </section>
+  </Section>
 
   <!-- Pricing Cards -->
-  <section class="section-dark py-20">
-    <div class="container">
-      <h2 class="text-white text-center mb-4">Pricing</h2>
-      <p class="text-white/70 text-center max-w-2xl mx-auto mb-12">Flexible options from a single drop-in to unlimited monthly access.</p>
+  <Section variant="dark" id="pricing">
+    <SectionHeading
+      title="Pricing"
+      subtitle="Flexible options from a single drop-in to unlimited monthly access"
+      light
+    />
 
-      {/* Intro Offer - Highlighted */}
-      {intros.length > 0 && (
-        <div class="max-w-md mx-auto mb-12">
-          {intros.map((plan) => (
-            <div class="bg-teal rounded-[20px] p-8 text-center relative">
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-yellow text-black text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full">
-                Best for First-Timers
-              </span>
-              <h3 class="text-black text-2xl mb-2">{plan.name}</h3>
-              <p class="text-5xl font-bold text-black mb-2">{formatPrice(plan.price_cents)}</p>
-              <p class="text-black/70 mb-1">{plan.credits} sessions</p>
-              {plan.description && <p class="text-black/60 text-sm mb-6">{plan.description}</p>}
-              <a href={membershipsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-3 bg-dark-teal text-white font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/90 transition-all">
-                Get Started
-              </a>
+    {/* Intro Offer - Highlighted */}
+    {intros.length > 0 && (
+      <div class="max-w-md mx-auto mb-12">
+        {intros.map((plan) => (
+          <Card variant="gold" class="p-8 relative">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
+              Best for First-Timers
+            </span>
+            <div class="flex justify-center mb-3">
+              <Icon name="gift" size={36} class="text-dark-teal" />
             </div>
-          ))}
-        </div>
-      )}
-
-      {/* Drop-ins & Class Packs */}
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {dropIns.map((plan) => (
-          <div class="bg-white/5 rounded-[20px] p-8 text-center">
-            <h3 class="text-white text-xl mb-2">{plan.name}</h3>
-            <p class="text-3xl font-bold text-teal mb-1">{formatPrice(plan.price_cents)}</p>
-            <p class="text-white/60 text-sm mb-1">{plan.credits} session</p>
-            {plan.description && <p class="text-white/50 text-xs mb-6">{plan.description}</p>}
-            <a href={membershipsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-2 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all">
-              Buy
-            </a>
-          </div>
-        ))}
-        {packs.map((plan) => (
-          <div class="bg-white/5 rounded-[20px] p-8 text-center">
-            <h3 class="text-white text-xl mb-2">{plan.name}</h3>
-            <p class="text-3xl font-bold text-teal mb-1">{formatPrice(plan.price_cents)}</p>
-            <p class="text-white/60 text-sm mb-1">{plan.credits} sessions</p>
-            {plan.price_per_credit && <p class="text-white/50 text-xs mb-1">{formatPrice(plan.price_per_credit)}/session</p>}
-            {plan.description && <p class="text-white/50 text-xs mb-6">{plan.description}</p>}
-            <a href={membershipsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-2 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all">
-              Buy Pack
-            </a>
-          </div>
+            <h3 class="text-2xl mb-2">{plan.name}</h3>
+            <p class="text-5xl font-bold text-dark-teal mb-2">{formatPrice(plan.price_cents)}</p>
+            <p class="text-black/70 mb-1">{plan.credits} sessions</p>
+            {plan.description && <p class="text-black/60 text-sm mb-6">{plan.description}</p>}
+            <Button href={membershipsUrl} variant="secondary" target="_blank">Get Started</Button>
+          </Card>
         ))}
       </div>
+    )}
 
-      {/* Memberships */}
-      <h3 class="text-white text-center text-2xl mb-8 mt-12">Monthly Memberships</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {memberships.map((plan) => (
-          <div class={`rounded-[20px] p-8 text-center ${plan.name.includes('Unlimited') ? 'bg-gold text-black relative' : 'bg-white/5'}`}>
-            {plan.name.includes('Unlimited') && (
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full">
-                Best Value
-              </span>
-            )}
-            <h3 class={`text-xl mb-2 ${plan.name.includes('Unlimited') ? 'text-black' : 'text-white'}`}>{plan.name}</h3>
-            <p class={`text-3xl font-bold mb-1 ${plan.name.includes('Unlimited') ? 'text-dark-teal' : 'text-teal'}`}>{formatPrice(plan.price_cents)}<span class="text-lg">/mo</span></p>
-            {plan.credits && <p class={`text-sm mb-1 ${plan.name.includes('Unlimited') ? 'text-black/60' : 'text-white/60'}`}>{plan.credits === 999 ? 'Unlimited' : plan.credits} sessions/month</p>}
-            {plan.price_per_credit && plan.credits !== 999 && <p class={`text-xs mb-1 ${plan.name.includes('Unlimited') ? 'text-black/50' : 'text-white/50'}`}>{formatPrice(plan.price_per_credit)}/session</p>}
-            {plan.description && <p class={`text-xs mb-6 ${plan.name.includes('Unlimited') ? 'text-black/50' : 'text-white/50'}`}>{plan.description}</p>}
-            <a href={membershipsUrl} target="_blank" rel="noopener noreferrer" class={`inline-flex items-center px-6 py-2 font-bold uppercase text-sm tracking-wider rounded-[60px] transition-all ${plan.name.includes('Unlimited') ? 'bg-dark-teal text-white hover:bg-dark-teal/90' : 'bg-teal text-black hover:brightness-110'}`}>
-              Subscribe
-            </a>
-          </div>
-        ))}
-      </div>
+    {/* Drop-ins & Class Packs */}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      {dropIns.map((plan) => (
+        <Card variant="dark" class="p-8 text-center">
+          <h3 class="text-xl mb-2 text-white">{plan.name}</h3>
+          <p class="text-3xl font-bold text-teal mb-1">{formatPrice(plan.price_cents)}</p>
+          <p class="text-white/60 text-sm mb-1">{plan.credits} session</p>
+          {plan.description && <p class="text-white/50 text-xs mb-6">{plan.description}</p>}
+          <Button href={membershipsUrl} variant="on-dark" target="_blank">Buy</Button>
+        </Card>
+      ))}
+      {packs.map((plan) => (
+        <Card variant="dark" class="p-8 text-center">
+          <h3 class="text-xl mb-2 text-white">{plan.name}</h3>
+          <p class="text-3xl font-bold text-teal mb-1">{formatPrice(plan.price_cents)}</p>
+          <p class="text-white/60 text-sm mb-1">{plan.credits} sessions</p>
+          {plan.price_per_credit && <p class="text-white/50 text-xs mb-1">{formatPrice(plan.price_per_credit)}/session</p>}
+          {plan.description && <p class="text-white/50 text-xs mb-6">{plan.description}</p>}
+          <Button href={membershipsUrl} variant="on-dark" target="_blank">Buy Pack</Button>
+        </Card>
+      ))}
     </div>
-  </section>
 
-  <!-- How to Prepare -->
-  <div class="accent-line"></div>
-  <section class="section-light py-20">
-    <div class="container">
-      <h2 class="text-center mb-12">How to Prepare</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-        <div>
-          <h3 class="text-xl mb-4">What to Bring</h3>
-          <ul class="space-y-3">
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Towel (or rent one from us)</li>
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Water bottle</li>
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Swimsuit or shorts</li>
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Sandals or flip-flops</li>
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Change of clothes</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-xl mb-4">How to Prepare</h3>
-          <ul class="space-y-3">
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Hydrate well before your session</li>
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Eat a light meal 1-2 hours before</li>
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Avoid alcohol beforehand</li>
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Arrive 10 minutes early</li>
-            <li class="flex items-start gap-3"><span class="text-teal font-bold">✓</span> Come with an open mind!</li>
-          </ul>
-        </div>
-      </div>
-      <div class="text-center mt-10">
-        <a href="/first-visit" class="inline-flex items-center text-teal font-bold uppercase tracking-wider hover:underline">
-          Read the Full First Visit Guide →
-        </a>
-      </div>
+    {/* Memberships */}
+    <h3 class="text-white text-center text-2xl mb-8 mt-12">Monthly Memberships</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {memberships.map((plan) => {
+        const isUnlimited = plan.name.includes('Unlimited');
+        return isUnlimited ? (
+          <Card variant="gold" class="p-8 relative">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
+              Best Value
+            </span>
+            <h3 class="text-xl mb-2">{plan.name}</h3>
+            <p class="text-3xl font-bold text-dark-teal mb-1">{formatPrice(plan.price_cents)}<span class="text-lg">/mo</span></p>
+            {plan.credits && <p class="text-black/60 text-sm mb-1">{plan.credits === 999 ? 'Unlimited' : plan.credits} sessions/month</p>}
+            {plan.price_per_credit && plan.credits !== 999 && <p class="text-black/50 text-xs mb-1">{formatPrice(plan.price_per_credit)}/session</p>}
+            {plan.description && <p class="text-black/50 text-xs mb-6">{plan.description}</p>}
+            <Button href={membershipsUrl} variant="secondary" target="_blank">Subscribe</Button>
+          </Card>
+        ) : (
+          <Card variant="dark" class="p-8 text-center">
+            <h3 class="text-xl mb-2 text-white">{plan.name}</h3>
+            <p class="text-3xl font-bold text-teal mb-1">{formatPrice(plan.price_cents)}<span class="text-lg">/mo</span></p>
+            {plan.credits && <p class="text-white/60 text-sm mb-1">{plan.credits === 999 ? 'Unlimited' : plan.credits} sessions/month</p>}
+            {plan.price_per_credit && plan.credits !== 999 && <p class="text-white/50 text-xs mb-1">{formatPrice(plan.price_per_credit)}/session</p>}
+            {plan.description && <p class="text-white/50 text-xs mb-6">{plan.description}</p>}
+            <Button href={membershipsUrl} variant="on-dark" target="_blank">Subscribe</Button>
+          </Card>
+        );
+      })}
     </div>
-  </section>
+  </Section>
 
   <!-- Private Bookings -->
-  <section class="section-dark py-16">
-    <div class="container text-center">
-      <h2 class="text-white mb-4">Private Bookings Available</h2>
-      <p class="text-white/70 max-w-2xl mx-auto mb-8">
-        Book the entire space for your group, team, or event. Perfect for corporate wellness, bachelor/bachelorette parties, birthday celebrations, and team recovery sessions.
-      </p>
-      <p class="text-teal text-2xl font-bold mb-6">Starting at $375</p>
-      <a
-        href="mailto:hello@thesaunaguys.com?subject=Private%20Booking%20Inquiry"
-        class="inline-flex items-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-      >
-        Inquire About Private Sessions
-      </a>
+  <div class="accent-line"></div>
+  <Section variant="light" id="private-bookings">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <img
+          src="/images/private-rental.jpg"
+          alt="Private sauna rental area"
+          class="rounded-[var(--radius-card)] w-full h-auto object-cover shadow-lg"
+          loading="lazy"
+        />
+      </div>
+      <div>
+        <SectionHeading title="Private Bookings" subtitle="Book the entire space for your group, team, or event" align="left" />
+        <p class="text-gray-600 mb-4">
+          Perfect for corporate wellness, bachelor and bachelorette parties, birthday celebrations, and team recovery sessions.
+        </p>
+        <p class="text-teal text-2xl font-bold mb-2">Starting at $375</p>
+        <p class="text-gray-500 text-sm mb-8">
+          Contact us at <a href="mailto:theguys@sauna-guys.com?subject=Private%20Sauna%20Booking%20Inquiry" class="text-teal underline">theguys@sauna-guys.com</a> for availability and custom pricing.
+        </p>
+        <Button href="mailto:theguys@sauna-guys.com?subject=Private%20Sauna%20Booking%20Inquiry" variant="primary">
+          Inquire About Private Sessions
+        </Button>
+      </div>
     </div>
-  </section>
+  </Section>
+
+  <!-- What's Included -->
+  <div class="accent-line"></div>
+  <Section variant="light" id="whats-included">
+    <SectionHeading title="What's Included" subtitle="Every session comes with everything you need" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="shield-check" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Clean Facility</h3>
+        <p class="text-gray-600 text-sm">Sanitized space with fresh towels and a pristine environment every session</p>
+      </Card>
+
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="droplets" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Showers</h3>
+        <p class="text-gray-600 text-sm">Full shower facilities available before and after your session</p>
+      </Card>
+
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="timer" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Full 60 Minutes</h3>
+        <p class="text-gray-600 text-sm">Every session gives you the full hour to sauna, plunge, and recover</p>
+      </Card>
+
+      <Card variant="clay" class="p-6 text-center">
+        <div class="flex justify-center mb-3">
+          <Icon name="snowflake" size={36} class="text-teal" />
+        </div>
+        <h3 class="text-lg mb-2">Cold Plunge Access</h3>
+        <p class="text-gray-600 text-sm">Multiple cold plunge tubs maintained at optimal temperatures</p>
+      </Card>
+
+    </div>
+  </Section>
+
+  <!-- Bottom CTA -->
+  <Section variant="dark" id="book-now">
+    <div class="text-center">
+      <SectionHeading
+        title="Ready to Feel the Difference?"
+        subtitle="Book your first session today and experience Tampa's premier sauna and cold plunge studio"
+        light
+      />
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href={classesUrl} variant="on-dark" target="_blank">Book a Session</Button>
+        <Button href={membershipsUrl} variant="outline" target="_blank">View Memberships</Button>
+      </div>
+    </div>
+  </Section>
 </PublicLayout>

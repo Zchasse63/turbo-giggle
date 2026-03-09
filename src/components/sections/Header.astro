@@ -1,4 +1,7 @@
 ---
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
 const navLinks = [
   { href: '/services', label: 'Services' },
   { href: '/about', label: 'About' },
@@ -8,15 +11,22 @@ const navLinks = [
 ];
 
 const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+const currentPath = Astro.url.pathname;
+
+/**
+ * Determine if a nav link is the current page.
+ * Matches exact path or any sub-path (e.g. /blog matches /blog/post-slug).
+ */
+function isCurrent(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath === href || currentPath.startsWith(href + '/');
+}
 ---
 
 <header class="bg-dark-teal sticky top-0 z-50">
-  <!-- Accent line -->
-  <div class="h-[3px] bg-yellow"></div>
-
   <nav class="container flex items-center justify-between py-4">
     <!-- Logo -->
-    <a href="/" class="flex-shrink-0">
+    <a href="/" class="flex-shrink-0 cursor-pointer">
       <img
         src="/images/logo.png"
         alt="The Sauna Guys"
@@ -32,7 +42,8 @@ const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
         <li>
           <a
             href={link.href}
-            class="font-display text-white text-lg uppercase tracking-wide hover:text-teal transition-colors duration-200"
+            class="font-display text-white text-[1.875rem] leading-none uppercase tracking-wide hover:text-teal transition-colors duration-200 cursor-pointer"
+            aria-current={isCurrent(link.href) ? 'page' : undefined}
           >
             {link.label}
           </a>
@@ -40,61 +51,95 @@ const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
       ))}
     </ul>
 
-    <!-- CTA Button -->
-    <a
-      href={bookingUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="hidden md:inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-    >
-      Book Class
-    </a>
+    <!-- CTA Button (desktop) -->
+    <div class="hidden md:block">
+      <Button href={bookingUrl} variant="on-dark" target="_blank">
+        Book Class
+      </Button>
+    </div>
 
     <!-- Mobile menu button -->
     <button
       id="mobile-menu-toggle"
-      class="md:hidden text-white p-2"
+      class="md:hidden text-white p-2 cursor-pointer"
       aria-label="Toggle mobile menu"
       aria-expanded="false"
     >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+      <span id="menu-icon-open">
+        <Icon name="menu" size={28} />
+      </span>
+      <span id="menu-icon-close" class="hidden">
+        <Icon name="x" size={28} />
+      </span>
     </button>
   </nav>
 
   <!-- Mobile Nav -->
-  <div id="mobile-menu" class="hidden md:hidden bg-dark-teal border-t border-white/10 pb-4">
-    <ul class="container flex flex-col gap-4 pt-4">
+  <div
+    id="mobile-menu"
+    class="md:hidden bg-dark-teal border-t border-white/10 overflow-hidden transition-all duration-300 ease-in-out"
+    style="max-height: 0;"
+  >
+    <ul class="container flex flex-col gap-4 py-4">
       {navLinks.map((link) => (
         <li>
           <a
             href={link.href}
-            class="font-display text-white text-xl uppercase tracking-wide block py-2"
+            class="mobile-nav-link font-display text-white text-[1.875rem] leading-none uppercase tracking-wide block py-2 hover:text-teal transition-colors duration-200 cursor-pointer"
+            aria-current={isCurrent(link.href) ? 'page' : undefined}
           >
             {link.label}
           </a>
         </li>
       ))}
       <li class="pt-2">
-        <a
-          href={bookingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px]"
-        >
+        <Button href={bookingUrl} variant="on-dark" target="_blank">
           Book Class
-        </a>
+        </Button>
       </li>
     </ul>
   </div>
+
+  <!-- Yellow accent line at BOTTOM of header -->
+  <div class="h-[3px] bg-yellow"></div>
 </header>
 
 <script>
   const toggle = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+  function openMenu() {
+    if (!menu || !iconOpen || !iconClose || !toggle) return;
+    menu.style.maxHeight = menu.scrollHeight + 'px';
+    iconOpen.classList.add('hidden');
+    iconClose.classList.remove('hidden');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeMenu() {
+    if (!menu || !iconOpen || !iconClose || !toggle) return;
+    menu.style.maxHeight = '0';
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
   toggle?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('hidden');
-    toggle.setAttribute('aria-expanded', String(!isOpen));
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // Close menu when a nav link is clicked (SPA-like behavior)
+  mobileLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
   });
 </script>

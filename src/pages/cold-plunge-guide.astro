@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 
 const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 
@@ -130,21 +136,19 @@ const breadcrumbJsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 
   <!-- Hero -->
-  <section class="section-dark py-24 md:py-32">
-    <div class="container text-center">
-      <h1 class="text-white mb-6">The Complete Cold Plunge Guide</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto">
-        Everything you need to know about cold water immersion — from the science behind it to your first plunge.
-      </p>
-    </div>
-  </section>
+  <HeroImage src="/images/cold-plunge.jpg" alt="Cold plunge tubs" height="short">
+    <h1>The Complete Cold Plunge Guide</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      Everything you need to know about cold water immersion — from the science behind it to your first plunge.
+    </p>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- Table of Contents -->
-  <section class="section-light py-12">
-    <div class="container max-w-3xl mx-auto">
-      <nav class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+  <Section variant="light" class="py-12">
+    <div class="max-w-3xl mx-auto">
+      <Card variant="clay" class="p-6">
         <p class="font-bold text-sm uppercase tracking-wider text-dark-teal mb-3">In This Guide</p>
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {sections.map((s) => (
@@ -153,79 +157,71 @@ const breadcrumbJsonLd = {
             </li>
           ))}
         </ul>
-      </nav>
+      </Card>
     </div>
-  </section>
+  </Section>
 
   <!-- What Is Cold Plunging -->
-  <section id="what-is-cold-plunging" class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="mb-8">{sections[0].title}</h2>
+  <Section variant="light" id="what-is-cold-plunging">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title={sections[0].title} align="left" />
       <p class="text-lg text-gray-700 leading-relaxed">{sections[0].content}</p>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- The Science -->
-  <section id="the-science" class="section-dark py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-white mb-8">{sections[1].title}</h2>
+  <Section variant="dark" id="the-science">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title={sections[1].title} align="left" light />
       <p class="text-lg text-white/80 leading-relaxed mb-8">{sections[1].content}</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {sections[1].highlights?.map((h) => (
-          <div class="bg-white/10 rounded-[20px] px-5 py-4 flex items-start gap-3">
-            <span class="text-teal text-xl flex-shrink-0 mt-0.5">&#10003;</span>
+          <Card variant="dark" class="px-5 py-4 flex items-start gap-3">
+            <Icon name="circle-check" size={20} class="text-teal flex-shrink-0 mt-0.5" />
             <span class="text-white">{h}</span>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Benefits -->
-  <section id="benefits" class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="mb-12">{sections[2].title}</h2>
+  <Section variant="light" id="benefits">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title={sections[2].title} />
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {sections[2].subsections?.map((sub) => (
-          <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+          <Card variant="clay" class="p-6">
             <h3 class="text-lg mb-3">{sub.subtitle}</h3>
             <p class="text-gray-600 text-sm leading-relaxed">{sub.text}</p>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Mid-page CTA -->
-  <section class="section-dark py-16">
-    <div class="container max-w-3xl mx-auto text-center">
-      <h2 class="text-white mb-4">Ready to Take the Plunge?</h2>
-      <p class="text-white/80 text-lg mb-8">
-        Our guided sessions walk you through every step. Beginners always welcome.
-      </p>
-      <a
-        href={glowfoxClassesUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-      >
+  <Section variant="dark">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading title="Ready to Take the Plunge?" subtitle="Our guided sessions walk you through every step. Beginners always welcome." light />
+      <Button href={glowfoxClassesUrl} variant="on-dark" target="_blank">
         Book a Session
-      </a>
+      </Button>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- How To -->
-  <section id="how-to" class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="mb-12">{sections[3].title}</h2>
+  <Section variant="light" id="how-to">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title={sections[3].title} />
       <div class="space-y-8">
         {sections[3].steps?.map((step, i) => (
           <div class="flex gap-6 items-start">
@@ -240,49 +236,38 @@ const breadcrumbJsonLd = {
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Safety -->
-  <section id="safety" class="section-dark py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-white mb-8">{sections[4].title}</h2>
+  <Section variant="dark" id="safety">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeading title={sections[4].title} light />
       <div class="space-y-4">
         {sections[4].warnings?.map((warning) => (
-          <div class="bg-white/10 rounded-[20px] px-6 py-4 flex items-start gap-3">
-            <span class="text-gold text-xl flex-shrink-0 mt-0.5">&#9888;</span>
+          <Card variant="dark" class="px-6 py-4 flex items-start gap-3">
+            <Icon name="shield-check" size={20} class="text-gold flex-shrink-0 mt-0.5" />
             <span class="text-white leading-relaxed">{warning}</span>
-          </div>
+          </Card>
         ))}
       </div>
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Bottom CTA -->
-  <section class="section-light py-20">
-    <div class="container max-w-3xl mx-auto text-center">
-      <h2 class="mb-4">Experience It In Person</h2>
-      <p class="text-gray-600 text-lg mb-8">
-        Our facility, our cold plunge, and our team make the experience safe, guided, and unforgettable. Your first plunge is waiting.
-      </p>
+  <Section variant="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading title="Experience It In Person" subtitle="Our facility, our cold plunge, and our team make the experience safe, guided, and unforgettable. Your first plunge is waiting." />
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href={glowfoxClassesUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-        >
+        <Button href={glowfoxClassesUrl} variant="primary" target="_blank">
           Book a Session
-        </a>
-        <a
-          href="/first-visit"
-          class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark-teal text-dark-teal font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/5 transition-all duration-200"
-        >
+        </Button>
+        <Button href="/first-visit" variant="outline">
           First Visit Guide
-        </a>
+        </Button>
       </div>
 
       <!-- Related Guides -->
@@ -294,5 +279,5 @@ const breadcrumbJsonLd = {
         </div>
       </div>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

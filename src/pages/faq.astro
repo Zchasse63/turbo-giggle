@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 
 const faqs = [
   {
@@ -137,34 +143,36 @@ const faqJsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
 
   <!-- Hero -->
-  <section class="section-dark py-24">
-    <div class="container text-center">
-      <h1 class="text-white mb-4">Frequently Asked Questions</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto">
-        Everything you need to know before your visit.
-      </p>
-    </div>
-  </section>
+  <HeroImage src="/images/cold-plunge.jpg" alt="Cold plunge tubs" height="short">
+    <h1>Frequently Asked Questions</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      Everything you need to know before your visit.
+    </p>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- FAQ Sections -->
-  <section class="section-light py-20">
-    <div class="container max-w-4xl mx-auto">
+  <Section variant="light">
+    <div class="max-w-4xl mx-auto">
       {faqs.map((section) => (
         <div class="mb-16 last:mb-0">
-          <h2 class="text-center mb-8">{section.category}</h2>
+          <SectionHeading title={section.category} />
           <div class="space-y-4">
             {section.questions.map((item) => (
-              <details class="group bg-gold/10 rounded-[20px] shadow-[var(--shadow-clay)] overflow-hidden">
-                <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-lg list-none [&::-webkit-details-marker]:hidden">
-                  <span>{item.q}</span>
-                  <span class="ml-4 flex-shrink-0 text-teal transition-transform duration-200 group-open:rotate-45 text-2xl font-bold">+</span>
-                </summary>
-                <div class="px-6 pb-5 text-gray-700 leading-relaxed">
-                  <p>{item.a}</p>
-                </div>
-              </details>
+              <Card variant="clay" class="overflow-hidden">
+                <details class="group">
+                  <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-lg list-none [&::-webkit-details-marker]:hidden">
+                    <span>{item.q}</span>
+                    <span class="ml-4 flex-shrink-0 text-teal transition-transform duration-200 group-open:rotate-180">
+                      <Icon name="chevron-down" size={20} />
+                    </span>
+                  </summary>
+                  <div class="px-6 pb-5 text-gray-700 leading-relaxed">
+                    <p>{item.a}</p>
+                  </div>
+                </details>
+              </Card>
             ))}
           </div>
         </div>
@@ -172,25 +180,16 @@ const faqJsonLd = {
 
       <!-- CTA -->
       <div class="text-center mt-16 pt-8 border-t border-gray-200">
-        <h2 class="mb-4">Still Have Questions?</h2>
-        <p class="text-gray-600 text-lg mb-8">
-          We are happy to help. Reach out directly or check out our first-timer guide.
-        </p>
+        <SectionHeading title="Still Have Questions?" subtitle="We are happy to help. Reach out directly or check out our first-timer guide." />
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="/contact"
-            class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-          >
+          <Button href="/contact" variant="primary">
             Contact Us
-          </a>
-          <a
-            href="/first-visit"
-            class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark-teal text-dark-teal font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/5 transition-all duration-200"
-          >
+          </Button>
+          <Button href="/first-visit" variant="outline">
             First Visit Guide
-          </a>
+          </Button>
         </div>
       </div>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

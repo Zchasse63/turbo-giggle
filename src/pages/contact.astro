@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 ---
 
 <PublicLayout
@@ -7,23 +13,21 @@ import PublicLayout from '../layouts/PublicLayout.astro';
   description="Get in touch with The Sauna Guys. Visit our Tampa studio, call us, or send a message. Located in South Tampa near Hyde Park."
 >
   <!-- Hero -->
-  <section class="section-dark py-24">
-    <div class="container text-center">
-      <h1 class="text-white mb-4">Contact Us</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto">
-        Questions? Ready to visit? We'd love to hear from you.
-      </p>
-    </div>
-  </section>
+  <HeroImage src="/images/exterior.jpg" alt="The Sauna Guys studio" height="short">
+    <h1>Contact Us</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      Questions? Ready to visit? We'd love to hear from you.
+    </p>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- Main Content -->
-  <section class="section-light py-20">
-    <div class="container grid grid-cols-1 md:grid-cols-2 gap-12">
+  <Section variant="light">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
       <!-- Contact Form (Netlify Forms) -->
       <div>
-        <h2 class="mb-6">Send Us a Message</h2>
+        <SectionHeading title="Send Us a Message" align="left" />
         <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-4">
           <input type="hidden" name="form-name" value="contact" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
@@ -54,52 +58,62 @@ import PublicLayout from '../layouts/PublicLayout.astro';
             <label for="message" class="block text-sm font-bold mb-1">Message *</label>
             <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"></textarea>
           </div>
-          <button type="submit" class="px-8 py-3 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200">
+          <Button type="submit" variant="primary">
             Send Message
-          </button>
+          </Button>
         </form>
       </div>
 
       <!-- Location Info + Map -->
       <div>
-        <h2 class="mb-6">Visit Us</h2>
-        <address class="not-italic space-y-2 mb-8">
-          <p class="font-bold text-lg">The Sauna Guys</p>
-          <p>3709 W Azeele St.</p>
-          <p>Tampa, FL 33609</p>
-          <p class="pt-2">
-            <a href="tel:+18135514177" class="text-teal hover:underline font-bold">(813) 551-4177</a>
-          </p>
-          <p>
-            <a href="mailto:hello@thesaunaguys.com" class="text-teal hover:underline">hello@thesaunaguys.com</a>
-          </p>
-        </address>
+        <SectionHeading title="Visit Us" align="left" />
+
+        <Card variant="clay" class="p-6 mb-6">
+          <address class="not-italic space-y-3">
+            <p class="font-bold text-lg">The Sauna Guys</p>
+            <p class="flex items-center gap-2">
+              <Icon name="map-pin" size={18} class="text-teal flex-shrink-0" />
+              <span>1703 North 24th Street, Tampa, FL 33605</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <Icon name="phone" size={18} class="text-teal flex-shrink-0" />
+              <a href="tel:+18135514177" class="text-teal hover:underline font-bold">(813) 551-4177</a>
+            </p>
+            <p class="flex items-center gap-2">
+              <Icon name="mail" size={18} class="text-teal flex-shrink-0" />
+              <a href="mailto:hello@thesaunaguys.com" class="text-teal hover:underline">hello@thesaunaguys.com</a>
+            </p>
+          </address>
+        </Card>
 
         <!-- Hours -->
-        <div class="mb-8">
-          <h3 class="text-lg mb-3">Hours</h3>
+        <Card variant="clay" class="p-6 mb-6">
+          <h3 class="text-lg mb-3 flex items-center gap-2">
+            <Icon name="clock" size={20} class="text-teal" />
+            Hours
+          </h3>
           <div class="space-y-1 text-gray-600">
             <p><strong>Monday – Friday:</strong> 6:00 AM – 8:00 PM</p>
             <p><strong>Saturday – Sunday:</strong> 8:00 AM – 6:00 PM</p>
           </div>
-        </div>
+        </Card>
 
         <!-- Driving Directions -->
-        <div class="mb-8">
+        <Card variant="clay" class="p-6 mb-6">
           <h3 class="text-lg mb-3">Getting Here</h3>
           <ul class="space-y-2 text-gray-600 text-sm">
-            <li class="flex items-start gap-2"><span class="text-teal">📍</span> South Tampa / Hyde Park: ~5 min</li>
-            <li class="flex items-start gap-2"><span class="text-teal">📍</span> Downtown Tampa: ~8 min</li>
-            <li class="flex items-start gap-2"><span class="text-teal">📍</span> Seminole Heights: ~10 min</li>
-            <li class="flex items-start gap-2"><span class="text-teal">📍</span> Westchase / Carrollwood: ~15 min</li>
+            <li class="flex items-start gap-2"><Icon name="map-pin" size={16} class="text-teal flex-shrink-0 mt-0.5" /> South Tampa / Hyde Park: ~5 min</li>
+            <li class="flex items-start gap-2"><Icon name="map-pin" size={16} class="text-teal flex-shrink-0 mt-0.5" /> Downtown Tampa: ~8 min</li>
+            <li class="flex items-start gap-2"><Icon name="map-pin" size={16} class="text-teal flex-shrink-0 mt-0.5" /> Seminole Heights: ~10 min</li>
+            <li class="flex items-start gap-2"><Icon name="map-pin" size={16} class="text-teal flex-shrink-0 mt-0.5" /> Westchase / Carrollwood: ~15 min</li>
           </ul>
           <p class="text-gray-500 text-xs mt-3">Parking available on-site.</p>
-        </div>
+        </Card>
 
         <!-- Google Maps Embed -->
         <div class="rounded-xl overflow-hidden h-64 bg-gray-200">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3526.0!2d-82.4912!3d27.9426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDU2JzMzLjQiTiA4MsKwMjknMjguMyJX!5e0!3m2!1sen!2sus!4v1"
+            src="https://maps.google.com/maps?q=1703+N+24th+St,+Tampa,+FL+33605&t=&z=15&ie=UTF8&iwloc=&output=embed"
             width="100%"
             height="100%"
             style="border:0;"
@@ -111,20 +125,15 @@ import PublicLayout from '../layouts/PublicLayout.astro';
         </div>
       </div>
     </div>
-  </section>
+  </Section>
 
   <!-- CTA -->
-  <section class="bg-teal py-12">
-    <div class="container text-center">
+  <Section variant="teal">
+    <div class="text-center">
       <p class="text-black font-bold text-lg mb-4">Ready to experience it for yourself?</p>
-      <a
-        href={import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center px-8 py-3 bg-dark-teal text-white font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/90 transition-all"
-      >
+      <Button href={import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL} variant="primary" target="_blank">
         Try 3 Sessions for $60
-      </a>
+      </Button>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

@@ -1,0 +1,33 @@
+---
+/**
+ * Card.astro — Card component with clay/gold/dark variants.
+ * Uses Hybrid Claymorphism + Soft UI Evolution shadow system.
+ *
+ * Variants:
+ *   clay  — white bg, soft shadow, hover lift (default)
+ *   gold  — gold bg (#E8A838), centered text, hover lift
+ *   dark  — dark teal bg, white text, hover lift
+ *
+ * Usage:
+ *   <Card variant="clay"><p>Content here</p></Card>
+ *   <Card variant="gold" class="p-8">Pricing card</Card>
+ */
+
+interface Props {
+  variant?: 'clay' | 'gold' | 'dark';
+  class?: string;
+  as?: string;
+}
+
+const {
+  variant = 'clay',
+  class: className = '',
+} = Astro.props;
+
+const variantClass = `card-${variant}`;
+const classes = `${variantClass} ${className}`.trim();
+---
+
+<div class={classes}>
+  <slot />
+</div>

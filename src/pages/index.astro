@@ -1,258 +1,304 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import Card from '../components/ui/Card.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
 
-const classesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
-const membershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
 ---
 
 <PublicLayout
   title="Sauna & Cold Plunge Tampa | The Sauna Guys"
   description="Tampa's premier sauna and cold plunge wellness studio. Guided contrast therapy sessions for recovery, stress relief, and total body wellness."
 >
-  <!-- Hero Section -->
-  <section class="section-dark py-24 md:py-36">
-    <div class="container text-center">
-      <h1 class="text-white mb-6">Tampa's Best Choice for<br />Sauna + Cold Plunge</h1>
-      <p class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-        Guided contrast therapy sessions designed for recovery, stress relief, and total body wellness.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href={membershipsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-        >
-          Try 3 Sessions for $60
-        </a>
-        <a
-          href="/first-visit"
-          class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold uppercase tracking-wider rounded-[60px] hover:bg-white/10 transition-all duration-200"
-        >
-          First Time? Start Here
-        </a>
-      </div>
+  <!-- ============================================
+       1. HERO SECTION
+       ============================================ -->
+  <HeroImage src="/images/woman-sauna.jpg" alt="Woman relaxing in a traditional sauna at The Sauna Guys Tampa">
+    <h1 class="mb-6">Tampa's Best Choice for<br />Sauna + Cold Plunge</h1>
+    <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10">
+      Guided contrast therapy sessions designed for recovery, stress relief, and total body wellness.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <Button href={membershipUrl} variant="on-dark" target="_blank">
+        Try 3 Sessions for $60
+      </Button>
+      <Button href="/first-visit" variant="outline" class="border-white text-white hover:bg-white/10 hover:text-white">
+        First Time? Start Here
+      </Button>
     </div>
-  </section>
+  </HeroImage>
 
-  <!-- Social Proof Bar -->
-  <div class="bg-teal py-4">
-    <div class="container flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-black font-bold text-sm uppercase tracking-wider">
+  <!-- ============================================
+       2. SOCIAL PROOF STRIP
+       ============================================ -->
+  <Section variant="teal">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-black font-bold text-sm uppercase tracking-wider py-2">
       <span class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-yellow" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <Icon name="star" size={20} class="text-yellow" />
         Rated 5.0 on Google
       </span>
       <span class="hidden sm:block w-1 h-1 bg-black/30 rounded-full"></span>
       <span>Tampa's #1 Contrast Therapy Studio</span>
     </div>
-  </div>
+  </Section>
 
   <!-- Accent Line -->
   <div class="accent-line"></div>
 
-  <!-- What to Expect -->
-  <section class="section-light py-20">
-    <div class="container text-center">
-      <h2 class="mb-4">What to Expect</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto mb-12">Your first visit is easier than you think. Here's how it works.</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-teal font-bold text-2xl">1</span>
-          </div>
-          <h3 class="text-lg mb-2">Buy</h3>
-          <p class="text-gray-600 text-sm">Grab the Sauna Sampler — 3 sessions for $60.</p>
+  <!-- ============================================
+       3. WHAT TO EXPECT
+       ============================================ -->
+  <Section variant="light" id="what-to-expect">
+    <SectionHeading title="What to Expect" subtitle="Your first visit is easier than you think. Here's how it works." />
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <Card variant="clay" class="text-center p-8">
+        <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icon name="compass" size={28} class="text-teal" />
         </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-teal font-bold text-2xl">2</span>
-          </div>
-          <h3 class="text-lg mb-2">Book</h3>
-          <p class="text-gray-600 text-sm">Pick a class time that works for you.</p>
+        <h3 class="text-lg mb-2">Buy</h3>
+        <p class="text-gray-600 text-sm">Grab the Sauna Sampler — 3 sessions for $60.</p>
+      </Card>
+      <Card variant="clay" class="text-center p-8">
+        <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icon name="calendar" size={28} class="text-teal" />
         </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-teal font-bold text-2xl">3</span>
-          </div>
-          <h3 class="text-lg mb-2">Prepare</h3>
-          <p class="text-gray-600 text-sm">Bring a towel and water. We've got the rest.</p>
+        <h3 class="text-lg mb-2">Book</h3>
+        <p class="text-gray-600 text-sm">Pick a class time that works for you.</p>
+      </Card>
+      <Card variant="clay" class="text-center p-8">
+        <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icon name="thermometer-sun" size={28} class="text-teal" />
         </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-teal font-bold text-2xl">4</span>
-          </div>
-          <h3 class="text-lg mb-2">Arrive</h3>
-          <p class="text-gray-600 text-sm">Show up 10 min early. We'll handle the rest.</p>
+        <h3 class="text-lg mb-2">Prepare</h3>
+        <p class="text-gray-600 text-sm">Bring a towel and water. We've got the rest.</p>
+      </Card>
+      <Card variant="clay" class="text-center p-8">
+        <div class="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Icon name="sparkles" size={28} class="text-teal" />
         </div>
-      </div>
-      <a href="/first-visit" class="inline-flex items-center mt-10 text-teal font-bold uppercase tracking-wider hover:underline">
-        Read the full First Visit Guide →
+        <h3 class="text-lg mb-2">Arrive</h3>
+        <p class="text-gray-600 text-sm">Show up 10 min early. We'll handle the rest.</p>
+      </Card>
+    </div>
+    <div class="text-center mt-10">
+      <Button href="/first-visit" variant="outline">
+        Read the Full First Visit Guide
+      </Button>
+    </div>
+  </Section>
+
+  <!-- ============================================
+       4. BENEFITS GRID
+       ============================================ -->
+  <Section variant="light" id="benefits">
+    <SectionHeading title="Why Contrast Therapy?" subtitle="Science-backed benefits from alternating hot sauna and cold plunge." />
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <a href="/sauna-benefits" class="block">
+        <Card variant="clay" class="text-center p-8">
+          <div class="mb-4">
+            <Icon name="dumbbell" size={40} class="text-teal" />
+          </div>
+          <h3 class="text-xl mb-3">Muscle Recovery</h3>
+          <p class="text-gray-600 text-sm">Reduce soreness and accelerate recovery after workouts.</p>
+        </Card>
+      </a>
+      <a href="/contrast-therapy" class="block">
+        <Card variant="clay" class="text-center p-8">
+          <div class="mb-4">
+            <Icon name="brain" size={40} class="text-teal" />
+          </div>
+          <h3 class="text-xl mb-3">Mental Clarity</h3>
+          <p class="text-gray-600 text-sm">Cold exposure triggers endorphins and sharpens focus.</p>
+        </Card>
+      </a>
+      <a href="/sauna-benefits" class="block">
+        <Card variant="clay" class="text-center p-8">
+          <div class="mb-4">
+            <Icon name="moon" size={40} class="text-teal" />
+          </div>
+          <h3 class="text-xl mb-3">Better Sleep</h3>
+          <p class="text-gray-600 text-sm">Sauna sessions improve sleep quality and duration.</p>
+        </Card>
+      </a>
+      <a href="/cold-plunge-guide" class="block">
+        <Card variant="clay" class="text-center p-8">
+          <div class="mb-4">
+            <Icon name="heart-pulse" size={40} class="text-teal" />
+          </div>
+          <h3 class="text-xl mb-3">Heart Health</h3>
+          <p class="text-gray-600 text-sm">Regular sauna use supports cardiovascular wellness.</p>
+        </Card>
       </a>
     </div>
-  </section>
+  </Section>
 
-  <!-- Benefits Grid -->
-  <section class="section-dark py-20">
-    <div class="container text-center">
-      <h2 class="text-white mb-4">Why Contrast Therapy?</h2>
-      <p class="text-white/70 max-w-2xl mx-auto mb-12">Science-backed benefits from alternating hot sauna and cold plunge.</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        <a href="/sauna-benefits" class="bg-white/5 rounded-[20px] p-8 hover:bg-white/10 transition-colors group">
-          <div class="text-teal text-4xl mb-4">💪</div>
-          <h3 class="text-white text-xl mb-3">Muscle Recovery</h3>
-          <p class="text-white/60 text-sm">Reduce soreness and accelerate recovery after workouts.</p>
-        </a>
-        <a href="/contrast-therapy" class="bg-white/5 rounded-[20px] p-8 hover:bg-white/10 transition-colors group">
-          <div class="text-teal text-4xl mb-4">🧠</div>
-          <h3 class="text-white text-xl mb-3">Mental Clarity</h3>
-          <p class="text-white/60 text-sm">Cold exposure triggers endorphins and sharpens focus.</p>
-        </a>
-        <a href="/sauna-benefits" class="bg-white/5 rounded-[20px] p-8 hover:bg-white/10 transition-colors group">
-          <div class="text-teal text-4xl mb-4">😴</div>
-          <h3 class="text-white text-xl mb-3">Better Sleep</h3>
-          <p class="text-white/60 text-sm">Sauna sessions improve sleep quality and duration.</p>
-        </a>
-        <a href="/cold-plunge-guide" class="bg-white/5 rounded-[20px] p-8 hover:bg-white/10 transition-colors group">
-          <div class="text-teal text-4xl mb-4">❤️</div>
-          <h3 class="text-white text-xl mb-3">Heart Health</h3>
-          <p class="text-white/60 text-sm">Regular sauna use supports cardiovascular wellness.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Preview -->
+  <!-- ============================================
+       5. OUR EXPERIENCES
+       ============================================ -->
   <div class="accent-line"></div>
-  <section class="section-light py-20">
-    <div class="container text-center">
-      <h2 class="mb-4">Our Experiences</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto mb-12">Choose the session that fits your vibe.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)]">
-          <h3 class="text-2xl mb-4">1-Hour Guided</h3>
-          <p class="text-gray-600 mb-6">Our signature experience. A guided journey through multiple sauna and cold plunge rounds with coaching on breathing and recovery techniques.</p>
-          <p class="text-sm text-gray-500 mb-4">Best for: First-timers & anyone who wants structure</p>
-          <a href={classesUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all">
-            Book Guided Session
-          </a>
+  <Section variant="light" id="experiences">
+    <SectionHeading title="Our Experiences" subtitle="Choose the session that fits your vibe." />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <Card variant="gold" class="p-8">
+        <div class="mb-4">
+          <Icon name="thermometer-sun" size={36} class="text-dark-teal" />
         </div>
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)]">
-          <h3 class="text-2xl mb-4">1-Hour Open</h3>
-          <p class="text-gray-600 mb-6">Know the drill? Come in and flow at your own pace. Full access to sauna and cold plunge facilities with no structured guidance.</p>
-          <p class="text-sm text-gray-500 mb-4">Best for: Experienced plungers & regulars</p>
-          <a href={classesUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all">
-            Book Open Session
-          </a>
+        <h3 class="text-2xl mb-4">1-Hour Guided</h3>
+        <p class="text-black/70 mb-6">Our signature experience. A guided journey through multiple sauna and cold plunge rounds with coaching on breathing and recovery techniques.</p>
+        <p class="text-sm text-black/50 mb-6">Best for: First-timers & anyone who wants structure</p>
+        <Button href={bookingUrl} variant="primary" target="_blank">
+          Book Guided Session
+        </Button>
+      </Card>
+      <Card variant="clay" class="text-center p-8">
+        <div class="mb-4">
+          <Icon name="snowflake" size={36} class="text-teal" />
         </div>
-        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)]">
-          <h3 class="text-2xl mb-4">Women's Group</h3>
-          <p class="text-gray-600 mb-6">A dedicated women's-only session in a supportive, comfortable environment. Same great experience, same great results.</p>
-          <p class="text-sm text-gray-500 mb-4">Best for: Women wanting a private setting</p>
-          <a href={classesUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all">
-            Book Women's Session
-          </a>
+        <h3 class="text-2xl mb-4">1-Hour Open</h3>
+        <p class="text-gray-600 mb-6">Know the drill? Come in and flow at your own pace. Full access to sauna and cold plunge facilities with no structured guidance.</p>
+        <p class="text-sm text-gray-500 mb-6">Best for: Experienced plungers & regulars</p>
+        <Button href={bookingUrl} variant="primary" target="_blank">
+          Book Open Session
+        </Button>
+      </Card>
+      <Card variant="clay" class="text-center p-8">
+        <div class="mb-4">
+          <Icon name="users" size={36} class="text-teal" />
         </div>
-      </div>
-      <a href="/services" class="inline-flex items-center mt-10 text-teal font-bold uppercase tracking-wider hover:underline">
-        View All Services & Pricing →
-      </a>
+        <h3 class="text-2xl mb-4">Women's Group</h3>
+        <p class="text-gray-600 mb-6">A dedicated women's-only session in a supportive, comfortable environment. Same great experience, same great results.</p>
+        <p class="text-sm text-gray-500 mb-6">Best for: Women wanting a private setting</p>
+        <Button href={bookingUrl} variant="primary" target="_blank">
+          Book Women's Session
+        </Button>
+      </Card>
     </div>
-  </section>
+    <div class="text-center mt-10">
+      <Button href="/services" variant="outline">
+        View All Services & Pricing
+      </Button>
+    </div>
+  </Section>
 
-  <!-- Intro Offer CTA -->
-  <section class="bg-teal py-16">
-    <div class="container text-center">
-      <h2 class="text-black mb-4">New Here? Try the Sauna Sampler</h2>
-      <p class="text-black/70 text-lg max-w-2xl mx-auto mb-2">
+  <!-- ============================================
+       6. INTRO OFFER CTA
+       ============================================ -->
+  <Section variant="dark" id="intro-offer">
+    <div class="text-center">
+      <SectionHeading title="New Here? Try the Sauna Sampler" light />
+      <p class="text-white/80 text-lg max-w-2xl mx-auto mb-2">
         <strong>$60 for 3 Sessions</strong> — Save $57 vs. drop-in pricing
       </p>
-      <p class="text-black/60 max-w-xl mx-auto mb-8">
+      <p class="text-white/60 max-w-xl mx-auto mb-8">
         Session 1: Your guided introduction. Session 2: Go deeper. Session 3: Find your rhythm.
       </p>
-      <a
-        href={membershipsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center px-10 py-4 bg-dark-teal text-white font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/90 transition-all duration-200"
-      >
+      <Button href={membershipUrl} variant="on-dark" target="_blank">
         Get Your Sauna Sampler
-      </a>
+      </Button>
     </div>
-  </section>
+  </Section>
 
-  <!-- Blog Preview -->
+  <!-- ============================================
+       7. BLOG PREVIEW
+       ============================================ -->
   <div class="accent-line"></div>
-  <section class="section-light py-20">
-    <div class="container text-center">
-      <h2 class="mb-4">From the Blog</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto mb-12">Science-backed articles on sauna, cold plunge, and wellness.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-gray-50 rounded-[20px] p-8 text-left">
-          <p class="text-teal text-xs uppercase tracking-wider font-bold mb-2">Contrast Therapy</p>
-          <h3 class="text-xl mb-3">What Is Contrast Therapy?</h3>
-          <p class="text-gray-600 text-sm mb-4">The science behind alternating hot and cold for recovery, and why athletes swear by it.</p>
-          <a href="/contrast-therapy" class="text-teal font-bold text-sm uppercase tracking-wider hover:underline">Read More →</a>
-        </div>
-        <div class="bg-gray-50 rounded-[20px] p-8 text-left">
-          <p class="text-teal text-xs uppercase tracking-wider font-bold mb-2">Recovery</p>
-          <h3 class="text-xl mb-3">Sauna Benefits Explained</h3>
-          <p class="text-gray-600 text-sm mb-4">From cardiovascular health to better sleep — what the research says about regular sauna use.</p>
-          <a href="/sauna-benefits" class="text-teal font-bold text-sm uppercase tracking-wider hover:underline">Read More →</a>
-        </div>
-        <div class="bg-gray-50 rounded-[20px] p-8 text-left">
-          <p class="text-teal text-xs uppercase tracking-wider font-bold mb-2">Getting Started</p>
-          <h3 class="text-xl mb-3">Cold Plunge for Beginners</h3>
-          <p class="text-gray-600 text-sm mb-4">Everything you need to know before your first cold plunge — temperatures, timing, and tips.</p>
-          <a href="/cold-plunge-guide" class="text-teal font-bold text-sm uppercase tracking-wider hover:underline">Read More →</a>
-        </div>
-      </div>
-      <a href="/blog" class="inline-flex items-center mt-10 text-teal font-bold uppercase tracking-wider hover:underline">
-        Read More on the Blog →
-      </a>
+  <Section variant="light" id="blog">
+    <SectionHeading title="From the Blog" subtitle="Science-backed articles on sauna, cold plunge, and wellness." />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <Card variant="clay" class="p-8 text-left">
+        <p class="text-teal text-xs uppercase tracking-wider font-bold mb-2">Contrast Therapy</p>
+        <h3 class="text-xl mb-3">What Is Contrast Therapy?</h3>
+        <p class="text-gray-600 text-sm mb-4">The science behind alternating hot and cold for recovery, and why athletes swear by it.</p>
+        <Button href="/contrast-therapy" variant="outline" class="text-sm">
+          Read More
+        </Button>
+      </Card>
+      <Card variant="clay" class="p-8 text-left">
+        <p class="text-teal text-xs uppercase tracking-wider font-bold mb-2">Recovery</p>
+        <h3 class="text-xl mb-3">Sauna Benefits Explained</h3>
+        <p class="text-gray-600 text-sm mb-4">From cardiovascular health to better sleep — what the research says about regular sauna use.</p>
+        <Button href="/sauna-benefits" variant="outline" class="text-sm">
+          Read More
+        </Button>
+      </Card>
+      <Card variant="clay" class="p-8 text-left">
+        <p class="text-teal text-xs uppercase tracking-wider font-bold mb-2">Getting Started</p>
+        <h3 class="text-xl mb-3">Cold Plunge for Beginners</h3>
+        <p class="text-gray-600 text-sm mb-4">Everything you need to know before your first cold plunge — temperatures, timing, and tips.</p>
+        <Button href="/cold-plunge-guide" variant="outline" class="text-sm">
+          Read More
+        </Button>
+      </Card>
     </div>
-  </section>
+    <div class="text-center mt-10">
+      <Button href="/blog" variant="outline">
+        Read More on the Blog
+      </Button>
+    </div>
+  </Section>
 
-  <!-- Contact / Map Section -->
-  <section class="section-dark py-20">
-    <div class="container">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-white mb-6">Find Us in Tampa</h2>
-          <address class="not-italic text-white/70 space-y-2 mb-6">
-            <p class="text-lg">3709 W Azeele St.</p>
-            <p class="text-lg">Tampa, FL 33609</p>
-            <p class="mt-4">
-              <a href="tel:+18135514177" class="text-teal hover:underline">(813) 551-4177</a>
-            </p>
-            <p>
-              <a href="mailto:hello@thesaunaguys.com" class="text-teal hover:underline">hello@thesaunaguys.com</a>
-            </p>
-          </address>
-          <div class="space-y-1 text-white/60 text-sm mb-8">
-            <p><strong class="text-white/80">Mon–Fri:</strong> 6:00 AM – 8:00 PM</p>
-            <p><strong class="text-white/80">Sat–Sun:</strong> 8:00 AM – 6:00 PM</p>
+  <!-- ============================================
+       8. CONTACT / MAP SECTION
+       ============================================ -->
+  <Section variant="dark" id="contact">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div>
+        <SectionHeading title="Find Us in Tampa" light align="left" />
+        <address class="not-italic text-white/70 space-y-4 mb-8">
+          <div class="flex items-start gap-3">
+            <Icon name="map-pin" size={20} class="text-teal mt-1 shrink-0" />
+            <div>
+              <p class="text-lg">1703 North 24th Street</p>
+              <p class="text-lg">Tampa, FL 33605</p>
+            </div>
           </div>
-          <a
-            href="/contact"
-            class="inline-flex items-center px-6 py-3 bg-teal text-black font-bold uppercase text-sm tracking-wider rounded-[60px] hover:brightness-110 transition-all"
-          >
-            Get Directions
-          </a>
+          <div class="flex items-center gap-3">
+            <Icon name="phone" size={20} class="text-teal shrink-0" />
+            <a href="tel:+18135514177" class="text-teal hover:underline">(813) 551-4177</a>
+          </div>
+          <div class="flex items-center gap-3">
+            <Icon name="mail" size={20} class="text-teal shrink-0" />
+            <a href="mailto:hello@thesaunaguys.com" class="text-teal hover:underline">hello@thesaunaguys.com</a>
+          </div>
+        </address>
+        <div class="flex items-start gap-3 text-white/60 text-sm mb-8">
+          <Icon name="clock" size={20} class="text-teal mt-0.5 shrink-0" />
+          <div class="space-y-1">
+            <p><strong class="text-white/80">Mon-Fri:</strong> 6:00 AM - 8:00 PM</p>
+            <p><strong class="text-white/80">Sat-Sun:</strong> 8:00 AM - 6:00 PM</p>
+          </div>
         </div>
-        <div class="bg-white/5 rounded-[20px] overflow-hidden aspect-video flex items-center justify-center">
-          <!-- Google Maps embed placeholder -->
-          <p class="text-white/40 text-sm">Map embed loading...</p>
-        </div>
+        <Button href="/contact" variant="on-dark">
+          Get Directions
+        </Button>
+      </div>
+      <div class="rounded-[20px] overflow-hidden">
+        <iframe
+          src="https://maps.google.com/maps?q=1703+N+24th+St,+Tampa,+FL+33605&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          width="100%"
+          height="400"
+          style="border:0; border-radius: 20px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="The Sauna Guys location map"
+        ></iframe>
       </div>
     </div>
-  </section>
+  </Section>
 
-  <!-- Email Capture -->
+  <!-- ============================================
+       9. EMAIL CAPTURE
+       ============================================ -->
   <div class="accent-line"></div>
-  <section class="section-light py-16">
-    <div class="container text-center max-w-xl mx-auto">
-      <h2 class="mb-4">Join the Community</h2>
-      <p class="text-gray-600 mb-8">Get wellness tips, exclusive offers, and studio updates delivered to your inbox.</p>
+  <Section variant="dark" id="newsletter">
+    <div class="text-center max-w-xl mx-auto">
+      <SectionHeading title="Join the Community" subtitle="Get wellness tips, exclusive offers, and studio updates delivered to your inbox." light />
       <form name="email-capture" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="flex flex-col sm:flex-row gap-3">
         <input type="hidden" name="form-name" value="email-capture" />
         <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
@@ -261,16 +307,14 @@ const membershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
           name="email"
           required
           placeholder="Your email address"
-          class="flex-1 px-6 py-3 rounded-[60px] border border-gray-300 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/20"
+          class="flex-1 px-6 py-3 bg-white/10 text-white placeholder-white/50 border border-white/20 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/20"
+          style="border-radius: 12px;"
         />
-        <button
-          type="submit"
-          class="px-8 py-3 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-        >
+        <Button type="submit" variant="on-dark">
           Subscribe
-        </button>
+        </Button>
       </form>
-      <p class="text-gray-400 text-xs mt-3">No spam. Unsubscribe anytime.</p>
+      <p class="text-white/40 text-xs mt-3">No spam. Unsubscribe anytime.</p>
     </div>
-  </section>
+  </Section>
 </PublicLayout>

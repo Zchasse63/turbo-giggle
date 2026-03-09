@@ -1,0 +1,46 @@
+---
+/**
+ * Section.astro — Page section container with light/dark/teal variants.
+ * Handles background color, text color, padding, and container centering.
+ *
+ * Variants:
+ *   light — white bg, black text (default)
+ *   dark  — dark teal bg, white text
+ *   teal  — teal bg, black text (narrow strip)
+ *
+ * Usage:
+ *   <Section variant="dark" id="benefits">
+ *     <h2>Benefits</h2>
+ *     <p>Content inside centered container</p>
+ *   </Section>
+ */
+
+interface Props {
+  variant?: 'light' | 'dark' | 'teal';
+  id?: string;
+  class?: string;
+  containerClass?: string;
+  fullWidth?: boolean;
+}
+
+const {
+  variant = 'light',
+  id,
+  class: className = '',
+  containerClass = '',
+  fullWidth = false,
+} = Astro.props;
+
+const sectionClass = `section-${variant}`;
+const classes = `${sectionClass} ${className}`.trim();
+---
+
+<section class={classes} id={id}>
+  {fullWidth ? (
+    <slot />
+  ) : (
+    <div class={`container ${containerClass}`.trim()}>
+      <slot />
+    </div>
+  )}
+</section>

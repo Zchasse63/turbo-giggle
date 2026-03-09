@@ -1,0 +1,45 @@
+---
+/**
+ * Button.astro — Pill CTA button component.
+ * Variants: primary (teal/black), secondary (teal/white),
+ *           outline (border), on-dark (for dark sections)
+ *
+ * Usage:
+ *   <Button href="/book" variant="primary">Book Class</Button>
+ *   <Button href={url} variant="on-dark" target="_blank">Book Now</Button>
+ */
+
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'outline' | 'on-dark';
+  target?: string;
+  rel?: string;
+  class?: string;
+  type?: 'button' | 'submit' | 'reset';
+}
+
+const {
+  href,
+  variant = 'primary',
+  target,
+  rel,
+  class: className = '',
+  type = 'button',
+} = Astro.props;
+
+const variantClass = `btn-${variant === 'on-dark' ? 'on-dark' : variant}`;
+const classes = `${variantClass} ${className}`.trim();
+
+const isExternal = target === '_blank';
+const linkRel = rel || (isExternal ? 'noopener noreferrer' : undefined);
+---
+
+{href ? (
+  <a href={href} class={classes} target={target} rel={linkRel}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes}>
+    <slot />
+  </button>
+)}

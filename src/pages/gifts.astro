@@ -1,5 +1,11 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
+import HeroImage from '../components/ui/HeroImage.astro';
+import Section from '../components/ui/Section.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Card from '../components/ui/Card.astro';
+import Icon from '../components/ui/Icon.astro';
+import Button from '../components/ui/Button.astro';
 
 const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
 
@@ -54,93 +60,78 @@ const howItWorks = [
   description="Give the gift of wellness. Sauna and cold plunge gift cards for any occasion. Instant delivery available."
 >
   <!-- Hero -->
-  <section class="section-dark py-24 md:py-32">
-    <div class="container text-center">
-      <h1 class="text-white mb-6">Give the Gift of Recovery</h1>
-      <p class="text-white/80 text-lg max-w-2xl mx-auto">
-        Birthdays, holidays, or just because. A sauna and cold plunge gift card is the wellness experience they will not buy for themselves — but absolutely deserve.
-      </p>
-    </div>
-  </section>
+  <HeroImage src="/images/woman-sauna.jpg" alt="Sauna experience" height="short">
+    <h1>Give the Gift of Recovery</h1>
+    <p class="text-lg max-w-2xl mx-auto">
+      Birthdays, holidays, or just because. A sauna and cold plunge gift card is the wellness experience they will not buy for themselves — but absolutely deserve.
+    </p>
+  </HeroImage>
 
   <div class="accent-line"></div>
 
   <!-- Gift Tiers -->
-  <section class="section-light py-20">
-    <div class="container">
-      <h2 class="text-center mb-12">Gift Options</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
-        {giftTiers.map((tier) => (
-          <div class={`rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center flex flex-col ${tier.highlight ? 'bg-gold/20 ring-2 ring-gold' : 'bg-gold/10'}`}>
-            {tier.highlight && (
-              <span class="inline-block bg-gold text-black text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4 self-center">
-                Most Popular
-              </span>
-            )}
-            <h3 class="text-xl mb-2">{tier.name}</h3>
-            <div class="text-3xl font-bold text-dark-teal mb-4">{tier.price}</div>
-            <p class="text-gray-600 text-sm flex-grow">{tier.description}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="text-center mt-12">
-        <a
-          href={glowfoxMembershipsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-10 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200 text-lg"
-        >
-          Purchase a Gift Card
-        </a>
-      </div>
+  <Section variant="light">
+    <SectionHeading title="Gift Options" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+      {giftTiers.map((tier) => (
+        <Card variant={tier.highlight ? 'gold' : 'clay'} class="p-8 text-center flex flex-col">
+          {tier.highlight && (
+            <span class="inline-block bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4 self-center">
+              Most Popular
+            </span>
+          )}
+          <Icon name="gift" size={28} class={`mx-auto mb-3 ${tier.highlight ? 'text-dark-teal' : 'text-teal'}`} />
+          <h3 class="text-xl mb-2">{tier.name}</h3>
+          <div class="text-3xl font-bold text-dark-teal mb-4">{tier.price}</div>
+          <p class={`text-sm flex-grow ${tier.highlight ? 'text-dark-teal/80' : 'text-gray-600'}`}>{tier.description}</p>
+        </Card>
+      ))}
     </div>
-  </section>
+
+    <div class="text-center mt-12">
+      <Button href={glowfoxMembershipsUrl} variant="primary" target="_blank">
+        Purchase a Gift Card
+      </Button>
+    </div>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- How It Works -->
-  <section class="section-dark py-20">
-    <div class="container max-w-4xl mx-auto">
-      <h2 class="text-center text-white mb-12">How It Works</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {howItWorks.map((item) => (
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-full bg-teal flex items-center justify-center mx-auto mb-4">
-              <span class="text-black font-bold text-xl">{item.step}</span>
-            </div>
-            <h3 class="text-xl text-white mb-2">{item.title}</h3>
-            <p class="text-white/70">{item.description}</p>
+  <Section variant="dark">
+    <SectionHeading title="How It Works" light />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+      {howItWorks.map((item) => (
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-teal flex items-center justify-center mx-auto mb-4">
+            <span class="text-black font-bold text-xl">{item.step}</span>
           </div>
-        ))}
-      </div>
+          <h3 class="text-xl text-white mb-2">{item.title}</h3>
+          <p class="text-white/70">{item.description}</p>
+        </div>
+      ))}
     </div>
-  </section>
+  </Section>
 
   <div class="accent-line"></div>
 
   <!-- Occasions -->
-  <section class="section-light py-20">
-    <div class="container max-w-3xl mx-auto text-center">
-      <h2 class="mb-8">Perfect For Any Occasion</h2>
+  <Section variant="light">
+    <div class="max-w-3xl mx-auto text-center">
+      <SectionHeading title="Perfect For Any Occasion" />
       <div class="flex flex-wrap justify-center gap-3 mb-12">
         {['Birthdays', 'Holidays', 'Father\'s Day', 'Mother\'s Day', 'Valentine\'s Day', 'Thank You', 'Corporate Gifts', 'Just Because'].map((occasion) => (
-          <span class="bg-gold/10 text-dark-teal font-bold px-5 py-2 rounded-full text-sm shadow-[var(--shadow-clay)]">
-            {occasion}
-          </span>
+          <Card variant="clay" class="px-5 py-2 inline-block">
+            <span class="text-dark-teal font-bold text-sm">{occasion}</span>
+          </Card>
         ))}
       </div>
       <p class="text-gray-600 text-lg mb-8">
         Gift cards never expire. Recipients can book online anytime and choose the session that works for them.
       </p>
-      <a
-        href={glowfoxMembershipsUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
-      >
+      <Button href={glowfoxMembershipsUrl} variant="primary" target="_blank">
         Buy a Gift Card Now
-      </a>
+      </Button>
     </div>
-  </section>
+  </Section>
 </PublicLayout>
