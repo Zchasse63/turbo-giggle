@@ -1,0 +1,112 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+
+const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+---
+
+<PublicLayout
+  title="Book a Session | The Sauna Guys"
+  description="Book your sauna and cold plunge session in Tampa. Drop-ins, class packs, and memberships available."
+>
+  <!-- Hero -->
+  <section class="section-dark py-24">
+    <div class="container text-center">
+      <h1 class="text-white mb-4">Book Your Session</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        Choose a session time, grab a class pack, or sign up for a membership. It only takes a minute.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Booking Options -->
+  <section class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <!-- Book a Session -->
+        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center">
+          <h2 class="text-2xl mb-4">Book a Session</h2>
+          <p class="text-gray-600 mb-6">
+            Browse available times and reserve your spot. Drop-ins and class packs accepted.
+          </p>
+          <a
+            href={glowfoxClassesUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+          >
+            View Schedule
+          </a>
+        </div>
+
+        <!-- Memberships -->
+        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center">
+          <h2 class="text-2xl mb-4">Memberships</h2>
+          <p class="text-gray-600 mb-6">
+            Unlimited access, priority booking, and member-only perks. Save on every session.
+          </p>
+          <a
+            href={glowfoxMembershipsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+          >
+            View Memberships
+          </a>
+        </div>
+      </div>
+
+      <!-- GlowFox Embed Placeholder -->
+      <div class="mb-16">
+        <h2 class="text-center mb-8">Schedule</h2>
+        <div id="glowfox-embed" class="min-h-[600px] rounded-[20px] border-2 border-gray-200 overflow-hidden">
+          <!-- GlowFox iframe will be embedded here -->
+          <div class="flex flex-col items-center justify-center h-[600px] bg-gray-50 text-center px-8">
+            <p class="text-gray-500 text-lg mb-6">
+              Loading booking calendar...
+            </p>
+            <p class="text-gray-400 mb-6">
+              If the calendar does not load, you can book directly on our scheduling platform.
+            </p>
+            <a
+              href={glowfoxClassesUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+            >
+              Book on GlowFox
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Info -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+        <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+          <div class="text-3xl font-bold text-dark-teal mb-2">$39</div>
+          <p class="font-bold">Drop-In</p>
+          <p class="text-gray-500 text-sm">Single session</p>
+        </div>
+        <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+          <div class="text-3xl font-bold text-dark-teal mb-2">$60</div>
+          <p class="font-bold">Sauna Sampler</p>
+          <p class="text-gray-500 text-sm">3 sessions</p>
+        </div>
+        <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+          <div class="text-3xl font-bold text-dark-teal mb-2">$120+</div>
+          <p class="font-bold">Membership</p>
+          <p class="text-gray-500 text-sm">Monthly unlimited</p>
+        </div>
+      </div>
+
+      <!-- First-timer callout -->
+      <div class="mt-12 text-center">
+        <p class="text-gray-600">
+          First time? <a href="/first-visit" class="text-teal font-bold hover:underline">Read our first-visit guide</a> to know exactly what to expect.
+        </p>
+      </div>
+    </div>
+  </section>
+</PublicLayout>

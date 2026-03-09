@@ -1,0 +1,146 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+
+const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+
+const giftTiers = [
+  {
+    name: 'Single Session',
+    price: '$39',
+    description: 'One full sauna and cold plunge session. Perfect for a friend who is curious about contrast therapy.',
+    highlight: false,
+  },
+  {
+    name: 'Sauna Sampler',
+    price: '$60',
+    description: 'Three sessions to explore at their own pace. Our most popular gift — and the best way to get hooked.',
+    highlight: true,
+  },
+  {
+    name: 'Monthly Membership',
+    price: '$120 – $180',
+    description: 'A full month of unlimited sessions. The ultimate wellness gift for someone who deserves real recovery.',
+    highlight: false,
+  },
+  {
+    name: 'Custom Amount',
+    price: 'You Choose',
+    description: 'Pick any dollar amount and let them decide how to use it — sessions, packs, or membership credit.',
+    highlight: false,
+  },
+];
+
+const howItWorks = [
+  {
+    step: '01',
+    title: 'Choose',
+    description: 'Pick a gift tier or set a custom amount that fits your budget.',
+  },
+  {
+    step: '02',
+    title: 'Personalize',
+    description: 'Add a personal message and the recipient details. Make it special.',
+  },
+  {
+    step: '03',
+    title: 'Deliver',
+    description: 'Send it instantly via email or print it out for an in-person surprise.',
+  },
+];
+---
+
+<PublicLayout
+  title="Gift Cards | The Sauna Guys"
+  description="Give the gift of wellness. Sauna and cold plunge gift cards for any occasion. Instant delivery available."
+>
+  <!-- Hero -->
+  <section class="section-dark py-24 md:py-32">
+    <div class="container text-center">
+      <h1 class="text-white mb-6">Give the Gift of Recovery</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        Birthdays, holidays, or just because. A sauna and cold plunge gift card is the wellness experience they will not buy for themselves — but absolutely deserve.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Gift Tiers -->
+  <section class="section-light py-20">
+    <div class="container">
+      <h2 class="text-center mb-12">Gift Options</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+        {giftTiers.map((tier) => (
+          <div class={`rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center flex flex-col ${tier.highlight ? 'bg-gold/20 ring-2 ring-gold' : 'bg-gold/10'}`}>
+            {tier.highlight && (
+              <span class="inline-block bg-gold text-black text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-4 self-center">
+                Most Popular
+              </span>
+            )}
+            <h3 class="text-xl mb-2">{tier.name}</h3>
+            <div class="text-3xl font-bold text-dark-teal mb-4">{tier.price}</div>
+            <p class="text-gray-600 text-sm flex-grow">{tier.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href={glowfoxMembershipsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-10 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200 text-lg"
+        >
+          Purchase a Gift Card
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- How It Works -->
+  <section class="section-dark py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-center text-white mb-12">How It Works</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {howItWorks.map((item) => (
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full bg-teal flex items-center justify-center mx-auto mb-4">
+              <span class="text-black font-bold text-xl">{item.step}</span>
+            </div>
+            <h3 class="text-xl text-white mb-2">{item.title}</h3>
+            <p class="text-white/70">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Occasions -->
+  <section class="section-light py-20">
+    <div class="container max-w-3xl mx-auto text-center">
+      <h2 class="mb-8">Perfect For Any Occasion</h2>
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        {['Birthdays', 'Holidays', 'Father\'s Day', 'Mother\'s Day', 'Valentine\'s Day', 'Thank You', 'Corporate Gifts', 'Just Because'].map((occasion) => (
+          <span class="bg-gold/10 text-dark-teal font-bold px-5 py-2 rounded-full text-sm shadow-[var(--shadow-clay)]">
+            {occasion}
+          </span>
+        ))}
+      </div>
+      <p class="text-gray-600 text-lg mb-8">
+        Gift cards never expire. Recipients can book online anytime and choose the session that works for them.
+      </p>
+      <a
+        href={glowfoxMembershipsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+      >
+        Buy a Gift Card Now
+      </a>
+    </div>
+  </section>
+</PublicLayout>

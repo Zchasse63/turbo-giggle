@@ -1,0 +1,196 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+
+const faqs = [
+  {
+    category: 'Getting Started',
+    questions: [
+      {
+        q: 'What should I bring to my session?',
+        a: 'Bring a swimsuit, towel, water bottle, and a change of clothes. We provide shower access, so flip-flops are recommended. Leave your valuables in a locker — we have those too.',
+      },
+      {
+        q: 'Do I need to book in advance?',
+        a: 'Yes, we recommend booking online ahead of time to guarantee your spot. Walk-ins are welcome when space is available, but sessions fill up fast — especially evenings and weekends.',
+      },
+      {
+        q: 'Is this my first time? Where do I start?',
+        a: 'Check out our First Visit guide for a full walkthrough. We recommend trying our Sauna Sampler — three sessions for $60 — so you can experience contrast therapy at your own pace.',
+      },
+      {
+        q: 'What should I wear during my session?',
+        a: 'Most guests wear a swimsuit. We are a co-ed facility, so appropriate swimwear is required. Avoid heavy cotton clothing that retains heat.',
+      },
+      {
+        q: 'How early should I arrive?',
+        a: 'Plan to arrive 10 to 15 minutes before your first session so we can walk you through the facility and answer any questions. For return visits, arriving 5 minutes early is plenty.',
+      },
+    ],
+  },
+  {
+    category: 'During Your Session',
+    questions: [
+      {
+        q: 'What temperature is the sauna?',
+        a: 'Our traditional Finnish sauna is maintained between 180 and 195 degrees Fahrenheit. We keep humidity controlled for a comfortable, effective heat session.',
+      },
+      {
+        q: 'How cold is the cold plunge?',
+        a: 'Our cold plunge is kept between 39 and 45 degrees Fahrenheit. We typically set it at 42 degrees — cold enough for a powerful response, manageable for beginners.',
+      },
+      {
+        q: 'How long should I stay in the sauna?',
+        a: 'We recommend 10 to 20 minutes per sauna round. Listen to your body — if you feel dizzy or uncomfortable, step out. Most guests do 2 to 4 rounds alternating with cold plunge.',
+      },
+      {
+        q: 'How long should I stay in the cold plunge?',
+        a: 'Start with 30 seconds to 1 minute if you are new. Experienced plungers typically stay 2 to 4 minutes. Never force yourself to stay in longer than comfortable.',
+      },
+      {
+        q: 'What is contrast therapy?',
+        a: 'Contrast therapy alternates between the heat of the sauna and the cold of the plunge. This cycle stimulates circulation, reduces inflammation, and triggers a powerful endorphin response. Our guided sessions walk you through the optimal protocol.',
+      },
+      {
+        q: 'Can I use my phone in the sauna?',
+        a: 'We encourage you to unplug and enjoy the experience, but it is your call. Keep in mind that extreme heat can damage electronics and the steam environment is tough on devices.',
+      },
+    ],
+  },
+  {
+    category: 'Pricing & Memberships',
+    questions: [
+      {
+        q: 'How much does a single session cost?',
+        a: 'A single drop-in session is $39. It includes full access to the sauna, cold plunge, and relaxation area for the session duration.',
+      },
+      {
+        q: 'What is the Sauna Sampler?',
+        a: 'The Sauna Sampler is our intro offer — three sessions for $60 (that is $20 per session). It is the best way for first-timers to experience what we offer without committing to a membership.',
+      },
+      {
+        q: 'Do you offer memberships?',
+        a: 'Yes! Monthly memberships start at $120 and include multiple sessions per week plus member perks. Visit our pricing page or check GlowFox for current membership options.',
+      },
+      {
+        q: 'Can I buy gift cards?',
+        a: 'Absolutely. We offer gift cards in several denominations — from single sessions to full memberships. Visit our gifts page to purchase.',
+      },
+      {
+        q: 'What is your cancellation policy?',
+        a: 'We ask for at least 4 hours notice for cancellations. Late cancellations or no-shows may result in a session deduction from your pack or a fee for drop-in bookings.',
+      },
+    ],
+  },
+  {
+    category: 'Health & Safety',
+    questions: [
+      {
+        q: 'Is sauna and cold plunge safe?',
+        a: 'For most healthy adults, yes. Sauna and cold plunge are generally very safe when used responsibly. However, if you have cardiovascular conditions, are pregnant, or have other medical concerns, consult your physician before your first session.',
+      },
+      {
+        q: 'Can I use the sauna if I am pregnant?',
+        a: 'We recommend consulting your OB/GYN before using the sauna or cold plunge during pregnancy. Most medical guidelines advise caution with extreme temperatures during pregnancy.',
+      },
+      {
+        q: 'Should I eat before my session?',
+        a: 'Have a light meal 1 to 2 hours before your session. Avoid heavy meals right before — you will be more comfortable. Stay well hydrated throughout the day.',
+      },
+      {
+        q: 'Can I use the sauna if I have high blood pressure?',
+        a: 'Many studies suggest sauna use can be beneficial for cardiovascular health, but if you have uncontrolled high blood pressure or a heart condition, talk to your doctor first. We are happy to adjust protocols for your comfort.',
+      },
+      {
+        q: 'Is there a minimum age?',
+        a: 'Guests must be 18 or older to use our facility independently. Minors aged 16 to 17 may visit with a parent or legal guardian present for the entire session.',
+      },
+      {
+        q: 'How clean is the facility?',
+        a: 'We take hygiene seriously. The sauna is cleaned between sessions, the cold plunge uses a commercial filtration and UV sanitation system, and all surfaces are disinfected regularly. We also ask guests to shower before entering the sauna.',
+      },
+    ],
+  },
+];
+
+// Build JSON-LD FAQ schema
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.flatMap((section) =>
+    section.questions.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    }))
+  ),
+};
+---
+
+<PublicLayout
+  title="FAQ | The Sauna Guys"
+  description="Frequently asked questions about sauna, cold plunge, pricing, and what to expect at The Sauna Guys Tampa."
+>
+  <!-- FAQ Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+  <!-- Hero -->
+  <section class="section-dark py-24">
+    <div class="container text-center">
+      <h1 class="text-white mb-4">Frequently Asked Questions</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        Everything you need to know before your visit.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- FAQ Sections -->
+  <section class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      {faqs.map((section) => (
+        <div class="mb-16 last:mb-0">
+          <h2 class="text-center mb-8">{section.category}</h2>
+          <div class="space-y-4">
+            {section.questions.map((item) => (
+              <details class="group bg-gold/10 rounded-[20px] shadow-[var(--shadow-clay)] overflow-hidden">
+                <summary class="flex items-center justify-between cursor-pointer px-6 py-5 font-bold text-lg list-none [&::-webkit-details-marker]:hidden">
+                  <span>{item.q}</span>
+                  <span class="ml-4 flex-shrink-0 text-teal transition-transform duration-200 group-open:rotate-45 text-2xl font-bold">+</span>
+                </summary>
+                <div class="px-6 pb-5 text-gray-700 leading-relaxed">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <!-- CTA -->
+      <div class="text-center mt-16 pt-8 border-t border-gray-200">
+        <h2 class="mb-4">Still Have Questions?</h2>
+        <p class="text-gray-600 text-lg mb-8">
+          We are happy to help. Reach out directly or check out our first-timer guide.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+          >
+            Contact Us
+          </a>
+          <a
+            href="/first-visit"
+            class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark-teal text-dark-teal font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/5 transition-all duration-200"
+          >
+            First Visit Guide
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</PublicLayout>

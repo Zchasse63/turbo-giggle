@@ -1,0 +1,298 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+
+const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+
+const sections = [
+  {
+    id: 'what-is-cold-plunging',
+    title: 'What Is Cold Plunging?',
+    content: 'Cold plunging — also known as cold water immersion or cold hydrotherapy — involves submerging your body in water typically between 39 and 50 degrees Fahrenheit. The practice has roots in ancient civilizations, from Scandinavian ice bathing to Japanese cold water purification rituals. Today, cold plunging has gained massive popularity as athletes, biohackers, and wellness enthusiasts discover its powerful effects on physical recovery, mental resilience, and overall health.',
+  },
+  {
+    id: 'the-science',
+    title: 'The Science Behind Cold Exposure',
+    content: 'When your body hits cold water, it triggers a cascade of physiological responses. Your sympathetic nervous system activates, releasing norepinephrine — a neurotransmitter and hormone that sharpens focus, elevates mood, and reduces inflammation. Blood vessels constrict (vasoconstriction), driving blood toward your organs and core. When you exit, blood rushes back to your extremities (vasodilation), flushing tissues with oxygen-rich blood. This cycle is a powerful pump for your circulatory and lymphatic systems. Cold exposure also activates brown adipose tissue (brown fat), which burns calories to generate heat, and triggers the release of cold shock proteins that may play a role in cellular repair.',
+    highlights: [
+      'Norepinephrine release: up to 200 to 300 percent increase with regular practice',
+      'Vasoconstriction and vasodilation cycle flushes tissues',
+      'Brown fat activation increases metabolic rate',
+      'Cold shock proteins promote cellular repair',
+    ],
+  },
+  {
+    id: 'benefits',
+    title: 'Benefits of Cold Plunging',
+    subsections: [
+      {
+        subtitle: 'Reduced Inflammation & Faster Recovery',
+        text: 'Cold water constricts blood vessels and reduces metabolic activity, which significantly decreases swelling and tissue breakdown after intense exercise. This is why cold immersion is a staple in professional sports recovery protocols.',
+      },
+      {
+        subtitle: 'Mental Resilience & Mood',
+        text: 'The norepinephrine surge from cold exposure provides a natural, long-lasting mood boost. Many practitioners describe a sense of euphoria and mental clarity after plunging. Over time, regularly choosing discomfort builds mental toughness that carries into all areas of life.',
+      },
+      {
+        subtitle: 'Improved Circulation',
+        text: 'The constriction and dilation cycle trains your vascular system, improving overall cardiovascular efficiency. Think of it as exercise for your blood vessels — they become more responsive and resilient.',
+      },
+      {
+        subtitle: 'Enhanced Immune Function',
+        text: 'Research suggests that regular cold exposure can increase white blood cell count and improve immune system markers. The body adapts to cold stress by strengthening its defense mechanisms.',
+      },
+      {
+        subtitle: 'Better Sleep',
+        text: 'Cold plunging, especially when done in the morning or early afternoon, helps regulate your circadian rhythm. The drop in core temperature after exposure signals to your body that it is time to wind down when evening comes.',
+      },
+      {
+        subtitle: 'Increased Energy & Focus',
+        text: 'The adrenaline and norepinephrine release from cold plunging provides a clean, natural energy boost without the crash of caffeine. Many people use morning cold plunges as their primary wake-up ritual.',
+      },
+    ],
+  },
+  {
+    id: 'how-to',
+    title: 'How to Cold Plunge',
+    steps: [
+      {
+        name: 'Prepare Mentally',
+        description: 'Accept that the first few seconds will be uncomfortable. This is normal. Set an intention — you are choosing this discomfort on purpose.',
+      },
+      {
+        name: 'Control Your Breathing',
+        description: 'Before entering, take several slow, deep breaths. When you enter the water, focus on long exhales. The urge to gasp is the cold shock response — breathe through it.',
+      },
+      {
+        name: 'Enter Deliberately',
+        description: 'Walk in steadily. Do not ease in inch by inch — it makes it harder. Submerge up to your shoulders. Keep your hands in or out, whichever feels right.',
+      },
+      {
+        name: 'Stay Present',
+        description: 'Focus on your breath, not the cold. Count your breaths. Notice the sensations shift from sharp cold to a manageable numbness. The discomfort peaks in the first 30 seconds.',
+      },
+      {
+        name: 'Start Short',
+        description: 'Beginners should aim for 30 seconds to 1 minute. There is no need to be a hero. Consistency matters more than duration. Build up gradually over weeks.',
+      },
+      {
+        name: 'Exit and Recover',
+        description: 'Step out calmly. Resist the urge to jump into a hot shower immediately. Let your body warm up naturally for a few minutes. This is where the real benefits lock in.',
+      },
+    ],
+  },
+  {
+    id: 'safety',
+    title: 'Safety Guidelines',
+    warnings: [
+      'Never cold plunge alone — always have someone nearby, especially as a beginner.',
+      'If you have cardiovascular conditions, Raynaud\'s disease, or are pregnant, consult your physician first.',
+      'Do not cold plunge while under the influence of alcohol or sedatives.',
+      'Exit immediately if you experience dizziness, extreme shivering, or confusion.',
+      'Avoid cold plunging immediately after eating a large meal.',
+      'Beginners should start at warmer temperatures (50 degrees Fahrenheit) and work down gradually.',
+      'Never submerge your head as a beginner — keep it above water.',
+    ],
+  },
+];
+
+// BreadcrumbList schema
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.thesaunaguys.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: 'https://www.thesaunaguys.com/blog',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Cold Plunge Guide',
+      item: 'https://www.thesaunaguys.com/cold-plunge-guide',
+    },
+  ],
+};
+---
+
+<PublicLayout
+  title="Cold Plunge Guide: Benefits, Science & How To | The Sauna Guys"
+  description="Your complete guide to cold water immersion. Learn the benefits, science, protocols, and safety tips for cold plunging in Tampa."
+>
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+
+  <!-- Hero -->
+  <section class="section-dark py-24 md:py-32">
+    <div class="container text-center">
+      <h1 class="text-white mb-6">The Complete Cold Plunge Guide</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        Everything you need to know about cold water immersion — from the science behind it to your first plunge.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Table of Contents -->
+  <section class="section-light py-12">
+    <div class="container max-w-3xl mx-auto">
+      <nav class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+        <p class="font-bold text-sm uppercase tracking-wider text-dark-teal mb-3">In This Guide</p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {sections.map((s) => (
+            <li>
+              <a href={`#${s.id}`} class="text-teal hover:underline">{s.title}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- What Is Cold Plunging -->
+  <section id="what-is-cold-plunging" class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="mb-8">{sections[0].title}</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">{sections[0].content}</p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- The Science -->
+  <section id="the-science" class="section-dark py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-white mb-8">{sections[1].title}</h2>
+      <p class="text-lg text-white/80 leading-relaxed mb-8">{sections[1].content}</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {sections[1].highlights?.map((h) => (
+          <div class="bg-white/10 rounded-[20px] px-5 py-4 flex items-start gap-3">
+            <span class="text-teal text-xl flex-shrink-0 mt-0.5">&#10003;</span>
+            <span class="text-white">{h}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Benefits -->
+  <section id="benefits" class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="mb-12">{sections[2].title}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {sections[2].subsections?.map((sub) => (
+          <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+            <h3 class="text-lg mb-3">{sub.subtitle}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{sub.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Mid-page CTA -->
+  <section class="section-dark py-16">
+    <div class="container max-w-3xl mx-auto text-center">
+      <h2 class="text-white mb-4">Ready to Take the Plunge?</h2>
+      <p class="text-white/80 text-lg mb-8">
+        Our guided sessions walk you through every step. Beginners always welcome.
+      </p>
+      <a
+        href={glowfoxClassesUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+      >
+        Book a Session
+      </a>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- How To -->
+  <section id="how-to" class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="mb-12">{sections[3].title}</h2>
+      <div class="space-y-8">
+        {sections[3].steps?.map((step, i) => (
+          <div class="flex gap-6 items-start">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-teal flex items-center justify-center">
+              <span class="text-black font-bold text-lg">{i + 1}</span>
+            </div>
+            <div>
+              <h3 class="text-xl mb-2">{step.name}</h3>
+              <p class="text-gray-600 leading-relaxed">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Safety -->
+  <section id="safety" class="section-dark py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-white mb-8">{sections[4].title}</h2>
+      <div class="space-y-4">
+        {sections[4].warnings?.map((warning) => (
+          <div class="bg-white/10 rounded-[20px] px-6 py-4 flex items-start gap-3">
+            <span class="text-gold text-xl flex-shrink-0 mt-0.5">&#9888;</span>
+            <span class="text-white leading-relaxed">{warning}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Bottom CTA -->
+  <section class="section-light py-20">
+    <div class="container max-w-3xl mx-auto text-center">
+      <h2 class="mb-4">Experience It In Person</h2>
+      <p class="text-gray-600 text-lg mb-8">
+        Our facility, our cold plunge, and our team make the experience safe, guided, and unforgettable. Your first plunge is waiting.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href={glowfoxClassesUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+        >
+          Book a Session
+        </a>
+        <a
+          href="/first-visit"
+          class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark-teal text-dark-teal font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/5 transition-all duration-200"
+        >
+          First Visit Guide
+        </a>
+      </div>
+
+      <!-- Related Guides -->
+      <div class="mt-16 pt-8 border-t border-gray-200">
+        <p class="text-sm text-gray-500 uppercase tracking-wider mb-4">Related Guides</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/sauna-benefits" class="text-teal font-bold hover:underline">Sauna Benefits Guide &rarr;</a>
+          <a href="/contrast-therapy" class="text-teal font-bold hover:underline">Contrast Therapy Guide &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</PublicLayout>

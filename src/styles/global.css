@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Spinnaker&display=swap');
 
 /*
  * ==============================================
@@ -63,9 +64,6 @@
   --transition-default: 200ms ease;
   --transition-slow: 300ms ease;
 }
-
-/* ── Google Fonts: Spinnaker ── */
-@import url('https://fonts.googleapis.com/css2?family=Spinnaker&display=swap');
 
 /* ── @font-face for Brice Bold Condensed (self-hosted) ── */
 /* TODO: Download from Wix and add font files to /public/fonts/ */

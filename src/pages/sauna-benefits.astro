@@ -1,0 +1,164 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+
+const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+
+const benefits = [
+  {
+    id: 'cardiovascular-health',
+    title: 'Cardiovascular Health',
+    content: 'Regular sauna use has been associated with significant improvements in cardiovascular function. Research from the University of Eastern Finland, following over 2,300 men for more than 20 years, found that frequent sauna bathers had notably lower rates of sudden cardiac death, fatal coronary heart disease, and fatal cardiovascular disease compared to those who used the sauna once per week. The heat of the sauna increases heart rate to levels similar to moderate exercise, improving circulation and vascular function over time.',
+    highlights: ['Improved circulation and blood flow', 'Lower resting blood pressure over time', 'Enhanced vascular function and elasticity', 'Heart rate elevation similar to moderate exercise'],
+  },
+  {
+    id: 'muscle-recovery',
+    title: 'Muscle Recovery & Performance',
+    content: 'Athletes and fitness enthusiasts have used heat therapy for centuries to accelerate recovery. Sauna use increases blood flow to muscles, helping deliver nutrients and remove metabolic waste products like lactic acid more efficiently. The heat also triggers the release of growth hormone, which plays a key role in tissue repair and muscle adaptation. Post-workout sauna sessions can reduce delayed onset muscle soreness and help you get back to training faster.',
+    highlights: ['Accelerated muscle repair after workouts', 'Reduced delayed onset muscle soreness', 'Increased growth hormone release', 'Improved nutrient delivery to tissues'],
+  },
+  {
+    id: 'stress-mental-health',
+    title: 'Stress & Mental Health',
+    content: 'Sauna bathing triggers the release of endorphins — the body\'s natural feel-good chemicals. The heat also reduces cortisol, the primary stress hormone, while increasing norepinephrine levels, which can improve focus and attention. Many regular sauna users report decreased symptoms of anxiety and depression. The practice of sitting quietly in heat, focused on breathing, creates a meditative state that promotes mental clarity and emotional resilience.',
+    highlights: ['Endorphin release for natural mood elevation', 'Reduced cortisol and stress hormone levels', 'Improved focus through norepinephrine production', 'Meditative benefits of intentional heat exposure'],
+  },
+  {
+    id: 'sleep-quality',
+    title: 'Sleep Quality',
+    content: 'The drop in core body temperature after leaving the sauna mimics the natural thermoregulatory process that signals your body it is time to sleep. This cooling effect can help you fall asleep faster and achieve deeper, more restorative sleep stages. Evening sauna sessions are particularly effective for improving sleep onset latency and overall sleep quality. Many of our members report that a sauna session is the single most effective thing they do for their sleep.',
+    highlights: ['Faster sleep onset after evening sessions', 'Deeper sleep stages and improved sleep architecture', 'Natural thermoregulation triggers sleepiness', 'Reduced nighttime restlessness'],
+  },
+  {
+    id: 'immune-system',
+    title: 'Immune System',
+    content: 'Regular sauna use may strengthen the immune system by stimulating the production of white blood cells, which help fight off infections and illness. The elevated body temperature during a sauna session creates a mild fever-like state, activating the immune response. Studies have shown that regular sauna bathers experience fewer common colds and respiratory infections. This effect is enhanced when sauna is combined with cold plunge through contrast therapy.',
+    highlights: ['Increased white blood cell production', 'Mild hyperthermia activates immune response', 'Fewer colds and respiratory infections', 'Enhanced effect when combined with cold exposure'],
+  },
+  {
+    id: 'skin-health',
+    title: 'Skin Health',
+    content: 'Sauna use opens pores and increases blood flow to the skin, promoting the delivery of nutrients and oxygen to skin cells. Sweating helps flush out toxins and impurities that can clog pores. The increased circulation gives skin a healthy glow and can improve skin tone and elasticity over time. Regular sauna use may also help with certain skin conditions by promoting cell turnover and reducing inflammation.',
+    highlights: ['Deep pore cleansing through sweating', 'Improved nutrient delivery to skin cells', 'Enhanced skin tone and natural glow', 'Promotion of healthy cell turnover'],
+  },
+];
+
+// BreadcrumbList schema
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.thesaunaguys.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: 'https://www.thesaunaguys.com/blog',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Sauna Benefits',
+      item: 'https://www.thesaunaguys.com/sauna-benefits',
+    },
+  ],
+};
+---
+
+<PublicLayout
+  title="Sauna Benefits: The Complete Science-Backed Guide | The Sauna Guys"
+  description="Comprehensive guide to sauna health benefits backed by research. Cardiovascular health, muscle recovery, stress relief, and more."
+>
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+
+  <!-- Hero -->
+  <section class="section-dark py-24 md:py-32">
+    <div class="container text-center">
+      <h1 class="text-white mb-6">The Complete Guide to Sauna Benefits</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        What does the research actually say about sauna bathing? Here is a comprehensive look at the science-backed benefits of regular heat exposure.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Table of Contents -->
+  <section class="section-light py-12">
+    <div class="container max-w-3xl mx-auto">
+      <nav class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+        <p class="font-bold text-sm uppercase tracking-wider text-dark-teal mb-3">In This Guide</p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {benefits.map((benefit) => (
+            <li>
+              <a href={`#${benefit.id}`} class="text-teal hover:underline">{benefit.title}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Benefit Sections -->
+  {benefits.map((benefit, index) => (
+    <>
+      <section id={benefit.id} class={`${index % 2 === 0 ? 'section-light' : 'section-dark'} py-20`}>
+        <div class="container max-w-4xl mx-auto">
+          <h2 class="mb-8">{benefit.title}</h2>
+          <p class={`text-lg leading-relaxed mb-8 ${index % 2 === 0 ? 'text-gray-700' : 'text-white/80'}`}>
+            {benefit.content}
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {benefit.highlights.map((highlight) => (
+              <div class={`flex items-start gap-3 ${index % 2 === 0 ? 'bg-gold/10' : 'bg-white/10'} rounded-[20px] px-5 py-4`}>
+                <span class="text-teal text-xl flex-shrink-0 mt-0.5">&#10003;</span>
+                <span class={index % 2 === 0 ? 'text-gray-700' : 'text-white'}>{highlight}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <div class="accent-line"></div>
+    </>
+  ))}
+
+  <!-- CTA -->
+  <section class="section-light py-20">
+    <div class="container max-w-3xl mx-auto text-center">
+      <h2 class="mb-4">Experience the Benefits Yourself</h2>
+      <p class="text-gray-600 text-lg mb-8">
+        Reading about sauna benefits is one thing. Feeling them is another. Book a session and see what consistent heat exposure can do for your body and mind.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href={glowfoxClassesUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+        >
+          Book a Session
+        </a>
+        <a
+          href="/first-visit"
+          class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark-teal text-dark-teal font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/5 transition-all duration-200"
+        >
+          First Visit Guide
+        </a>
+      </div>
+
+      <!-- Related Guides -->
+      <div class="mt-16 pt-8 border-t border-gray-200">
+        <p class="text-sm text-gray-500 uppercase tracking-wider mb-4">Related Guides</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/cold-plunge-guide" class="text-teal font-bold hover:underline">Cold Plunge Guide &rarr;</a>
+          <a href="/contrast-therapy" class="text-teal font-bold hover:underline">Contrast Therapy Guide &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</PublicLayout>

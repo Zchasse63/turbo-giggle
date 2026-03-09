@@ -1,0 +1,200 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+
+const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+
+const steps = [
+  {
+    number: '01',
+    title: 'Book Online',
+    description: 'Reserve your session through our booking page. First-timers should grab the Sauna Sampler — three sessions for $60.',
+  },
+  {
+    number: '02',
+    title: 'Arrive & Check In',
+    description: 'Show up 10 to 15 minutes early. We will give you a quick tour, show you the facilities, and answer any questions.',
+  },
+  {
+    number: '03',
+    title: 'Change & Shower',
+    description: 'Use our private changing area and lockers. Put on your swimsuit and take a quick rinse before entering the sauna.',
+  },
+  {
+    number: '04',
+    title: 'Sauna Session',
+    description: 'Settle into our Finnish sauna at 190 degrees Fahrenheit. Start with 10 to 15 minutes — breathe deep and let the heat work.',
+  },
+  {
+    number: '05',
+    title: 'Cold Plunge',
+    description: 'Step into the cold plunge at 42 degrees Fahrenheit. Start with 30 seconds — even a brief dip triggers the response. Build up over time.',
+  },
+  {
+    number: '06',
+    title: 'Rest & Repeat',
+    description: 'Cool down in our relaxation area. Let your heart rate settle, hydrate, then repeat the cycle 2 to 4 times for maximum benefit.',
+  },
+];
+
+const bringList = [
+  'Swimsuit (required)',
+  'Towel (or rent one from us)',
+  'Water bottle',
+  'Flip-flops or sandals',
+  'Change of clothes for after',
+  'An open mind',
+];
+
+// HowTo JSON-LD schema
+const howToJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to Prepare for Your First Sauna and Cold Plunge Session',
+  description: 'A step-by-step guide for your first visit to The Sauna Guys in Tampa. Covers booking, what to bring, and how to do your first contrast therapy session.',
+  totalTime: 'PT90M',
+  supply: bringList.map((item) => ({
+    '@type': 'HowToSupply',
+    name: item,
+  })),
+  step: steps.map((step, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: step.title,
+    text: step.description,
+  })),
+};
+---
+
+<PublicLayout
+  title="Your First Visit | The Sauna Guys"
+  description="Everything you need to know for your first sauna and cold plunge session in Tampa. Step-by-step guide, what to bring, and what to expect."
+>
+  <!-- HowTo Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(howToJsonLd)} />
+
+  <!-- Hero -->
+  <section class="section-dark py-24 md:py-32">
+    <div class="container text-center">
+      <h1 class="text-white mb-6">Your First Visit</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto mb-8">
+        Everything you need to know before you walk through our doors. No experience necessary — just an open mind.
+      </p>
+      <a
+        href={glowfoxClassesUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+      >
+        Book Your First Session
+      </a>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Step-by-Step Walkthrough -->
+  <section class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-center mb-12">Your Session, Step by Step</h2>
+      <div class="space-y-8">
+        {steps.map((step) => (
+          <div class="flex gap-6 items-start">
+            <div class="flex-shrink-0 w-16 h-16 rounded-full bg-teal flex items-center justify-center">
+              <span class="text-black font-bold text-xl">{step.number}</span>
+            </div>
+            <div>
+              <h3 class="text-xl mb-2">{step.title}</h3>
+              <p class="text-gray-600 leading-relaxed">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- What to Bring -->
+  <section class="section-dark py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-center text-white mb-10">What to Bring</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+        {bringList.map((item) => (
+          <div class="flex items-center gap-3 bg-white/10 rounded-[20px] px-6 py-4">
+            <span class="text-teal text-2xl flex-shrink-0">&#10003;</span>
+            <span class="text-white text-lg">{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Temperature Expectations -->
+  <section class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-center mb-12">What to Expect</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center">
+          <div class="text-5xl font-bold text-dark-teal mb-2">190&deg;F</div>
+          <h3 class="text-xl mb-3">Sauna</h3>
+          <p class="text-gray-600">Our Finnish sauna is kept between 180 and 195 degrees. Start with 10 to 15 minute rounds and build up as you get comfortable.</p>
+        </div>
+        <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] text-center">
+          <div class="text-5xl font-bold text-teal mb-2">42&deg;F</div>
+          <h3 class="text-xl mb-3">Cold Plunge</h3>
+          <p class="text-gray-600">Our plunge stays between 39 and 45 degrees. Start with just 30 seconds — the benefits begin immediately.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Objection Handling -->
+  <section class="section-dark py-20">
+    <div class="container max-w-3xl mx-auto text-center">
+      <h2 class="text-white mb-6">What If I Can't Handle the Cold?</h2>
+      <p class="text-white/80 text-lg leading-relaxed mb-6">
+        You can. Seriously. Almost every first-timer says this, and almost every one of them surprises themselves. The cold plunge is not about endurance or toughness — it is about controlled breathing and being present.
+      </p>
+      <p class="text-white/80 text-lg leading-relaxed mb-6">
+        You do not have to stay in for minutes. Thirty seconds is enough to trigger the cold shock response and flood your body with endorphins. Most people walk out of their first plunge grinning.
+      </p>
+      <p class="text-white/80 text-lg leading-relaxed">
+        Our staff is trained to guide you through breathing techniques and will be with you every step of the way. You control the pace. Zero judgment, zero pressure.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- CTA -->
+  <section class="section-light py-20">
+    <div class="container max-w-3xl mx-auto text-center">
+      <h2 class="mb-4">Ready to Try It?</h2>
+      <p class="text-gray-600 text-lg mb-2">
+        Our Sauna Sampler is the best way to start.
+      </p>
+      <div class="bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] inline-block mb-8">
+        <div class="text-4xl font-bold text-dark-teal mb-1">$60</div>
+        <p class="text-lg font-bold">3 Sessions</p>
+        <p class="text-gray-600 text-sm">That is just $20 per session</p>
+      </div>
+      <div class="block">
+        <a
+          href={glowfoxClassesUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-10 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200 text-lg"
+        >
+          Book Sauna Sampler
+        </a>
+      </div>
+      <p class="mt-4 text-gray-500 text-sm">
+        Questions? <a href="/faq" class="text-teal hover:underline">Check our FAQ</a> or <a href="/contact" class="text-teal hover:underline">contact us</a>.
+      </p>
+    </div>
+  </section>
+</PublicLayout>

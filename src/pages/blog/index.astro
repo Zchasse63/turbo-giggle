@@ -1,0 +1,89 @@
+---
+import PublicLayout from '../../layouts/PublicLayout.astro';
+---
+
+<PublicLayout
+  title="Blog | The Sauna Guys"
+  description="Expert articles on sauna benefits, cold plunge science, contrast therapy, and Tampa wellness. Evidence-based content for your recovery journey."
+>
+  <!-- Hero -->
+  <section class="section-dark py-24">
+    <div class="container text-center">
+      <h1 class="text-white mb-4">The Sauna Guys Blog</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        Science-backed insights on sauna, cold plunge, contrast therapy, and recovery. Written for real people, not lab coats.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Blog Grid -->
+  <section class="section-light py-20">
+    <div class="container">
+      <!-- Featured Guides -->
+      <h2 class="text-center mb-12">Start Here</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <a href="/sauna-benefits" class="group bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] hover:shadow-[var(--shadow-clay-hover)] transition-all duration-200 block">
+          <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">Complete Guide</span>
+          <h3 class="text-xl mb-3 group-hover:text-teal transition-colors">Sauna Benefits</h3>
+          <p class="text-gray-600 text-sm">The science-backed breakdown of how sauna sessions improve cardiovascular health, recovery, sleep, and more.</p>
+        </a>
+        <a href="/cold-plunge-guide" class="group bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] hover:shadow-[var(--shadow-clay-hover)] transition-all duration-200 block">
+          <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">Complete Guide</span>
+          <h3 class="text-xl mb-3 group-hover:text-teal transition-colors">Cold Plunge Guide</h3>
+          <p class="text-gray-600 text-sm">Everything you need to know about cold water immersion — benefits, protocols, safety, and how to build your practice.</p>
+        </a>
+        <a href="/contrast-therapy" class="group bg-gold/10 rounded-[20px] p-8 shadow-[var(--shadow-clay)] hover:shadow-[var(--shadow-clay-hover)] transition-all duration-200 block">
+          <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">Complete Guide</span>
+          <h3 class="text-xl mb-3 group-hover:text-teal transition-colors">Contrast Therapy</h3>
+          <p class="text-gray-600 text-sm">Why alternating between hot and cold is the ultimate recovery hack — and the science behind how it works.</p>
+        </a>
+      </div>
+
+      <!-- Blog Posts Placeholder -->
+      <h2 class="text-center mb-8">Latest Articles</h2>
+      <div class="max-w-2xl mx-auto text-center">
+        <div class="bg-gold/10 rounded-[20px] p-12 shadow-[var(--shadow-clay)]">
+          <p class="text-gray-600 text-lg mb-6">
+            Blog posts coming soon — subscribe to be notified.
+          </p>
+          <!-- Email Signup Placeholder -->
+          <form name="blog-subscribe" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input type="hidden" name="form-name" value="blog-subscribe" />
+            <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+            <input
+              type="email"
+              name="email"
+              placeholder="Your email address"
+              required
+              class="flex-grow px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal"
+            />
+            <button
+              type="submit"
+              class="px-6 py-3 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200 whitespace-nowrap"
+            >
+              Notify Me
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Blog Post Grid (for future content collection) -->
+      <!--
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="group bg-gold/10 rounded-[20px] overflow-hidden shadow-[var(--shadow-clay)] hover:shadow-[var(--shadow-clay-hover)] transition-all duration-200 block">
+            <div class="aspect-video bg-gray-200"></div>
+            <div class="p-6">
+              <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">{post.data.category}</span>
+              <h3 class="text-lg mb-2 group-hover:text-teal transition-colors">{post.data.title}</h3>
+              <p class="text-gray-600 text-sm">{post.data.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      -->
+    </div>
+  </section>
+</PublicLayout>

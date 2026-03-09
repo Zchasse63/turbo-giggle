@@ -9,7 +9,6 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thesaunaguys.com',
-  output: 'hybrid',
   adapter: netlify(),
 
   integrations: [

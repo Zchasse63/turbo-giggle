@@ -1,0 +1,287 @@
+---
+import PublicLayout from '../layouts/PublicLayout.astro';
+
+const glowfoxClassesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
+
+// BreadcrumbList schema
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.thesaunaguys.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: 'https://www.thesaunaguys.com/blog',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Contrast Therapy',
+      item: 'https://www.thesaunaguys.com/contrast-therapy',
+    },
+  ],
+};
+
+const benefits = [
+  {
+    title: 'Accelerated Recovery',
+    description: 'The rapid alternation between vasodilation (heat) and vasoconstriction (cold) creates a powerful pumping action that flushes metabolic waste from muscles and delivers fresh, oxygen-rich blood to damaged tissues.',
+  },
+  {
+    title: 'Reduced Inflammation',
+    description: 'Cold exposure reduces acute inflammation while heat promotes healthy blood flow. The combination addresses both immediate swelling and the underlying recovery process more effectively than either alone.',
+  },
+  {
+    title: 'Enhanced Mood & Mental Clarity',
+    description: 'The endorphin release from heat combined with the norepinephrine surge from cold creates a unique neurochemical cocktail. Most people describe a state of calm alertness and euphoria after a contrast session.',
+  },
+  {
+    title: 'Improved Circulation',
+    description: 'Repeatedly training your blood vessels to dilate and constrict improves vascular fitness over time. Your cardiovascular system becomes more efficient and responsive — like interval training for your blood vessels.',
+  },
+  {
+    title: 'Deeper Sleep',
+    description: 'The dramatic temperature shifts reset your thermoregulatory system. The deep relaxation that follows a contrast session, combined with the post-session temperature drop, signals your body for profound, restorative sleep.',
+  },
+  {
+    title: 'Immune System Boost',
+    description: 'Research suggests that the combination of heat stress and cold stress activates the immune system more robustly than either stimulus alone, increasing white blood cell production and immune marker activity.',
+  },
+];
+
+const protocolSteps = [
+  { phase: 'Warm Up', duration: '5 min', location: 'Sauna', description: 'Enter the sauna and let your body acclimate. Focus on deep, steady breathing as your core temperature rises.' },
+  { phase: 'Round 1 — Heat', duration: '10–15 min', location: 'Sauna (190°F)', description: 'Full sauna round. Allow deep sweating. Relax your muscles and breathe intentionally.' },
+  { phase: 'Round 1 — Cold', duration: '1–3 min', location: 'Cold Plunge (42°F)', description: 'Transition to the cold plunge. Focus on slow exhales. Feel the cold shock and breathe through it.' },
+  { phase: 'Rest', duration: '3–5 min', location: 'Relaxation Area', description: 'Sit or stand in the cool-down area. Let your heart rate settle. Hydrate. Notice the tingling in your skin.' },
+  { phase: 'Round 2 — Heat', duration: '10–15 min', location: 'Sauna (190°F)', description: 'Second sauna round. You will find it easier to relax this time. Go deeper into the heat.' },
+  { phase: 'Round 2 — Cold', duration: '2–4 min', location: 'Cold Plunge (42°F)', description: 'Second plunge. You will likely tolerate the cold longer this round. Stay calm and present.' },
+  { phase: 'Rest', duration: '3–5 min', location: 'Relaxation Area', description: 'Another rest period. This is where the magic happens — your body is adapting and recovering in real time.' },
+  { phase: 'Round 3 — Heat', duration: '10–15 min', location: 'Sauna (190°F)', description: 'Final sauna round. Push your comfort zone slightly. Deep breathing accelerates detoxification.' },
+  { phase: 'Final Cold', duration: '2–5 min', location: 'Cold Plunge (42°F)', description: 'End on cold. This locks in the anti-inflammatory and mood-boosting benefits for hours afterward.' },
+  { phase: 'Cool Down', duration: '5–10 min', location: 'Relaxation Area', description: 'Let your body warm naturally. Do not rush to shower. Enjoy the deep calm. This is contrast therapy at its finest.' },
+];
+
+const audiences = [
+  { who: 'Athletes & Fitness Enthusiasts', why: 'Faster recovery between training sessions, reduced DOMS, improved performance over time.' },
+  { who: 'Desk Workers & Professionals', why: 'Stress relief, improved circulation from sedentary work, better sleep, and mental clarity.' },
+  { who: 'Anyone Dealing with Stress', why: 'Natural cortisol reduction, endorphin release, and a forced break from screens and distractions.' },
+  { who: 'Chronic Pain Sufferers', why: 'Reduced inflammation, improved joint mobility, and natural pain management through endorphin release.' },
+  { who: 'Sleep Optimizers', why: 'Thermoregulatory reset for deeper, more restorative sleep — especially with evening sessions.' },
+  { who: 'Wellness Curious', why: 'An accessible, guided entry point into deliberate hot and cold exposure with expert support.' },
+];
+---
+
+<PublicLayout
+  title="Contrast Therapy: Hot & Cold Recovery Guide | The Sauna Guys"
+  description="Learn how alternating sauna heat and cold plunge creates the ultimate recovery experience. Science, protocols, and benefits explained."
+>
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+
+  <!-- Hero -->
+  <section class="section-dark py-24 md:py-32">
+    <div class="container text-center">
+      <h1 class="text-white mb-6">Contrast Therapy Guide</h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        The strategic alternation between sauna heat and cold plunge — and why it is the most powerful recovery tool you are not using yet.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Table of Contents -->
+  <section class="section-light py-12">
+    <div class="container max-w-3xl mx-auto">
+      <nav class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+        <p class="font-bold text-sm uppercase tracking-wider text-dark-teal mb-3">In This Guide</p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <li><a href="#what-is-it" class="text-teal hover:underline">What Is Contrast Therapy?</a></li>
+          <li><a href="#the-science" class="text-teal hover:underline">The Science</a></li>
+          <li><a href="#benefits" class="text-teal hover:underline">Benefits</a></li>
+          <li><a href="#our-protocol" class="text-teal hover:underline">Our Protocol</a></li>
+          <li><a href="#who-its-for" class="text-teal hover:underline">Who It's For</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- What Is It -->
+  <section id="what-is-it" class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="mb-8">What Is Contrast Therapy?</h2>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        Contrast therapy is the deliberate practice of alternating between extreme heat and extreme cold. At The Sauna Guys, that means cycling between our Finnish sauna at 190 degrees Fahrenheit and our cold plunge at 42 degrees Fahrenheit, with rest periods in between.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed mb-6">
+        This is not a new concept. Scandinavian cultures have practiced hot-cold bathing for centuries. Finnish sauna tradition includes rolling in snow or jumping into icy lakes between sauna rounds. Japanese onsen culture incorporates cold water baths. What is new is the growing body of scientific research confirming what these cultures have known intuitively — that the combination of heat and cold exposure produces profound physiological benefits that neither can achieve alone.
+      </p>
+      <p class="text-lg text-gray-700 leading-relaxed">
+        A typical contrast therapy session at our studio lasts 60 to 90 minutes and includes 2 to 4 full hot-cold cycles. Our staff guides you through the protocol, helping with breathing techniques and timing to maximize the benefits.
+      </p>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- The Science -->
+  <section id="the-science" class="section-dark py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-white mb-8">The Science Behind Contrast Therapy</h2>
+      <p class="text-lg text-white/80 leading-relaxed mb-6">
+        Contrast therapy works through a mechanism called the vascular pump effect. When you sit in the sauna, your blood vessels dilate (vasodilation) and blood flows to your skin and extremities. When you enter the cold plunge, your blood vessels rapidly constrict (vasoconstriction), driving blood back to your core and vital organs.
+      </p>
+      <p class="text-lg text-white/80 leading-relaxed mb-6">
+        This cycle creates a powerful pumping action throughout your circulatory and lymphatic systems. Fresh, oxygen-rich blood is driven into muscles and tissues while metabolic waste products are flushed out more efficiently than through passive recovery alone.
+      </p>
+      <p class="text-lg text-white/80 leading-relaxed mb-8">
+        At the neurochemical level, the heat triggers endorphin release and muscle relaxation, while the cold stimulates a surge of norepinephrine — a neurotransmitter linked to focus, mood, and anti-inflammatory activity. The combination produces a unique state that users often describe as calm alertness paired with deep physical relaxation.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-white/10 rounded-[20px] px-5 py-4">
+          <span class="text-teal font-bold block mb-1">Heat Phase</span>
+          <span class="text-white/70 text-sm">Vasodilation, endorphin release, muscle relaxation, increased heart rate, deep sweating</span>
+        </div>
+        <div class="bg-white/10 rounded-[20px] px-5 py-4">
+          <span class="text-teal font-bold block mb-1">Cold Phase</span>
+          <span class="text-white/70 text-sm">Vasoconstriction, norepinephrine surge, inflammation reduction, mental alertness</span>
+        </div>
+        <div class="bg-white/10 rounded-[20px] px-5 py-4">
+          <span class="text-teal font-bold block mb-1">Transition</span>
+          <span class="text-white/70 text-sm">Vascular pump effect, lymphatic drainage, metabolic waste clearance</span>
+        </div>
+        <div class="bg-white/10 rounded-[20px] px-5 py-4">
+          <span class="text-teal font-bold block mb-1">Rest Phase</span>
+          <span class="text-white/70 text-sm">Nervous system reset, parasympathetic activation, hormonal balancing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Benefits -->
+  <section id="benefits" class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-center mb-12">Benefits of Contrast Therapy</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {benefits.map((benefit) => (
+          <div class="bg-gold/10 rounded-[20px] p-6 shadow-[var(--shadow-clay)]">
+            <h3 class="text-lg mb-3">{benefit.title}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Mid-page CTA -->
+  <section class="section-dark py-16">
+    <div class="container max-w-3xl mx-auto text-center">
+      <h2 class="text-white mb-4">Ready to Feel the Difference?</h2>
+      <p class="text-white/80 text-lg mb-8">
+        Our guided contrast therapy sessions make the experience safe, structured, and transformative — even for complete beginners.
+      </p>
+      <a
+        href={glowfoxClassesUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+      >
+        Book a Session
+      </a>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Our Protocol -->
+  <section id="our-protocol" class="section-light py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-center mb-4">Our Contrast Therapy Protocol</h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        This is the protocol we guide guests through during a full contrast therapy session. Total session time is approximately 75 to 90 minutes.
+      </p>
+      <div class="space-y-4">
+        {protocolSteps.map((step, i) => (
+          <div class="bg-gold/10 rounded-[20px] p-5 shadow-[var(--shadow-clay)] flex flex-col sm:flex-row sm:items-center gap-4">
+            <div class="flex items-center gap-3 sm:w-48 flex-shrink-0">
+              <span class="w-8 h-8 rounded-full bg-teal flex items-center justify-center text-black font-bold text-sm flex-shrink-0">{i + 1}</span>
+              <span class="font-bold">{step.phase}</span>
+            </div>
+            <div class="flex items-center gap-3 sm:w-32 flex-shrink-0 text-sm text-gray-500">
+              <span>{step.duration}</span>
+              <span class="text-gray-300">|</span>
+              <span>{step.location}</span>
+            </div>
+            <p class="text-gray-600 text-sm flex-grow">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Who It's For -->
+  <section id="who-its-for" class="section-dark py-20">
+    <div class="container max-w-4xl mx-auto">
+      <h2 class="text-white text-center mb-12">Who Is Contrast Therapy For?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {audiences.map((item) => (
+          <div class="bg-white/10 rounded-[20px] p-6">
+            <h3 class="text-lg text-white mb-2">{item.who}</h3>
+            <p class="text-white/70 text-sm leading-relaxed">{item.why}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="accent-line"></div>
+
+  <!-- Bottom CTA -->
+  <section class="section-light py-20">
+    <div class="container max-w-3xl mx-auto text-center">
+      <h2 class="mb-4">Start Your Contrast Therapy Practice</h2>
+      <p class="text-gray-600 text-lg mb-8">
+        Whether you are an athlete chasing faster recovery or someone who just wants to feel incredible, contrast therapy delivers. Book a guided session and experience the hot-cold difference.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href={glowfoxClassesUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-4 bg-teal text-black font-bold uppercase tracking-wider rounded-[60px] hover:brightness-110 transition-all duration-200"
+        >
+          Book a Session
+        </a>
+        <a
+          href="/first-visit"
+          class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark-teal text-dark-teal font-bold uppercase tracking-wider rounded-[60px] hover:bg-dark-teal/5 transition-all duration-200"
+        >
+          First Visit Guide
+        </a>
+      </div>
+
+      <!-- Related Guides -->
+      <div class="mt-16 pt-8 border-t border-gray-200">
+        <p class="text-sm text-gray-500 uppercase tracking-wider mb-4">Related Guides</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/sauna-benefits" class="text-teal font-bold hover:underline">Sauna Benefits Guide &rarr;</a>
+          <a href="/cold-plunge-guide" class="text-teal font-bold hover:underline">Cold Plunge Guide &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</PublicLayout>
