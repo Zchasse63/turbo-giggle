@@ -37,7 +37,7 @@ const PLANS: PlanOption[] = [
     price: 60,
     sessions: 3,
     isMonthly: false,
-    subtitle: 'Intro offer \u00B7 3 sessions',
+    subtitle: 'One-time intro offer \u00B7 3 sessions',
   },
   {
     id: 'drop-in',
@@ -112,7 +112,14 @@ function calculatePlans(sessionsPerMonth: number): CalculatedPlan[] {
     let costPerSession: number;
     let isApplicable = true;
 
-    if (plan.isMonthly) {
+    if (plan.type === 'intro') {
+      // Intro offers are one-time only -- do NOT project into monthly costs.
+      // Show the flat cost per session and total price, not a monthly equivalent.
+      costPerSession = plan.price / (plan.sessions ?? 1);
+      monthlyCost = plan.price; // flat total, not a recurring amount
+      // Intro is always "applicable" (it's a great starting point)
+      // but should NOT compete for "best value" (handled below)
+    } else if (plan.isMonthly) {
       // Monthly memberships
       if (plan.sessions === null) {
         // Unlimited
@@ -138,7 +145,9 @@ function calculatePlans(sessionsPerMonth: number): CalculatedPlan[] {
       }
     }
 
-    const savingsVsDropIn = dropInMonthly - monthlyCost;
+    const savingsVsDropIn = plan.type === 'intro'
+      ? 0 // One-time offer -- savings comparison not meaningful
+      : dropInMonthly - monthlyCost;
 
     return {
       ...plan,
@@ -157,9 +166,12 @@ export default function MembershipCalculator({ membershipUrl, classesUrl }: Prop
 
   const calculated = useMemo(() => calculatePlans(sessionsPerMonth), [sessionsPerMonth]);
 
-  // Find the best value (lowest cost per session among applicable plans)
+  // Find the best value (lowest cost per session among applicable RECURRING plans).
+  // Intro offers are one-time only and should never be flagged as "Best Value".
   const bestValueId = useMemo(() => {
-    const applicable = calculated.filter((p) => p.isApplicable);
+    const applicable = calculated.filter(
+      (p) => p.isApplicable && p.type !== 'intro'
+    );
     if (applicable.length === 0) return null;
     return applicable.reduce((best, plan) =>
       plan.costPerSession < best.costPerSession ? plan : best
@@ -581,58 +593,98 @@ function PlanCard({ plan, isBest, isNotApplicable, sessionsPerMonth, ctaUrl }: P
         }}
       />
 
-      {/* Monthly cost */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
-          fontSize: '0.85rem',
-          color: subtextColor,
-          marginBottom: '0.5rem',
-          padding: '0 0.25rem',
-        }}
-      >
-        <span>Monthly cost</span>
-        <span style={{ fontWeight: 700, color: textColor }}>
-          {formatCurrency(plan.monthlyCost)}
-          {plan.isMonthly ? '/mo' : '/mo*'}
-        </span>
-      </div>
+      {/* Monthly cost / Total cost */}
+      {plan.type === 'intro' ? (
+        <>
+          {/* Intro offer: show flat total, not monthly projection */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+              fontSize: '0.85rem',
+              color: subtextColor,
+              marginBottom: '0.5rem',
+              padding: '0 0.25rem',
+            }}
+          >
+            <span>Total</span>
+            <span style={{ fontWeight: 700, color: textColor }}>
+              {formatCurrency(plan.price)}
+            </span>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+              fontSize: '0.85rem',
+              color: subtextColor,
+              marginBottom: '1.25rem',
+              padding: '0 0.25rem',
+            }}
+          >
+            <span>Sessions</span>
+            <span style={{ fontWeight: 700, color: textColor }}>
+              {plan.sessions}
+            </span>
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+              fontSize: '0.85rem',
+              color: subtextColor,
+              marginBottom: '0.5rem',
+              padding: '0 0.25rem',
+            }}
+          >
+            <span>Monthly cost</span>
+            <span style={{ fontWeight: 700, color: textColor }}>
+              {formatCurrency(plan.monthlyCost)}
+              {plan.isMonthly ? '/mo' : '/mo*'}
+            </span>
+          </div>
 
-      {/* Savings vs drop-in */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
-          fontSize: '0.85rem',
-          color: subtextColor,
-          marginBottom: '1.25rem',
-          padding: '0 0.25rem',
-        }}
-      >
-        <span>vs. drop-in</span>
-        <span
-          style={{
-            fontWeight: 700,
-            color:
-              plan.savingsVsDropIn > 0
-                ? isBest
-                  ? '#23383D'
-                  : '#16a34a'
+          {/* Savings vs drop-in */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+              fontSize: '0.85rem',
+              color: subtextColor,
+              marginBottom: '1.25rem',
+              padding: '0 0.25rem',
+            }}
+          >
+            <span>vs. drop-in</span>
+            <span
+              style={{
+                fontWeight: 700,
+                color:
+                  plan.savingsVsDropIn > 0
+                    ? isBest
+                      ? '#23383D'
+                      : '#16a34a'
+                    : plan.savingsVsDropIn === 0
+                      ? subtextColor
+                      : '#ef4444',
+              }}
+            >
+              {plan.savingsVsDropIn > 0
+                ? `Save ${formatCurrency(plan.savingsVsDropIn)}`
                 : plan.savingsVsDropIn === 0
-                  ? subtextColor
-                  : '#ef4444',
-          }}
-        >
-          {plan.savingsVsDropIn > 0
-            ? `Save ${formatCurrency(plan.savingsVsDropIn)}`
-            : plan.savingsVsDropIn === 0
-              ? '$0'
-              : `-${formatCurrency(Math.abs(plan.savingsVsDropIn))}`}
-        </span>
-      </div>
+                  ? '$0'
+                  : `-${formatCurrency(Math.abs(plan.savingsVsDropIn))}`}
+            </span>
+          </div>
+        </>
+      )}
 
       {/* Not applicable warning */}
       {isNotApplicable && notApplicableReason && (
@@ -691,8 +743,19 @@ function PlanCard({ plan, isBest, isNotApplicable, sessionsPerMonth, ctaUrl }: P
         {plan.type === 'membership' ? 'Subscribe' : plan.type === 'intro' ? 'Get Started' : 'Buy'}
       </a>
 
-      {/* Asterisk note for non-monthly */}
-      {!plan.isMonthly && (
+      {/* Footnotes */}
+      {plan.type === 'intro' ? (
+        <p
+          style={{
+            fontSize: '0.65rem',
+            color: isBest ? 'rgba(35,56,61,0.5)' : '#aaa',
+            margin: '0.75rem 0 0',
+            fontStyle: 'italic',
+          }}
+        >
+          One-time purchase -- new visitors only
+        </p>
+      ) : !plan.isMonthly ? (
         <p
           style={{
             fontSize: '0.65rem',
@@ -702,7 +765,7 @@ function PlanCard({ plan, isBest, isNotApplicable, sessionsPerMonth, ctaUrl }: P
         >
           *Based on {sessionsPerMonth}x/month usage
         </p>
-      )}
+      ) : null}
     </div>
   );
 }

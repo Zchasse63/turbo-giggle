@@ -9,17 +9,71 @@ import Button from '../../components/ui/Button.astro';
 
 const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+
+const neighborhoodName = "Seminole Heights";
+const pageSlug = "seminole-heights";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thesaunaguys.com/" },
+    { "@type": "ListItem", "position": 2, "name": `Sauna Near ${neighborhoodName}`, "item": `https://thesaunaguys.com/near/${pageSlug}` }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How far is The Sauna Guys from Seminole Heights?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "About 10 minutes. Head south on Florida Avenue or Nebraska Avenue from the Heights and you'll be at our studio at 1703 N 24th Street before you know it. Both routes are direct with minimal stops."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I wear to a sauna session?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bring a swimsuit — that's all you need. We provide clean towels, filtered water, and full shower facilities. Most people wear board shorts or a bathing suit in the sauna and plunge."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I do cold plunge without the sauna?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our sessions include access to both the sauna and cold plunge — you can use either or both during your 60-minute session. Many members focus on cold plunge, and that's perfectly fine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you have morning sessions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We open at 6 AM on weekdays, making it easy to fit a session in before work. Weekend sessions start at 8 AM. Check our booking page for available time slots."
+      }
+    }
+  ]
+};
 ---
 
 <PublicLayout
   title="Cold Plunge Near Seminole Heights | The Sauna Guys Tampa"
   description="Cold plunge and sauna therapy 10 minutes from Seminole Heights. Serving Old Seminole Heights and Central Avenue. Try 3 sessions for $60."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <!-- Hero -->
   <HeroImage src="/images/cold-plunge.jpg" alt="Cold plunge pool at The Sauna Guys near Seminole Heights" height="medium">
     <h1 class="text-4xl md:text-5xl font-bold mb-4">Cold Plunge & Sauna — 10 Minutes from Seminole Heights</h1>
     <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
-      The Heights already has the best coffee, craft beer, and brunch in Tampa. Now add world-class cold plunge and sauna therapy to the neighborhood rotation — just a quick ride down Florida Avenue.
+      The Heights already has the best coffee, craft beer, and brunch in Tampa. Now add world-class cold plunge and sauna therapy to the neighborhood rotation — just a quick ride down Florida Avenue. New to contrast therapy? Check out our <a href="/first-visit" class="underline font-semibold">first visit guide</a>.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
@@ -30,7 +84,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
   <div class="accent-line"></div>
 
   <!-- Quick Facts -->
-  <Section variant="light" id="quick-facts">
+  <Section variant="warm" id="quick-facts">
     <div class="max-w-3xl mx-auto">
       <Card variant="clay" class="p-8">
         <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from Seminole Heights</h2>
@@ -136,12 +190,15 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <Button href="/services" variant="on-dark">Learn More</Button>
       </Card>
     </div>
+    <p class="text-center mt-6 text-white/60">
+      First time? Read our <a href="/first-visit" class="text-teal underline hover:text-white transition-colors">complete first visit guide</a> to know exactly what to expect.
+    </p>
   </Section>
 
   <div class="accent-line"></div>
 
   <!-- Pricing CTA -->
-  <Section variant="light" id="intro-offer">
+  <Section variant="warm" id="intro-offer">
     <div class="max-w-xl mx-auto text-center">
       <Card variant="gold" class="p-8 relative">
         <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
@@ -156,6 +213,50 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <p class="text-black/60 text-sm mb-6">Three visits to find your rhythm — guided, open, or mix it up. Heights residents are making it a regular thing.</p>
         <Button href={membershipUrl} variant="secondary" target="_blank">Get the Sampler</Button>
       </Card>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <div class="accent-line"></div>
+  <Section variant="light" id="faq">
+    <SectionHeading title="Frequently Asked Questions" subtitle="Common questions from Seminole Heights visitors" />
+    <div class="max-w-3xl mx-auto space-y-4">
+      <details class="group" open>
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>How far is The Sauna Guys from Seminole Heights?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>About 10 minutes. Head south on Florida Avenue or Nebraska Avenue from the Heights and you'll be at our studio at 1703 N 24th Street before you know it. Both routes are direct with minimal stops.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>What should I wear to a sauna session?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Bring a swimsuit — that's all you need. We provide clean towels, filtered water, and full shower facilities. Most people wear board shorts or a bathing suit in the sauna and plunge.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Can I do cold plunge without the sauna?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Our sessions include access to both the sauna and cold plunge — you can use either or both during your 60-minute session. Many members focus on cold plunge, and that's perfectly fine.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Do you have morning sessions?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Yes! We open at 6 AM on weekdays, making it easy to fit a session in before work. Weekend sessions start at 8 AM. Check our booking page for available time slots.</p>
+        </div>
+      </details>
     </div>
   </Section>
 
@@ -197,7 +298,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
       <a href="/near/south-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">South Tampa</p>
-        <p class="text-xs text-gray-600">5 min drive</p>
+        <p class="text-xs text-gray-600">10 min drive</p>
       </a>
       <a href="/near/downtown-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">Downtown Tampa</p>

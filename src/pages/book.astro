@@ -26,9 +26,9 @@ const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
   <div class="accent-line"></div>
 
   <!-- Booking Options -->
-  <Section variant="light">
+  <Section variant="warm">
     <div class="max-w-4xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Book a Session -->
         <Card variant="gold" class="p-8 text-center">
           <h2 class="text-2xl mb-4">Book a Session</h2>
@@ -51,7 +51,12 @@ const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
           </Button>
         </Card>
       </div>
+    </div>
+  </Section>
 
+  <!-- Schedule & Pricing -->
+  <Section variant="light">
+    <div class="max-w-4xl mx-auto">
       <!-- GlowFox Embed Placeholder -->
       <div class="mb-16">
         <SectionHeading title="Schedule" />
@@ -89,13 +94,16 @@ const glowfoxMembershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
           <p class="text-gray-500 text-sm">Monthly unlimited</p>
         </Card>
       </div>
+    </div>
+  </Section>
 
-      <!-- First-timer callout -->
-      <div class="mt-12 text-center">
-        <p class="text-gray-600">
-          First time? <a href="/first-visit" class="text-teal font-bold hover:underline">Read our first-visit guide</a> to know exactly what to expect.
-        </p>
-      </div>
+  <!-- Bottom CTA -->
+  <Section variant="dark">
+    <div class="text-center max-w-xl mx-auto">
+      <SectionHeading title="First Time?" subtitle="Not sure what to expect? Our first-visit guide walks you through everything — what to bring, how it works, and what to expect." light />
+      <Button href="/first-visit" variant="on-dark">
+        Read the First Visit Guide
+      </Button>
     </div>
   </Section>
 </PublicLayout>

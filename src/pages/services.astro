@@ -1,6 +1,6 @@
 ---
 import PublicLayout from '../layouts/PublicLayout.astro';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '../lib/supabase';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import Card from '../components/ui/Card.astro';
@@ -12,22 +12,17 @@ const classesUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const membershipsUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
 
 // Fetch pricing plans from Supabase
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-);
-
 const { data: plans } = await supabase
   .from('pricing_plans')
   .select('*')
   .eq('is_active', true)
   .order('sort_order', { ascending: true });
 
-// Group plans by type
-const dropIns = plans?.filter(p => p.plan_type === 'drop_in') ?? [];
-const packs = plans?.filter(p => p.plan_type === 'class_pack') ?? [];
-const memberships = plans?.filter(p => p.plan_type === 'membership') ?? [];
-const intros = plans?.filter(p => p.plan_type === 'intro') ?? [];
+// Group plans by category
+const dropIns = plans?.filter(p => p.category === 'drop_in') ?? [];
+const packs = plans?.filter(p => p.category === 'class_pack') ?? [];
+const memberships = plans?.filter(p => p.category === 'membership') ?? [];
+const intros = plans?.filter(p => p.category === 'sampler') ?? [];
 
 function formatPrice(cents: number): string {
   return `$${(cents / 100).toFixed(0)}`;
@@ -49,7 +44,7 @@ function formatPrice(cents: number): string {
   <div class="accent-line"></div>
 
   <!-- Session Types -->
-  <Section variant="light" id="sessions">
+  <Section variant="warm" id="sessions">
     <SectionHeading title="Our Sessions" subtitle="From guided coaching to self-directed sessions, find your rhythm" />
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -260,7 +255,7 @@ function formatPrice(cents: number): string {
 
   <!-- What's Included -->
   <div class="accent-line"></div>
-  <Section variant="light" id="whats-included">
+  <Section variant="warm" id="whats-included">
     <SectionHeading title="What's Included" subtitle="Every session comes with everything you need" />
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
 

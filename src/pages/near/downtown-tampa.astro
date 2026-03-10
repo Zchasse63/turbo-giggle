@@ -9,17 +9,72 @@ import Button from '../../components/ui/Button.astro';
 
 const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+
+const neighborhoodName = "Downtown Tampa";
+const pageSlug = "downtown-tampa";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thesaunaguys.com/" },
+    { "@type": "ListItem", "position": 2, "name": `Sauna Near ${neighborhoodName}`, "item": `https://thesaunaguys.com/near/${pageSlug}` }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I get to The Sauna Guys from Downtown Tampa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Head east on Adamo Drive (SR-60) from the downtown core. The studio is about 8 minutes away at 1703 N 24th Street, right off the Ybor/Heights corridor. No interstate needed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I come before or after work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. We open at 6 AM on weekdays, so you can fit in a session before your first meeting. Evening sessions run until 8 PM — perfect for decompressing after the workday."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is contrast therapy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Contrast therapy alternates between sauna heat (190\u00b0F+) and cold plunge immersion. This hot-cold cycle boosts circulation, reduces inflammation, and triggers a deep recovery response. Many downtown professionals use it for stress relief and mental clarity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer corporate wellness packages?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We offer private group bookings for corporate teams. Contact us at theguys@sauna-guys.com for custom pricing and availability."
+      }
+    }
+  ]
+};
 ---
 
 <PublicLayout
   title="Sauna Near Downtown Tampa | The Sauna Guys Tampa"
   description="Sauna and cold plunge just 8 minutes from Downtown Tampa. Near Water Street, Channelside, and the Convention Center. Book your session now."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <!-- Hero -->
   <HeroImage src="/images/exterior.jpg" alt="The Sauna Guys studio near Downtown Tampa" height="medium">
     <h1 class="text-4xl md:text-5xl font-bold mb-4">Sauna & Cold Plunge — 8 Minutes from Downtown Tampa</h1>
     <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
       Escape the downtown grind without a long commute. Our studio is a straight shot from Water Street, Channelside, and the Tampa Convention Center — no highway needed.
+      New to contrast therapy? Check out our <a href="/first-visit" class="underline font-semibold">first visit guide</a>.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
@@ -30,7 +85,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
   <div class="accent-line"></div>
 
   <!-- Quick Facts -->
-  <Section variant="light" id="quick-facts">
+  <Section variant="warm" id="quick-facts">
     <div class="max-w-3xl mx-auto">
       <Card variant="clay" class="p-8">
         <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from Downtown</h2>
@@ -136,12 +191,15 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <Button href="/services" variant="on-dark">Learn More</Button>
       </Card>
     </div>
+    <p class="text-center mt-6 text-white/60">
+      First time? Read our <a href="/first-visit" class="text-teal underline hover:text-white transition-colors">complete first visit guide</a> to know exactly what to expect.
+    </p>
   </Section>
 
   <div class="accent-line"></div>
 
   <!-- Pricing CTA -->
-  <Section variant="light" id="intro-offer">
+  <Section variant="warm" id="intro-offer">
     <div class="max-w-xl mx-auto text-center">
       <Card variant="gold" class="p-8 relative">
         <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
@@ -156,6 +214,50 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <p class="text-black/60 text-sm mb-6">One flat price, three full sessions. Many of our downtown members started right here, then never looked back.</p>
         <Button href={membershipUrl} variant="secondary" target="_blank">Get the Sampler</Button>
       </Card>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <div class="accent-line"></div>
+  <Section variant="light" id="faq">
+    <SectionHeading title="Frequently Asked Questions" subtitle="Common questions from Downtown Tampa visitors" />
+    <div class="max-w-3xl mx-auto space-y-4">
+      <details class="group" open>
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>How do I get to The Sauna Guys from Downtown Tampa?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Head east on Adamo Drive (SR-60) from the downtown core. The studio is about 8 minutes away at 1703 N 24th Street, right off the Ybor/Heights corridor. No interstate needed.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Can I come before or after work?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Absolutely. We open at 6 AM on weekdays, so you can fit in a session before your first meeting. Evening sessions run until 8 PM — perfect for decompressing after the workday.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>What is contrast therapy?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Contrast therapy alternates between sauna heat (190°F+) and cold plunge immersion. This hot-cold cycle boosts circulation, reduces inflammation, and triggers a deep recovery response. Many downtown professionals use it for stress relief and mental clarity.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Do you offer corporate wellness packages?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Yes! We offer private group bookings for corporate teams. Contact us at <a href="mailto:theguys@sauna-guys.com" class="text-teal underline hover:text-dark-teal">theguys@sauna-guys.com</a> for custom pricing and availability.</p>
+        </div>
+      </details>
     </div>
   </Section>
 
@@ -197,7 +299,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
       <a href="/near/south-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">South Tampa</p>
-        <p class="text-xs text-gray-600">5 min drive</p>
+        <p class="text-xs text-gray-600">10 min drive</p>
       </a>
       <a href="/near/ybor-city" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">Ybor City</p>

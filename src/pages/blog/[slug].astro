@@ -165,7 +165,7 @@ const jsonLd = {
 
   <!-- Related Posts -->
   {relatedPosts.length > 0 && (
-    <Section variant="light">
+    <Section variant="warm">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-center mb-10">Related Articles</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -175,7 +175,7 @@ const jsonLd = {
                 <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">
                   {categoryLabels[post.data.category] ?? post.data.category}
                 </span>
-                <h3 class="text-lg mb-2 group-hover:text-teal transition-colors" style="text-transform: none; font-size: 1.125rem;">
+                <h3 class="h3-prose text-lg mb-2 group-hover:text-teal transition-colors">
                   {post.data.title}
                 </h3>
                 <p class="text-gray-600 text-sm line-clamp-3">{post.data.description}</p>
@@ -188,7 +188,7 @@ const jsonLd = {
   )}
 
   <!-- CTA Section -->
-  <Section variant="light">
+  <Section variant="dark">
     <div class="max-w-2xl mx-auto text-center">
       <Card variant="clay" class="p-10 md:p-14">
         <h2 class="mb-4" style="font-size: clamp(1.5rem, 3vw, 2.25rem);">Ready to Try It?</h2>

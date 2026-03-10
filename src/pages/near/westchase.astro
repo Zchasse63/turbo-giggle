@@ -9,17 +9,71 @@ import Button from '../../components/ui/Button.astro';
 
 const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+
+const neighborhoodName = "Westchase";
+const pageSlug = "westchase";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thesaunaguys.com/" },
+    { "@type": "ListItem", "position": 2, "name": `Sauna Near ${neighborhoodName}`, "item": `https://thesaunaguys.com/near/${pageSlug}` }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I get to The Sauna Guys from Westchase?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Take Veterans Expressway south to I-275, then hop onto I-4 east. Exit at 22nd Street and you're practically at our door. The whole trip is about 15 minutes in normal traffic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the sauna experience worth the drive from Westchase?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our members from Westchase and Carrollwood consistently say yes. There's nothing like a dedicated contrast therapy studio in the area — our 190\u00b0F+ barrel sauna and cold plunge pools offer an experience your gym simply can't match."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a guided session like?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A coach leads your group through structured sauna rounds (typically 3-4), breathwork techniques, and cold plunge entries. They handle all the timing so you just focus on the experience. Sessions are 60 minutes with full shower access after."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer memberships for regular visitors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We offer monthly memberships with 4, 8, or unlimited sessions per month. Members from Westchase often choose the 8-session plan to visit twice a week. Check our services page for current pricing."
+      }
+    }
+  ]
+};
 ---
 
 <PublicLayout
   title="Sauna Near Westchase & Carrollwood | The Sauna Guys Tampa"
   description="Sauna and cold plunge 15 minutes from Westchase and Carrollwood. Tampa's top-rated contrast therapy studio. Try 3 sessions for just $60."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <!-- Hero -->
   <HeroImage src="/images/community.jpg" alt="Sauna community session at The Sauna Guys near Westchase" height="medium">
     <h1 class="text-4xl md:text-5xl font-bold mb-4">Sauna & Cold Plunge — Worth the 15-Minute Drive from Westchase</h1>
     <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
-      Westchase and Carrollwood residents are discovering Tampa's best-kept wellness secret. A quick trip down Veterans Expressway brings you to a studio built for serious heat and serious cold.
+      Westchase and Carrollwood residents are discovering Tampa's best-kept wellness secret. A quick trip down Veterans Expressway brings you to a studio built for serious heat and serious cold. New to contrast therapy? Check out our <a href="/first-visit" class="underline font-semibold">first visit guide</a>.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
@@ -30,7 +84,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
   <div class="accent-line"></div>
 
   <!-- Quick Facts -->
-  <Section variant="light" id="quick-facts">
+  <Section variant="warm" id="quick-facts">
     <div class="max-w-3xl mx-auto">
       <Card variant="clay" class="p-8">
         <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from Westchase & Carrollwood</h2>
@@ -136,12 +190,15 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <Button href="/services" variant="on-dark">Learn More</Button>
       </Card>
     </div>
+    <p class="text-center mt-6 text-white/60">
+      First time? Read our <a href="/first-visit" class="text-teal underline hover:text-white transition-colors">complete first visit guide</a> to know exactly what to expect.
+    </p>
   </Section>
 
   <div class="accent-line"></div>
 
   <!-- Pricing CTA -->
-  <Section variant="light" id="intro-offer">
+  <Section variant="warm" id="intro-offer">
     <div class="max-w-xl mx-auto text-center">
       <Card variant="gold" class="p-8 relative">
         <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
@@ -156,6 +213,50 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <p class="text-black/60 text-sm mb-6">Three visits for one low price. Enough to try guided, open, and women's sessions and find the format that fits your lifestyle.</p>
         <Button href={membershipUrl} variant="secondary" target="_blank">Get the Sampler</Button>
       </Card>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <div class="accent-line"></div>
+  <Section variant="light" id="faq">
+    <SectionHeading title="Frequently Asked Questions" subtitle="Common questions from Westchase visitors" />
+    <div class="max-w-3xl mx-auto space-y-4">
+      <details class="group" open>
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>How do I get to The Sauna Guys from Westchase?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Take Veterans Expressway south to I-275, then hop onto I-4 east. Exit at 22nd Street and you're practically at our door. The whole trip is about 15 minutes in normal traffic.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Is the sauna experience worth the drive from Westchase?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Our members from Westchase and Carrollwood consistently say yes. There's nothing like a dedicated contrast therapy studio in the area — our 190°F+ barrel sauna and cold plunge pools offer an experience your gym simply can't match.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>What is a guided session like?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>A coach leads your group through structured sauna rounds (typically 3-4), breathwork techniques, and cold plunge entries. They handle all the timing so you just focus on the experience. Sessions are 60 minutes with full shower access after.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Do you offer memberships for regular visitors?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Yes! We offer monthly memberships with 4, 8, or unlimited sessions per month. Members from Westchase often choose the 8-session plan to visit twice a week. Check our services page for current pricing.</p>
+        </div>
+      </details>
     </div>
   </Section>
 
@@ -197,7 +298,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
       <a href="/near/south-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">South Tampa</p>
-        <p class="text-xs text-gray-600">5 min drive</p>
+        <p class="text-xs text-gray-600">10 min drive</p>
       </a>
       <a href="/near/downtown-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">Downtown Tampa</p>

@@ -9,17 +9,72 @@ import Button from '../../components/ui/Button.astro';
 
 const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+
+const neighborhoodName = "Ybor City";
+const pageSlug = "ybor-city";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thesaunaguys.com/" },
+    { "@type": "ListItem", "position": 2, "name": `Sauna Near ${neighborhoodName}`, "item": `https://thesaunaguys.com/near/${pageSlug}` }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How close is The Sauna Guys to Ybor City?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We're about 7 minutes north of the historic Ybor district. Head north on 22nd Street from 7th Avenue and you'll practically see our studio. We're right in the corridor between Ybor and Seminole Heights."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in a session?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every session includes a full 60 minutes of sauna and cold plunge access, clean towels, filtered water, and full shower facilities. Guided sessions also include expert breathwork coaching and cold plunge instruction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is cold plunge safe for beginners?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Our guided sessions are specifically designed for beginners. A coach walks you through proper breathing techniques and helps you enter the cold plunge at your own pace. You're never pressured to go beyond your comfort level."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you have partnerships with local Ybor businesses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We're proud to partner with local businesses like Cigar City CrossFit in the Ybor area. Ask about member cross-discounts when you visit."
+      }
+    }
+  ]
+};
 ---
 
 <PublicLayout
   title="Sauna Near Ybor City | The Sauna Guys Tampa"
   description="Sauna and cold plunge just 7 minutes from Ybor City's historic district. Near Centro Ybor and 7th Avenue. Book your contrast therapy session today."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <!-- Hero -->
   <HeroImage src="/images/woman-sauna.jpg" alt="Sauna session at The Sauna Guys near Ybor City" height="medium">
     <h1 class="text-4xl md:text-5xl font-bold mb-4">Tampa's Premier Sauna — Just 7 Minutes from Ybor City</h1>
     <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
       Ybor City has been a hub of culture and community for over a century. Now add a new tradition to the neighborhood — world-class sauna and cold plunge therapy, practically around the corner on North 24th Street.
+      New to contrast therapy? Check out our <a href="/first-visit" class="underline font-semibold">first visit guide</a>.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
@@ -30,7 +85,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
   <div class="accent-line"></div>
 
   <!-- Quick Facts -->
-  <Section variant="light" id="quick-facts">
+  <Section variant="warm" id="quick-facts">
     <div class="max-w-3xl mx-auto">
       <Card variant="clay" class="p-8">
         <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from Ybor City</h2>
@@ -136,12 +191,20 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <Button href="/services" variant="on-dark">Learn More</Button>
       </Card>
     </div>
+    <p class="text-center mt-6 text-white/60">
+      First time? Read our <a href="/first-visit" class="text-teal underline hover:text-white transition-colors">complete first visit guide</a> to know exactly what to expect.
+    </p>
+    <div class="mt-8 text-center">
+      <p class="text-white/70 text-sm">
+        <Icon name="dumbbell" size={16} class="inline text-teal" /> Proud partner of <a href="/partners" class="text-teal underline hover:text-white transition-colors">Cigar City CrossFit</a> and other local Tampa fitness studios.
+      </p>
+    </div>
   </Section>
 
   <div class="accent-line"></div>
 
   <!-- Pricing CTA -->
-  <Section variant="light" id="intro-offer">
+  <Section variant="warm" id="intro-offer">
     <div class="max-w-xl mx-auto text-center">
       <Card variant="gold" class="p-8 relative">
         <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
@@ -156,6 +219,50 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <p class="text-black/60 text-sm mb-6">Three visits, no commitment. Plenty of time to go from curious to converted. Ybor locals — you're practically neighbors.</p>
         <Button href={membershipUrl} variant="secondary" target="_blank">Get the Sampler</Button>
       </Card>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <div class="accent-line"></div>
+  <Section variant="light" id="faq">
+    <SectionHeading title="Frequently Asked Questions" subtitle="Common questions from Ybor City visitors" />
+    <div class="max-w-3xl mx-auto space-y-4">
+      <details class="group" open>
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>How close is The Sauna Guys to Ybor City?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>We're about 7 minutes north of the historic Ybor district. Head north on 22nd Street from 7th Avenue and you'll practically see our studio. We're right in the corridor between Ybor and Seminole Heights.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>What's included in a session?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Every session includes a full 60 minutes of sauna and cold plunge access, clean towels, filtered water, and full shower facilities. Guided sessions also include expert breathwork coaching and cold plunge instruction.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Is cold plunge safe for beginners?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Absolutely. Our guided sessions are specifically designed for beginners. A coach walks you through proper breathing techniques and helps you enter the cold plunge at your own pace. You're never pressured to go beyond your comfort level.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Do you have partnerships with local Ybor businesses?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Yes! We're proud to partner with local businesses like <a href="/partners" class="text-teal underline hover:text-dark-teal">Cigar City CrossFit</a> in the Ybor area. Ask about member cross-discounts when you visit.</p>
+        </div>
+      </details>
     </div>
   </Section>
 
@@ -197,7 +304,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
       <a href="/near/south-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">South Tampa</p>
-        <p class="text-xs text-gray-600">5 min drive</p>
+        <p class="text-xs text-gray-600">10 min drive</p>
       </a>
       <a href="/near/downtown-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">Downtown Tampa</p>

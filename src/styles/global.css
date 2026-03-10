@@ -17,10 +17,12 @@
   --color-gold: #E8A838;
   --color-yellow: #FACB30;
   --color-off-white: #FEFFFE;
+  --color-warm-white: #F8F6F2;
 
   /* ── Semantic aliases ── */
   --color-primary: #2BBCCD;
   --color-primary-dark: #23383D;
+  --color-primary-hover: #24A5B5;
   --color-accent: #E8A838;
   --color-accent-line: #FACB30;
 
@@ -183,6 +185,17 @@ h6 {
   padding: var(--space-sm) 0;
 }
 
+.section-warm {
+  background-color: var(--color-warm-white);
+  color: #000;
+  padding: var(--space-2xl) 0;
+}
+
+.section-warm h1,
+.section-warm h2 {
+  color: var(--color-dark-teal);
+}
+
 /* ── Container ── */
 .container {
   max-width: var(--container-max);
@@ -218,7 +231,7 @@ h6 {
 }
 
 .btn-primary:hover {
-  background-color: #24A5B5;
+  background-color: var(--color-primary-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(43, 188, 205, 0.3);
 }
@@ -233,7 +246,7 @@ h6 {
   justify-content: center;
   gap: 0.5rem;
   background-color: var(--color-teal);
-  color: #fff;
+  color: #000;
   border: none;
   border-radius: var(--radius-pill);
   padding: 14px 32px;
@@ -248,7 +261,7 @@ h6 {
 }
 
 .btn-secondary:hover {
-  background-color: #24A5B5;
+  background-color: var(--color-primary-hover);
   transform: translateY(-2px);
 }
 
@@ -300,7 +313,7 @@ h6 {
 }
 
 .btn-on-dark:hover {
-  background-color: #24A5B5;
+  background-color: var(--color-primary-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(43, 188, 205, 0.3);
 }
@@ -310,12 +323,13 @@ h6 {
   background-color: #fff;
   border-radius: var(--radius-card);
   padding: var(--space-md);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-clay);
+  border: 1px solid rgba(0, 0, 0, 0.04);
   transition: all var(--transition-hover);
 }
 
 .card-clay:hover {
-  box-shadow: var(--shadow-card-hover);
+  box-shadow: var(--shadow-clay-hover);
   transform: translateY(-4px);
 }
 
@@ -381,7 +395,7 @@ h6 {
 
 /* ── Focus Ring (accessibility) ── */
 :focus-visible {
-  outline: 3px solid var(--color-teal);
+  outline: 3px solid var(--color-dark-teal);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -465,7 +479,7 @@ h6 {
 }
 
 .prose a:hover {
-  color: #24A5B5;
+  color: var(--color-primary-hover);
 }
 
 .prose ul,
@@ -496,4 +510,12 @@ h6 {
 .prose hr {
   border-color: #e5e7eb;
   margin: 2rem 0;
+}
+
+/* ── H3 Prose Utility (non-uppercase card headings) ── */
+.h3-prose {
+  text-transform: none;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
 }

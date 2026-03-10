@@ -60,7 +60,8 @@ const posts = allPosts
   title={`${meta.label} Articles | The Sauna Guys Blog`}
   description={meta.description}
 >
-  <Section variant="light">
+  <!-- Category Intro -->
+  <Section variant="warm">
     <!-- Breadcrumb -->
     <nav class="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
       <ol class="flex items-center gap-2">
@@ -71,7 +72,10 @@ const posts = allPosts
     </nav>
 
     <SectionHeading title={meta.label} subtitle={meta.description} />
+  </Section>
 
+  <!-- Category Posts Grid -->
+  <Section variant="light">
     {posts.length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => (
@@ -89,7 +93,7 @@ const posts = allPosts
                 <span class="text-xs font-bold uppercase tracking-wider text-teal mb-2 block">
                   {meta.label}
                 </span>
-                <h3 class="text-lg mb-2 group-hover:text-teal transition-colors" style="text-transform: none; font-size: 1.125rem;">
+                <h3 class="h3-prose text-lg mb-2 group-hover:text-teal transition-colors">
                   {post.data.title}
                 </h3>
                 <p class="text-gray-600 text-sm line-clamp-3">{post.data.description}</p>

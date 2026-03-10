@@ -9,17 +9,71 @@ import Button from '../../components/ui/Button.astro';
 
 const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+
+const neighborhoodName = "Brandon";
+const pageSlug = "brandon";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thesaunaguys.com/" },
+    { "@type": "ListItem", "position": 2, "name": `Sauna Near ${neighborhoodName}`, "item": `https://thesaunaguys.com/near/${pageSlug}` }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is it worth driving from Brandon for a sauna session?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our Brandon and Riverview members consistently tell us it's the best 20 minutes of their week. There's no dedicated contrast therapy studio east of the Crosstown, and our barrel sauna and cold plunge pools deliver a level of experience you simply can't find closer to home."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What route should I take from Brandon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The fastest route is usually the Selmon Expressway (SR-618) heading west, which drops you right into the 22nd Street corridor. SR-60 (Adamo Drive) west is also direct. Both routes take about 20 minutes from the Brandon area."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need experience with cold plunge?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not at all. Our guided sessions are designed specifically for beginners. A coach walks you through every step — from sauna breathing techniques to cold plunge entry. You control the pace and intensity the entire time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the weekend hours?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We're open Saturday and Sunday from 8 AM to 6 PM. Many Brandon members make it a weekend ritual — drive in for a morning session, then grab lunch in Ybor or the Heights before heading home."
+      }
+    }
+  ]
+};
 ---
 
 <PublicLayout
   title="Cold Plunge Near Brandon | The Sauna Guys Tampa"
   description="Cold plunge and sauna therapy 20 minutes from Brandon, Valrico, and Riverview. Tampa's top contrast therapy studio. Try 3 sessions for $60."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <!-- Hero -->
   <HeroImage src="/images/cold-plunge.jpg" alt="Cold plunge therapy at The Sauna Guys near Brandon" height="medium">
     <h1 class="text-4xl md:text-5xl font-bold mb-4">Cold Plunge & Sauna — 20 Minutes from Brandon</h1>
     <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
-      Brandon, Valrico, and Riverview residents are making the short trip across the Crosstown for Tampa's only dedicated sauna and cold plunge studio. Once you feel the contrast, you'll understand why.
+      Brandon, Valrico, and Riverview residents are making the short trip across the Crosstown for Tampa's only dedicated sauna and cold plunge studio. Once you feel the contrast, you'll understand why. New to contrast therapy? Check out our <a href="/first-visit" class="underline font-semibold">first visit guide</a>.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
@@ -30,7 +84,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
   <div class="accent-line"></div>
 
   <!-- Quick Facts -->
-  <Section variant="light" id="quick-facts">
+  <Section variant="warm" id="quick-facts">
     <div class="max-w-3xl mx-auto">
       <Card variant="clay" class="p-8">
         <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from Brandon</h2>
@@ -39,7 +93,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
             <Icon name="clock" size={24} class="text-teal shrink-0 mt-1" />
             <div>
               <p class="font-semibold">20-Minute Drive</p>
-              <p class="text-gray-600 text-sm">Take I-75 north to I-4 west, exit at 22nd Street, and you're there. A straightforward highway route from the Brandon area.</p>
+              <p class="text-gray-600 text-sm">Take the Selmon Expressway (SR-618) west or head west on SR-60 (Adamo Drive). Both routes bring you straight to the 22nd Street corridor in about 20 minutes.</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
@@ -136,12 +190,15 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <Button href="/services" variant="on-dark">Learn More</Button>
       </Card>
     </div>
+    <p class="text-center mt-6 text-white/60">
+      First time? Read our <a href="/first-visit" class="text-teal underline hover:text-white transition-colors">complete first visit guide</a> to know exactly what to expect.
+    </p>
   </Section>
 
   <div class="accent-line"></div>
 
   <!-- Pricing CTA -->
-  <Section variant="light" id="intro-offer">
+  <Section variant="warm" id="intro-offer">
     <div class="max-w-xl mx-auto text-center">
       <Card variant="gold" class="p-8 relative">
         <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
@@ -159,11 +216,55 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
     </div>
   </Section>
 
+  <!-- FAQ -->
+  <div class="accent-line"></div>
+  <Section variant="light" id="faq">
+    <SectionHeading title="Frequently Asked Questions" subtitle="Common questions from Brandon visitors" />
+    <div class="max-w-3xl mx-auto space-y-4">
+      <details class="group" open>
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Is it worth driving from Brandon for a sauna session?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Our Brandon and Riverview members consistently tell us it's the best 20 minutes of their week. There's no dedicated contrast therapy studio east of the Crosstown, and our barrel sauna and cold plunge pools deliver a level of experience you simply can't find closer to home.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>What route should I take from Brandon?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>The fastest route is usually the Selmon Expressway (SR-618) heading west, which drops you right into the 22nd Street corridor. SR-60 (Adamo Drive) west is also direct. Both routes take about 20 minutes from the Brandon area.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Do I need experience with cold plunge?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Not at all. Our guided sessions are designed specifically for beginners. A coach walks you through every step — from sauna breathing techniques to cold plunge entry. You control the pace and intensity the entire time.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>What are the weekend hours?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>We're open Saturday and Sunday from 8 AM to 6 PM. Many Brandon members make it a weekend ritual — drive in for a morning session, then grab lunch in Ybor or the Heights before heading home.</p>
+        </div>
+      </details>
+    </div>
+  </Section>
+
   <div class="accent-line"></div>
 
   <!-- Google Maps -->
   <Section variant="light" id="location">
-    <SectionHeading title="Find Us from Brandon" subtitle="I-75 north to I-4 west — exit 22nd Street and you're here in 20 minutes" />
+    <SectionHeading title="Find Us from Brandon" subtitle="Selmon Expressway west or SR-60 — straight to our door in about 20 minutes" />
     <div class="rounded-[var(--radius-card)] overflow-hidden shadow-lg">
       <iframe
         src="https://maps.google.com/maps?q=1703+N+24th+St,+Tampa,+FL+33605&t=&z=13&ie=UTF8&iwloc=&output=embed"
@@ -197,7 +298,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
       <a href="/near/south-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">South Tampa</p>
-        <p class="text-xs text-gray-600">5 min drive</p>
+        <p class="text-xs text-gray-600">10 min drive</p>
       </a>
       <a href="/near/downtown-tampa" class="text-center p-3 rounded-lg bg-white/60 hover:bg-white transition-colors">
         <p class="font-semibold text-sm">Downtown Tampa</p>

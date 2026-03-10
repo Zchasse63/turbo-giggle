@@ -9,17 +9,72 @@ import Button from '../../components/ui/Button.astro';
 
 const bookingUrl = import.meta.env.PUBLIC_GLOWFOX_CLASSES_URL;
 const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
+
+const neighborhoodName = "South Tampa";
+const pageSlug = "south-tampa";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thesaunaguys.com/" },
+    { "@type": "ListItem", "position": 2, "name": `Sauna Near ${neighborhoodName}`, "item": `https://thesaunaguys.com/near/${pageSlug}` }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How far is The Sauna Guys from South Tampa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our studio at 1703 N 24th Street is about a 10-minute drive from the Hyde Park and Davis Islands area. Take the Selmon Expressway east or head up Dale Mabry — both routes are quick and direct."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to book in advance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we recommend booking online to guarantee your spot, especially for guided sessions which tend to fill up. Open sessions are more flexible but still benefit from a reservation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I bring to my first session?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Just bring a swimsuit and a positive attitude. We provide towels, filtered water, and full shower facilities. Check our first visit guide for a complete list of what to expect."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there parking at the studio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we have a free dedicated parking lot right at the studio. No meters, no garages — just pull in and walk through the front door."
+      }
+    }
+  ]
+};
 ---
 
 <PublicLayout
   title="Sauna Near South Tampa | The Sauna Guys Tampa"
-  description="Looking for a sauna near South Tampa? The Sauna Guys is just 5 minutes from Hyde Park, Davis Islands, and Bayshore Blvd. Book your session today."
+  description="Looking for a sauna near South Tampa? The Sauna Guys is just 10 minutes from Hyde Park, Davis Islands, and Bayshore Blvd. Book your session today."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <!-- Hero -->
   <HeroImage src="/images/woman-sauna.jpg" alt="Relaxing sauna session at The Sauna Guys near South Tampa" height="medium">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Tampa's Premier Sauna & Cold Plunge — Just 5 Minutes from South Tampa</h1>
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Tampa's Premier Sauna & Cold Plunge — Just 10 Minutes from South Tampa</h1>
     <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
       Skip the traffic on Bayshore. Our studio on North 24th Street puts world-class heat therapy and cold plunge pools right around the corner from Hyde Park, Davis Islands, and SoHo.
+      New to contrast therapy? Check out our <a href="/first-visit" class="underline font-semibold">first visit guide</a>.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <Button href={bookingUrl} variant="on-dark" target="_blank">Book a Session</Button>
@@ -30,7 +85,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
   <div class="accent-line"></div>
 
   <!-- Quick Facts -->
-  <Section variant="light" id="quick-facts">
+  <Section variant="warm" id="quick-facts">
     <div class="max-w-3xl mx-auto">
       <Card variant="clay" class="p-8">
         <h2 class="text-2xl font-bold mb-6 text-center">Getting Here from South Tampa</h2>
@@ -38,7 +93,7 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
           <div class="flex items-start gap-3">
             <Icon name="clock" size={24} class="text-teal shrink-0 mt-1" />
             <div>
-              <p class="font-semibold">5-Minute Drive</p>
+              <p class="font-semibold">10-Minute Drive</p>
               <p class="text-gray-600 text-sm">A quick hop across the Crosstown Expressway or up Dale Mabry from the Hyde Park area.</p>
             </div>
           </div>
@@ -136,12 +191,15 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <Button href="/services" variant="on-dark">Learn More</Button>
       </Card>
     </div>
+    <p class="text-center mt-6 text-white/60">
+      First time? Read our <a href="/first-visit" class="text-teal underline hover:text-white transition-colors">complete first visit guide</a> to know exactly what to expect.
+    </p>
   </Section>
 
   <div class="accent-line"></div>
 
   <!-- Pricing CTA -->
-  <Section variant="light" id="intro-offer">
+  <Section variant="warm" id="intro-offer">
     <div class="max-w-xl mx-auto text-center">
       <Card variant="gold" class="p-8 relative">
         <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-dark-teal text-white text-xs font-bold uppercase tracking-wider px-4 py-1 rounded-full whitespace-nowrap">
@@ -156,6 +214,50 @@ const membershipUrl = import.meta.env.PUBLIC_GLOWFOX_MEMBERSHIPS_URL;
         <p class="text-black/60 text-sm mb-6">No commitment, no subscription. Just three full sessions to experience what South Tampa locals are raving about.</p>
         <Button href={membershipUrl} variant="secondary" target="_blank">Get the Sampler</Button>
       </Card>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <div class="accent-line"></div>
+  <Section variant="light" id="faq">
+    <SectionHeading title="Frequently Asked Questions" subtitle="Common questions from South Tampa visitors" />
+    <div class="max-w-3xl mx-auto space-y-4">
+      <details class="group" open>
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>How far is The Sauna Guys from South Tampa?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Our studio at 1703 N 24th Street is about a 10-minute drive from the Hyde Park and Davis Islands area. Take the Selmon Expressway east or head up Dale Mabry — both routes are quick and direct.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Do I need to book in advance?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Yes, we recommend booking online to guarantee your spot, especially for guided sessions which tend to fill up. Open sessions are more flexible but still benefit from a reservation.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>What should I bring to my first session?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Just bring a swimsuit and a positive attitude. We provide towels, filtered water, and full shower facilities. Check our <a href="/first-visit" class="text-teal underline hover:text-dark-teal">first visit guide</a> for a complete list of what to expect.</p>
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-clay)] border border-black/[0.04] font-semibold text-dark-teal">
+          <span>Is there parking at the studio?</span>
+          <Icon name="chevron-down" size={20} class="text-teal transition-transform group-open:rotate-180" />
+        </summary>
+        <div class="px-4 pb-4 pt-2 text-gray-600">
+          <p>Yes, we have a free dedicated parking lot right at the studio. No meters, no garages — just pull in and walk through the front door.</p>
+        </div>
+      </details>
     </div>
   </Section>
 

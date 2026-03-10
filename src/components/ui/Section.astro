@@ -7,6 +7,7 @@
  *   light — white bg, black text (default)
  *   dark  — dark teal bg, white text
  *   teal  — teal bg, black text (narrow strip)
+ *   warm  — warm off-white bg (#F8F6F2), black text
  *
  * Usage:
  *   <Section variant="dark" id="benefits">
@@ -16,7 +17,7 @@
  */
 
 interface Props {
-  variant?: 'light' | 'dark' | 'teal';
+  variant?: 'light' | 'dark' | 'teal' | 'warm';
   id?: string;
   class?: string;
   containerClass?: string;
